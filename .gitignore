@@ -83,3 +83,13 @@ venv/
 # Local scratch
 /tmp/
 *.tmp
+
+# ---------------------------------------------------------------------------
+# Per-investigation suites emitted by tasks/libero/build_env/pick_case.py.
+# Each is a throwaway naming a handful of cases; regenerate with
+#   pick_case.py --env <env_id> [--match <substr>]
+# The declarative suites (libero_object_flow_v1.yaml) ARE tracked.
+# ---------------------------------------------------------------------------
+bench_libero/suites/libero_pick_*.yaml
+bench_libero/suites/libero_smoke_*.yaml
+bench_libero/suites/libero_one_*.yaml

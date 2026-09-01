@@ -1,0 +1,857 @@
+[
+ {
+  "case_index": 0,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__kitchen_scene10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it",
+  "split": "libero"
+ },
+ {
+  "case_index": 1,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene10_put_the_black_bowl_in_the_top_drawer_of_the_cabinet_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene10_put_the_black_bowl_in_the_top_drawer_of_the_cabinet_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__kitchen_scene10_put_the_black_bowl_in_the_top_drawer_of_the_cabinet",
+  "split": "libero"
+ },
+ {
+  "case_index": 2,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene1_open_the_top_drawer_of_the_cabinet_and_put_the_bowl_in_it_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene1_open_the_top_drawer_of_the_cabinet_and_put_the_bowl_in_it_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__kitchen_scene1_open_the_top_drawer_of_the_cabinet_and_put_the_bowl_in_it",
+  "split": "libero"
+ },
+ {
+  "case_index": 3,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene1_put_the_black_bowl_on_the_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene1_put_the_black_bowl_on_the_plate_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__kitchen_scene1_put_the_black_bowl_on_the_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 4,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene1_put_the_black_bowl_on_top_of_the_cabinet_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene1_put_the_black_bowl_on_top_of_the_cabinet_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__kitchen_scene1_put_the_black_bowl_on_top_of_the_cabinet",
+  "split": "libero"
+ },
+ {
+  "case_index": 5,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene2_put_the_black_bowl_at_the_front_on_the_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene2_put_the_black_bowl_at_the_front_on_the_plate_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__kitchen_scene2_put_the_black_bowl_at_the_front_on_the_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 6,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene2_stack_the_black_bowl_at_the_front_on_the_black_bowl_in_the_middle_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene2_stack_the_black_bowl_at_the_front_on_the_black_bowl_in_the_middle_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__kitchen_scene2_stack_the_black_bowl_at_the_front_on_the_black_bowl_in_the_middle",
+  "split": "libero"
+ },
+ {
+  "case_index": 7,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene4_close_the_bottom_drawer_of_the_cabinet_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene4_close_the_bottom_drawer_of_the_cabinet_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__kitchen_scene4_close_the_bottom_drawer_of_the_cabinet",
+  "split": "libero"
+ },
+ {
+  "case_index": 8,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__kitchen_scene4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet",
+  "split": "libero"
+ },
+ {
+  "case_index": 9,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__kitchen_scene4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it",
+  "split": "libero"
+ },
+ {
+  "case_index": 10,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene4_put_the_black_bowl_on_top_of_the_cabinet_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene4_put_the_black_bowl_on_top_of_the_cabinet_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__kitchen_scene4_put_the_black_bowl_on_top_of_the_cabinet",
+  "split": "libero"
+ },
+ {
+  "case_index": 11,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene5_put_the_black_bowl_in_the_top_drawer_of_the_cabinet_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene5_put_the_black_bowl_in_the_top_drawer_of_the_cabinet_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__kitchen_scene5_put_the_black_bowl_in_the_top_drawer_of_the_cabinet",
+  "split": "libero"
+ },
+ {
+  "case_index": 12,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene5_put_the_black_bowl_on_the_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene5_put_the_black_bowl_on_the_plate_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__kitchen_scene5_put_the_black_bowl_on_the_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 13,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene5_put_the_black_bowl_on_top_of_the_cabinet_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__kitchen_scene5_put_the_black_bowl_on_top_of_the_cabinet_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__kitchen_scene5_put_the_black_bowl_on_top_of_the_cabinet",
+  "split": "libero"
+ },
+ {
+  "case_index": 14,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__open_the_top_drawer_and_put_the_bowl_inside_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__open_the_top_drawer_and_put_the_bowl_inside_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__open_the_top_drawer_and_put_the_bowl_inside",
+  "split": "libero"
+ },
+ {
+  "case_index": 15,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 16,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 17,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 18,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__pick_up_the_black_bowl_next_to_the_cookie_box_and_place_it_on_the_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__pick_up_the_black_bowl_next_to_the_cookie_box_and_place_it_on_the_plate_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__pick_up_the_black_bowl_next_to_the_cookie_box_and_place_it_on_the_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 19,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 20,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 21,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__put_the_bowl_on_the_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__put_the_bowl_on_the_plate_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__put_the_bowl_on_the_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 22,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__put_the_bowl_on_the_stove_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__put_the_bowl_on_the_stove_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__put_the_bowl_on_the_stove",
+  "split": "libero"
+ },
+ {
+  "case_index": 23,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_1__put_the_bowl_on_top_of_the_cabinet_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_1__put_the_bowl_on_top_of_the_cabinet_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_1__put_the_bowl_on_top_of_the_cabinet",
+  "split": "libero"
+ },
+ {
+  "case_index": 24,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_2__kitchen_scene2_put_the_middle_black_bowl_on_the_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_2__kitchen_scene2_put_the_middle_black_bowl_on_the_plate_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_2__kitchen_scene2_put_the_middle_black_bowl_on_the_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 25,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_2__kitchen_scene2_put_the_middle_black_bowl_on_top_of_the_cabinet_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_2__kitchen_scene2_put_the_middle_black_bowl_on_top_of_the_cabinet_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_2__kitchen_scene2_put_the_middle_black_bowl_on_top_of_the_cabinet",
+  "split": "libero"
+ },
+ {
+  "case_index": 26,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_2__kitchen_scene2_stack_the_middle_black_bowl_on_the_back_black_bowl_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_2__kitchen_scene2_stack_the_middle_black_bowl_on_the_back_black_bowl_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_2__kitchen_scene2_stack_the_middle_black_bowl_on_the_back_black_bowl",
+  "split": "libero"
+ },
+ {
+  "case_index": 27,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_2__living_room_scene4_stack_the_right_bowl_on_the_left_bowl_and_place_them_in_the_tray_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_2__living_room_scene4_stack_the_right_bowl_on_the_left_bowl_and_place_them_in_the_tray_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_2__living_room_scene4_stack_the_right_bowl_on_the_left_bowl_and_place_them_in_the_tray",
+  "split": "libero"
+ },
+ {
+  "case_index": 28,
+  "shard": "tasks/libero/pointflow/akita_black_bowl_3__kitchen_scene2_put_the_black_bowl_at_the_back_on_the_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/akita_black_bowl_3__kitchen_scene2_put_the_black_bowl_at_the_back_on_the_plate_flow/goal_pointflow.npz",
+  "env_id": "akita_black_bowl",
+  "episode_uid": "libero_akita_black_bowl_3__kitchen_scene2_put_the_black_bowl_at_the_back_on_the_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 29,
+  "shard": "tasks/libero/pointflow/alphabet_soup_1__living_room_scene1_pick_up_the_alphabet_soup_and_put_it_in_the_basket_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/alphabet_soup_1__living_room_scene1_pick_up_the_alphabet_soup_and_put_it_in_the_basket_flow/goal_pointflow.npz",
+  "env_id": "alphabet_soup",
+  "episode_uid": "libero_alphabet_soup_1__living_room_scene1_pick_up_the_alphabet_soup_and_put_it_in_the_basket",
+  "split": "libero"
+ },
+ {
+  "case_index": 30,
+  "shard": "tasks/libero/pointflow/alphabet_soup_1__living_room_scene1_put_both_the_alphabet_soup_and_the_cream_cheese_box_in_the_basket_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/alphabet_soup_1__living_room_scene1_put_both_the_alphabet_soup_and_the_cream_cheese_box_in_the_basket_flow/goal_pointflow.npz",
+  "env_id": "alphabet_soup",
+  "episode_uid": "libero_alphabet_soup_1__living_room_scene1_put_both_the_alphabet_soup_and_the_cream_cheese_box_in_the_basket",
+  "split": "libero"
+ },
+ {
+  "case_index": 31,
+  "shard": "tasks/libero/pointflow/alphabet_soup_1__living_room_scene2_pick_up_the_alphabet_soup_and_put_it_in_the_basket_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/alphabet_soup_1__living_room_scene2_pick_up_the_alphabet_soup_and_put_it_in_the_basket_flow/goal_pointflow.npz",
+  "env_id": "alphabet_soup",
+  "episode_uid": "libero_alphabet_soup_1__living_room_scene2_pick_up_the_alphabet_soup_and_put_it_in_the_basket",
+  "split": "libero"
+ },
+ {
+  "case_index": 32,
+  "shard": "tasks/libero/pointflow/alphabet_soup_1__living_room_scene2_put_both_the_alphabet_soup_and_the_tomato_sauce_in_the_basket_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/alphabet_soup_1__living_room_scene2_put_both_the_alphabet_soup_and_the_tomato_sauce_in_the_basket_flow/goal_pointflow.npz",
+  "env_id": "alphabet_soup",
+  "episode_uid": "libero_alphabet_soup_1__living_room_scene2_put_both_the_alphabet_soup_and_the_tomato_sauce_in_the_basket",
+  "split": "libero"
+ },
+ {
+  "case_index": 33,
+  "shard": "tasks/libero/pointflow/alphabet_soup_1__living_room_scene3_pick_up_the_alphabet_soup_and_put_it_in_the_tray_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/alphabet_soup_1__living_room_scene3_pick_up_the_alphabet_soup_and_put_it_in_the_tray_flow/goal_pointflow.npz",
+  "env_id": "alphabet_soup",
+  "episode_uid": "libero_alphabet_soup_1__living_room_scene3_pick_up_the_alphabet_soup_and_put_it_in_the_tray",
+  "split": "libero"
+ },
+ {
+  "case_index": 34,
+  "shard": "tasks/libero/pointflow/bbq_sauce_1__pick_up_the_bbq_sauce_and_place_it_in_the_basket_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/bbq_sauce_1__pick_up_the_bbq_sauce_and_place_it_in_the_basket_flow/goal_pointflow.npz",
+  "env_id": "bbq_sauce",
+  "episode_uid": "libero_bbq_sauce_1__pick_up_the_bbq_sauce_and_place_it_in_the_basket",
+  "split": "libero"
+ },
+ {
+  "case_index": 35,
+  "shard": "tasks/libero/pointflow/black_book_1__study_scene1_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/black_book_1__study_scene1_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "env_id": "black_book",
+  "episode_uid": "libero_black_book_1__study_scene1_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy",
+  "split": "libero"
+ },
+ {
+  "case_index": 36,
+  "shard": "tasks/libero/pointflow/black_book_1__study_scene1_pick_up_the_book_and_place_it_in_the_front_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/black_book_1__study_scene1_pick_up_the_book_and_place_it_in_the_front_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "env_id": "black_book",
+  "episode_uid": "libero_black_book_1__study_scene1_pick_up_the_book_and_place_it_in_the_front_compartment_of_the_caddy",
+  "split": "libero"
+ },
+ {
+  "case_index": 37,
+  "shard": "tasks/libero/pointflow/black_book_1__study_scene1_pick_up_the_book_and_place_it_in_the_left_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/black_book_1__study_scene1_pick_up_the_book_and_place_it_in_the_left_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "env_id": "black_book",
+  "episode_uid": "libero_black_book_1__study_scene1_pick_up_the_book_and_place_it_in_the_left_compartment_of_the_caddy",
+  "split": "libero"
+ },
+ {
+  "case_index": 38,
+  "shard": "tasks/libero/pointflow/black_book_1__study_scene1_pick_up_the_book_and_place_it_in_the_right_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/black_book_1__study_scene1_pick_up_the_book_and_place_it_in_the_right_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "env_id": "black_book",
+  "episode_uid": "libero_black_book_1__study_scene1_pick_up_the_book_and_place_it_in_the_right_compartment_of_the_caddy",
+  "split": "libero"
+ },
+ {
+  "case_index": 39,
+  "shard": "tasks/libero/pointflow/black_book_1__study_scene2_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/black_book_1__study_scene2_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "env_id": "black_book",
+  "episode_uid": "libero_black_book_1__study_scene2_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy",
+  "split": "libero"
+ },
+ {
+  "case_index": 40,
+  "shard": "tasks/libero/pointflow/black_book_1__study_scene2_pick_up_the_book_and_place_it_in_the_front_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/black_book_1__study_scene2_pick_up_the_book_and_place_it_in_the_front_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "env_id": "black_book",
+  "episode_uid": "libero_black_book_1__study_scene2_pick_up_the_book_and_place_it_in_the_front_compartment_of_the_caddy",
+  "split": "libero"
+ },
+ {
+  "case_index": 41,
+  "shard": "tasks/libero/pointflow/black_book_1__study_scene2_pick_up_the_book_and_place_it_in_the_left_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/black_book_1__study_scene2_pick_up_the_book_and_place_it_in_the_left_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "env_id": "black_book",
+  "episode_uid": "libero_black_book_1__study_scene2_pick_up_the_book_and_place_it_in_the_left_compartment_of_the_caddy",
+  "split": "libero"
+ },
+ {
+  "case_index": 42,
+  "shard": "tasks/libero/pointflow/black_book_1__study_scene2_pick_up_the_book_and_place_it_in_the_right_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/black_book_1__study_scene2_pick_up_the_book_and_place_it_in_the_right_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "env_id": "black_book",
+  "episode_uid": "libero_black_book_1__study_scene2_pick_up_the_book_and_place_it_in_the_right_compartment_of_the_caddy",
+  "split": "libero"
+ },
+ {
+  "case_index": 43,
+  "shard": "tasks/libero/pointflow/black_book_1__study_scene3_pick_up_the_book_and_place_it_in_the_front_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/black_book_1__study_scene3_pick_up_the_book_and_place_it_in_the_front_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "env_id": "black_book",
+  "episode_uid": "libero_black_book_1__study_scene3_pick_up_the_book_and_place_it_in_the_front_compartment_of_the_caddy",
+  "split": "libero"
+ },
+ {
+  "case_index": 44,
+  "shard": "tasks/libero/pointflow/black_book_1__study_scene3_pick_up_the_book_and_place_it_in_the_left_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/black_book_1__study_scene3_pick_up_the_book_and_place_it_in_the_left_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "env_id": "black_book",
+  "episode_uid": "libero_black_book_1__study_scene3_pick_up_the_book_and_place_it_in_the_left_compartment_of_the_caddy",
+  "split": "libero"
+ },
+ {
+  "case_index": 45,
+  "shard": "tasks/libero/pointflow/black_book_1__study_scene3_pick_up_the_book_and_place_it_in_the_right_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/black_book_1__study_scene3_pick_up_the_book_and_place_it_in_the_right_compartment_of_the_caddy_flow/goal_pointflow.npz",
+  "env_id": "black_book",
+  "episode_uid": "libero_black_book_1__study_scene3_pick_up_the_book_and_place_it_in_the_right_compartment_of_the_caddy",
+  "split": "libero"
+ },
+ {
+  "case_index": 46,
+  "shard": "tasks/libero/pointflow/black_book_1__study_scene4_pick_up_the_book_in_the_middle_and_place_it_on_the_cabinet_shelf_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/black_book_1__study_scene4_pick_up_the_book_in_the_middle_and_place_it_on_the_cabinet_shelf_flow/goal_pointflow.npz",
+  "env_id": "black_book",
+  "episode_uid": "libero_black_book_1__study_scene4_pick_up_the_book_in_the_middle_and_place_it_on_the_cabinet_shelf",
+  "split": "libero"
+ },
+ {
+  "case_index": 47,
+  "shard": "tasks/libero/pointflow/butter_1__kitchen_scene10_put_the_butter_at_the_front_in_the_top_drawer_of_the_cabinet_and_close_it_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/butter_1__kitchen_scene10_put_the_butter_at_the_front_in_the_top_drawer_of_the_cabinet_and_close_it_flow/goal_pointflow.npz",
+  "env_id": "butter",
+  "episode_uid": "libero_butter_1__kitchen_scene10_put_the_butter_at_the_front_in_the_top_drawer_of_the_cabinet_and_close_it",
+  "split": "libero"
+ },
+ {
+  "case_index": 48,
+  "shard": "tasks/libero/pointflow/butter_1__living_room_scene2_pick_up_the_butter_and_put_it_in_the_basket_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/butter_1__living_room_scene2_pick_up_the_butter_and_put_it_in_the_basket_flow/goal_pointflow.npz",
+  "env_id": "butter",
+  "episode_uid": "libero_butter_1__living_room_scene2_pick_up_the_butter_and_put_it_in_the_basket",
+  "split": "libero"
+ },
+ {
+  "case_index": 49,
+  "shard": "tasks/libero/pointflow/butter_1__living_room_scene3_pick_up_the_butter_and_put_it_in_the_tray_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/butter_1__living_room_scene3_pick_up_the_butter_and_put_it_in_the_tray_flow/goal_pointflow.npz",
+  "env_id": "butter",
+  "episode_uid": "libero_butter_1__living_room_scene3_pick_up_the_butter_and_put_it_in_the_tray",
+  "split": "libero"
+ },
+ {
+  "case_index": 50,
+  "shard": "tasks/libero/pointflow/chefmate_8_frypan_1__kitchen_scene3_put_the_frying_pan_on_the_stove_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/chefmate_8_frypan_1__kitchen_scene3_put_the_frying_pan_on_the_stove_flow/goal_pointflow.npz",
+  "env_id": "chefmate_8_frypan",
+  "episode_uid": "libero_chefmate_8_frypan_1__kitchen_scene3_put_the_frying_pan_on_the_stove",
+  "split": "libero"
+ },
+ {
+  "case_index": 51,
+  "shard": "tasks/libero/pointflow/chefmate_8_frypan_1__kitchen_scene3_turn_on_the_stove_and_put_the_frying_pan_on_it_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/chefmate_8_frypan_1__kitchen_scene3_turn_on_the_stove_and_put_the_frying_pan_on_it_flow/goal_pointflow.npz",
+  "env_id": "chefmate_8_frypan",
+  "episode_uid": "libero_chefmate_8_frypan_1__kitchen_scene3_turn_on_the_stove_and_put_the_frying_pan_on_it",
+  "split": "libero"
+ },
+ {
+  "case_index": 52,
+  "shard": "tasks/libero/pointflow/chefmate_8_frypan_1__kitchen_scene9_put_the_frying_pan_on_the_cabinet_shelf_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/chefmate_8_frypan_1__kitchen_scene9_put_the_frying_pan_on_the_cabinet_shelf_flow/goal_pointflow.npz",
+  "env_id": "chefmate_8_frypan",
+  "episode_uid": "libero_chefmate_8_frypan_1__kitchen_scene9_put_the_frying_pan_on_the_cabinet_shelf",
+  "split": "libero"
+ },
+ {
+  "case_index": 53,
+  "shard": "tasks/libero/pointflow/chefmate_8_frypan_1__kitchen_scene9_put_the_frying_pan_on_top_of_the_cabinet_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/chefmate_8_frypan_1__kitchen_scene9_put_the_frying_pan_on_top_of_the_cabinet_flow/goal_pointflow.npz",
+  "env_id": "chefmate_8_frypan",
+  "episode_uid": "libero_chefmate_8_frypan_1__kitchen_scene9_put_the_frying_pan_on_top_of_the_cabinet",
+  "split": "libero"
+ },
+ {
+  "case_index": 54,
+  "shard": "tasks/libero/pointflow/chefmate_8_frypan_1__kitchen_scene9_put_the_frying_pan_under_the_cabinet_shelf_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/chefmate_8_frypan_1__kitchen_scene9_put_the_frying_pan_under_the_cabinet_shelf_flow/goal_pointflow.npz",
+  "env_id": "chefmate_8_frypan",
+  "episode_uid": "libero_chefmate_8_frypan_1__kitchen_scene9_put_the_frying_pan_under_the_cabinet_shelf",
+  "split": "libero"
+ },
+ {
+  "case_index": 55,
+  "shard": "tasks/libero/pointflow/chefmate_8_frypan_1__kitchen_scene9_turn_on_the_stove_and_put_the_frying_pan_on_it_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/chefmate_8_frypan_1__kitchen_scene9_turn_on_the_stove_and_put_the_frying_pan_on_it_flow/goal_pointflow.npz",
+  "env_id": "chefmate_8_frypan",
+  "episode_uid": "libero_chefmate_8_frypan_1__kitchen_scene9_turn_on_the_stove_and_put_the_frying_pan_on_it",
+  "split": "libero"
+ },
+ {
+  "case_index": 56,
+  "shard": "tasks/libero/pointflow/chocolate_pudding_1__kitchen_scene10_put_the_chocolate_pudding_in_the_top_drawer_of_the_cabinet_and_close_it_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/chocolate_pudding_1__kitchen_scene10_put_the_chocolate_pudding_in_the_top_drawer_of_the_cabinet_and_close_it_flow/goal_pointflow.npz",
+  "env_id": "chocolate_pudding",
+  "episode_uid": "libero_chocolate_pudding_1__kitchen_scene10_put_the_chocolate_pudding_in_the_top_drawer_of_the_cabinet_and_close_it",
+  "split": "libero"
+ },
+ {
+  "case_index": 57,
+  "shard": "tasks/libero/pointflow/chocolate_pudding_1__living_room_scene4_pick_up_the_chocolate_pudding_and_put_it_in_the_tray_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/chocolate_pudding_1__living_room_scene4_pick_up_the_chocolate_pudding_and_put_it_in_the_tray_flow/goal_pointflow.npz",
+  "env_id": "chocolate_pudding",
+  "episode_uid": "libero_chocolate_pudding_1__living_room_scene4_pick_up_the_chocolate_pudding_and_put_it_in_the_tray",
+  "split": "libero"
+ },
+ {
+  "case_index": 58,
+  "shard": "tasks/libero/pointflow/chocolate_pudding_1__living_room_scene6_put_the_chocolate_pudding_to_the_right_of_the_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/chocolate_pudding_1__living_room_scene6_put_the_chocolate_pudding_to_the_right_of_the_plate_flow/goal_pointflow.npz",
+  "env_id": "chocolate_pudding",
+  "episode_uid": "libero_chocolate_pudding_1__living_room_scene6_put_the_chocolate_pudding_to_the_right_of_the_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 59,
+  "shard": "tasks/libero/pointflow/cream_cheese_1__living_room_scene1_pick_up_the_cream_cheese_box_and_put_it_in_the_basket_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/cream_cheese_1__living_room_scene1_pick_up_the_cream_cheese_box_and_put_it_in_the_basket_flow/goal_pointflow.npz",
+  "env_id": "cream_cheese",
+  "episode_uid": "libero_cream_cheese_1__living_room_scene1_pick_up_the_cream_cheese_box_and_put_it_in_the_basket",
+  "split": "libero"
+ },
+ {
+  "case_index": 60,
+  "shard": "tasks/libero/pointflow/cream_cheese_1__living_room_scene2_put_both_the_cream_cheese_box_and_the_butter_in_the_basket_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/cream_cheese_1__living_room_scene2_put_both_the_cream_cheese_box_and_the_butter_in_the_basket_flow/goal_pointflow.npz",
+  "env_id": "cream_cheese",
+  "episode_uid": "libero_cream_cheese_1__living_room_scene2_put_both_the_cream_cheese_box_and_the_butter_in_the_basket",
+  "split": "libero"
+ },
+ {
+  "case_index": 61,
+  "shard": "tasks/libero/pointflow/cream_cheese_1__living_room_scene3_pick_up_the_cream_cheese_and_put_it_in_the_tray_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/cream_cheese_1__living_room_scene3_pick_up_the_cream_cheese_and_put_it_in_the_tray_flow/goal_pointflow.npz",
+  "env_id": "cream_cheese",
+  "episode_uid": "libero_cream_cheese_1__living_room_scene3_pick_up_the_cream_cheese_and_put_it_in_the_tray",
+  "split": "libero"
+ },
+ {
+  "case_index": 62,
+  "shard": "tasks/libero/pointflow/cream_cheese_1__pick_up_the_cream_cheese_and_place_it_in_the_basket_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/cream_cheese_1__pick_up_the_cream_cheese_and_place_it_in_the_basket_flow/goal_pointflow.npz",
+  "env_id": "cream_cheese",
+  "episode_uid": "libero_cream_cheese_1__pick_up_the_cream_cheese_and_place_it_in_the_basket",
+  "split": "libero"
+ },
+ {
+  "case_index": 63,
+  "shard": "tasks/libero/pointflow/cream_cheese_1__put_the_cream_cheese_in_the_bowl_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/cream_cheese_1__put_the_cream_cheese_in_the_bowl_flow/goal_pointflow.npz",
+  "env_id": "cream_cheese",
+  "episode_uid": "libero_cream_cheese_1__put_the_cream_cheese_in_the_bowl",
+  "split": "libero"
+ },
+ {
+  "case_index": 64,
+  "shard": "tasks/libero/pointflow/ketchup_1__kitchen_scene5_put_the_ketchup_in_the_top_drawer_of_the_cabinet_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/ketchup_1__kitchen_scene5_put_the_ketchup_in_the_top_drawer_of_the_cabinet_flow/goal_pointflow.npz",
+  "env_id": "ketchup",
+  "episode_uid": "libero_ketchup_1__kitchen_scene5_put_the_ketchup_in_the_top_drawer_of_the_cabinet",
+  "split": "libero"
+ },
+ {
+  "case_index": 65,
+  "shard": "tasks/libero/pointflow/milk_1__living_room_scene2_pick_up_the_milk_and_put_it_in_the_basket_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/milk_1__living_room_scene2_pick_up_the_milk_and_put_it_in_the_basket_flow/goal_pointflow.npz",
+  "env_id": "milk",
+  "episode_uid": "libero_milk_1__living_room_scene2_pick_up_the_milk_and_put_it_in_the_basket",
+  "split": "libero"
+ },
+ {
+  "case_index": 66,
+  "shard": "tasks/libero/pointflow/moka_pot_1__kitchen_scene3_put_the_moka_pot_on_the_stove_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/moka_pot_1__kitchen_scene3_put_the_moka_pot_on_the_stove_flow/goal_pointflow.npz",
+  "env_id": "moka_pot",
+  "episode_uid": "libero_moka_pot_1__kitchen_scene3_put_the_moka_pot_on_the_stove",
+  "split": "libero"
+ },
+ {
+  "case_index": 67,
+  "shard": "tasks/libero/pointflow/moka_pot_1__kitchen_scene3_turn_on_the_stove_and_put_the_moka_pot_on_it_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/moka_pot_1__kitchen_scene3_turn_on_the_stove_and_put_the_moka_pot_on_it_flow/goal_pointflow.npz",
+  "env_id": "moka_pot",
+  "episode_uid": "libero_moka_pot_1__kitchen_scene3_turn_on_the_stove_and_put_the_moka_pot_on_it",
+  "split": "libero"
+ },
+ {
+  "case_index": 68,
+  "shard": "tasks/libero/pointflow/moka_pot_1__kitchen_scene8_put_both_moka_pots_on_the_stove_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/moka_pot_1__kitchen_scene8_put_both_moka_pots_on_the_stove_flow/goal_pointflow.npz",
+  "env_id": "moka_pot",
+  "episode_uid": "libero_moka_pot_1__kitchen_scene8_put_both_moka_pots_on_the_stove",
+  "split": "libero"
+ },
+ {
+  "case_index": 69,
+  "shard": "tasks/libero/pointflow/moka_pot_1__kitchen_scene8_put_the_right_moka_pot_on_the_stove_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/moka_pot_1__kitchen_scene8_put_the_right_moka_pot_on_the_stove_flow/goal_pointflow.npz",
+  "env_id": "moka_pot",
+  "episode_uid": "libero_moka_pot_1__kitchen_scene8_put_the_right_moka_pot_on_the_stove",
+  "split": "libero"
+ },
+ {
+  "case_index": 70,
+  "shard": "tasks/libero/pointflow/orange_juice_1__living_room_scene2_pick_up_the_orange_juice_and_put_it_in_the_basket_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/orange_juice_1__living_room_scene2_pick_up_the_orange_juice_and_put_it_in_the_basket_flow/goal_pointflow.npz",
+  "env_id": "orange_juice",
+  "episode_uid": "libero_orange_juice_1__living_room_scene2_pick_up_the_orange_juice_and_put_it_in_the_basket",
+  "split": "libero"
+ },
+ {
+  "case_index": 71,
+  "shard": "tasks/libero/pointflow/orange_juice_1__pick_up_the_orange_juice_and_place_it_in_the_basket_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/orange_juice_1__pick_up_the_orange_juice_and_place_it_in_the_basket_flow/goal_pointflow.npz",
+  "env_id": "orange_juice",
+  "episode_uid": "libero_orange_juice_1__pick_up_the_orange_juice_and_place_it_in_the_basket",
+  "split": "libero"
+ },
+ {
+  "case_index": 72,
+  "shard": "tasks/libero/pointflow/plate_1__push_the_plate_to_the_front_of_the_stove_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/plate_1__push_the_plate_to_the_front_of_the_stove_flow/goal_pointflow.npz",
+  "env_id": "plate",
+  "episode_uid": "libero_plate_1__push_the_plate_to_the_front_of_the_stove",
+  "split": "libero"
+ },
+ {
+  "case_index": 73,
+  "shard": "tasks/libero/pointflow/porcelain_mug_1__living_room_scene5_put_the_white_mug_on_the_left_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/porcelain_mug_1__living_room_scene5_put_the_white_mug_on_the_left_plate_flow/goal_pointflow.npz",
+  "env_id": "porcelain_mug",
+  "episode_uid": "libero_porcelain_mug_1__living_room_scene5_put_the_white_mug_on_the_left_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 74,
+  "shard": "tasks/libero/pointflow/porcelain_mug_1__study_scene3_pick_up_the_white_mug_and_place_it_to_the_right_of_the_caddy_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/porcelain_mug_1__study_scene3_pick_up_the_white_mug_and_place_it_to_the_right_of_the_caddy_flow/goal_pointflow.npz",
+  "env_id": "porcelain_mug",
+  "episode_uid": "libero_porcelain_mug_1__study_scene3_pick_up_the_white_mug_and_place_it_to_the_right_of_the_caddy",
+  "split": "libero"
+ },
+ {
+  "case_index": 75,
+  "shard": "tasks/libero/pointflow/red_coffee_mug_1__study_scene3_pick_up_the_red_mug_and_place_it_to_the_right_of_the_caddy_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/red_coffee_mug_1__study_scene3_pick_up_the_red_mug_and_place_it_to_the_right_of_the_caddy_flow/goal_pointflow.npz",
+  "env_id": "red_coffee_mug",
+  "episode_uid": "libero_red_coffee_mug_1__study_scene3_pick_up_the_red_mug_and_place_it_to_the_right_of_the_caddy",
+  "split": "libero"
+ },
+ {
+  "case_index": 76,
+  "shard": "tasks/libero/pointflow/salad_dressing_1__pick_up_the_salad_dressing_and_place_it_in_the_basket_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/salad_dressing_1__pick_up_the_salad_dressing_and_place_it_in_the_basket_flow/goal_pointflow.npz",
+  "env_id": "salad_dressing",
+  "episode_uid": "libero_salad_dressing_1__pick_up_the_salad_dressing_and_place_it_in_the_basket",
+  "split": "libero"
+ },
+ {
+  "case_index": 77,
+  "shard": "tasks/libero/pointflow/tomato_sauce_1__living_room_scene1_pick_up_the_tomato_sauce_and_put_it_in_the_basket_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/tomato_sauce_1__living_room_scene1_pick_up_the_tomato_sauce_and_put_it_in_the_basket_flow/goal_pointflow.npz",
+  "env_id": "tomato_sauce",
+  "episode_uid": "libero_tomato_sauce_1__living_room_scene1_pick_up_the_tomato_sauce_and_put_it_in_the_basket",
+  "split": "libero"
+ },
+ {
+  "case_index": 78,
+  "shard": "tasks/libero/pointflow/tomato_sauce_1__living_room_scene2_pick_up_the_tomato_sauce_and_put_it_in_the_basket_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/tomato_sauce_1__living_room_scene2_pick_up_the_tomato_sauce_and_put_it_in_the_basket_flow/goal_pointflow.npz",
+  "env_id": "tomato_sauce",
+  "episode_uid": "libero_tomato_sauce_1__living_room_scene2_pick_up_the_tomato_sauce_and_put_it_in_the_basket",
+  "split": "libero"
+ },
+ {
+  "case_index": 79,
+  "shard": "tasks/libero/pointflow/tomato_sauce_1__living_room_scene3_pick_up_the_tomato_sauce_and_put_it_in_the_tray_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/tomato_sauce_1__living_room_scene3_pick_up_the_tomato_sauce_and_put_it_in_the_tray_flow/goal_pointflow.npz",
+  "env_id": "tomato_sauce",
+  "episode_uid": "libero_tomato_sauce_1__living_room_scene3_pick_up_the_tomato_sauce_and_put_it_in_the_tray",
+  "split": "libero"
+ },
+ {
+  "case_index": 80,
+  "shard": "tasks/libero/pointflow/tomato_sauce_1__pick_up_the_tomato_sauce_and_place_it_in_the_basket_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/tomato_sauce_1__pick_up_the_tomato_sauce_and_place_it_in_the_basket_flow/goal_pointflow.npz",
+  "env_id": "tomato_sauce",
+  "episode_uid": "libero_tomato_sauce_1__pick_up_the_tomato_sauce_and_place_it_in_the_basket",
+  "split": "libero"
+ },
+ {
+  "case_index": 81,
+  "shard": "tasks/libero/pointflow/white_bowl_1__kitchen_scene7_put_the_white_bowl_on_the_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/white_bowl_1__kitchen_scene7_put_the_white_bowl_on_the_plate_flow/goal_pointflow.npz",
+  "env_id": "white_bowl",
+  "episode_uid": "libero_white_bowl_1__kitchen_scene7_put_the_white_bowl_on_the_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 82,
+  "shard": "tasks/libero/pointflow/white_bowl_1__kitchen_scene7_put_the_white_bowl_to_the_right_of_the_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/white_bowl_1__kitchen_scene7_put_the_white_bowl_to_the_right_of_the_plate_flow/goal_pointflow.npz",
+  "env_id": "white_bowl",
+  "episode_uid": "libero_white_bowl_1__kitchen_scene7_put_the_white_bowl_to_the_right_of_the_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 83,
+  "shard": "tasks/libero/pointflow/white_bowl_1__kitchen_scene9_put_the_white_bowl_on_top_of_the_cabinet_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/white_bowl_1__kitchen_scene9_put_the_white_bowl_on_top_of_the_cabinet_flow/goal_pointflow.npz",
+  "env_id": "white_bowl",
+  "episode_uid": "libero_white_bowl_1__kitchen_scene9_put_the_white_bowl_on_top_of_the_cabinet",
+  "split": "libero"
+ },
+ {
+  "case_index": 84,
+  "shard": "tasks/libero/pointflow/white_yellow_mug_1__kitchen_scene6_close_the_microwave_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/white_yellow_mug_1__kitchen_scene6_close_the_microwave_flow/goal_pointflow.npz",
+  "env_id": "white_yellow_mug",
+  "episode_uid": "libero_white_yellow_mug_1__kitchen_scene6_close_the_microwave",
+  "split": "libero"
+ },
+ {
+  "case_index": 85,
+  "shard": "tasks/libero/pointflow/white_yellow_mug_1__kitchen_scene6_put_the_yellow_and_white_mug_in_the_microwave_and_close_it_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/white_yellow_mug_1__kitchen_scene6_put_the_yellow_and_white_mug_in_the_microwave_and_close_it_flow/goal_pointflow.npz",
+  "env_id": "white_yellow_mug",
+  "episode_uid": "libero_white_yellow_mug_1__kitchen_scene6_put_the_yellow_and_white_mug_in_the_microwave_and_close_it",
+  "split": "libero"
+ },
+ {
+  "case_index": 86,
+  "shard": "tasks/libero/pointflow/white_yellow_mug_1__kitchen_scene6_put_the_yellow_and_white_mug_to_the_front_of_the_white_mug_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/white_yellow_mug_1__kitchen_scene6_put_the_yellow_and_white_mug_to_the_front_of_the_white_mug_flow/goal_pointflow.npz",
+  "env_id": "white_yellow_mug",
+  "episode_uid": "libero_white_yellow_mug_1__kitchen_scene6_put_the_yellow_and_white_mug_to_the_front_of_the_white_mug",
+  "split": "libero"
+ },
+ {
+  "case_index": 87,
+  "shard": "tasks/libero/pointflow/white_yellow_mug_1__living_room_scene5_put_the_white_mug_on_the_left_plate_and_put_the_yellow_and_white_mug_on_the_right_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/white_yellow_mug_1__living_room_scene5_put_the_white_mug_on_the_left_plate_and_put_the_yellow_and_white_mug_on_the_right_plate_flow/goal_pointflow.npz",
+  "env_id": "white_yellow_mug",
+  "episode_uid": "libero_white_yellow_mug_1__living_room_scene5_put_the_white_mug_on_the_left_plate_and_put_the_yellow_and_white_mug_on_the_right_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 88,
+  "shard": "tasks/libero/pointflow/white_yellow_mug_1__living_room_scene5_put_the_yellow_and_white_mug_on_the_right_plate_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/white_yellow_mug_1__living_room_scene5_put_the_yellow_and_white_mug_on_the_right_plate_flow/goal_pointflow.npz",
+  "env_id": "white_yellow_mug",
+  "episode_uid": "libero_white_yellow_mug_1__living_room_scene5_put_the_yellow_and_white_mug_on_the_right_plate",
+  "split": "libero"
+ },
+ {
+  "case_index": 89,
+  "shard": "tasks/libero/pointflow/white_yellow_mug_1__study_scene1_pick_up_the_yellow_and_white_mug_and_place_it_to_the_right_of_the_caddy_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/white_yellow_mug_1__study_scene1_pick_up_the_yellow_and_white_mug_and_place_it_to_the_right_of_the_caddy_flow/goal_pointflow.npz",
+  "env_id": "white_yellow_mug",
+  "episode_uid": "libero_white_yellow_mug_1__study_scene1_pick_up_the_yellow_and_white_mug_and_place_it_to_the_right_of_the_caddy",
+  "split": "libero"
+ },
+ {
+  "case_index": 90,
+  "shard": "tasks/libero/pointflow/wine_bottle_1__kitchen_scene4_put_the_wine_bottle_on_the_wine_rack_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/wine_bottle_1__kitchen_scene4_put_the_wine_bottle_on_the_wine_rack_flow/goal_pointflow.npz",
+  "env_id": "wine_bottle",
+  "episode_uid": "libero_wine_bottle_1__kitchen_scene4_put_the_wine_bottle_on_the_wine_rack",
+  "split": "libero"
+ },
+ {
+  "case_index": 91,
+  "shard": "tasks/libero/pointflow/wine_bottle_1__put_the_wine_bottle_on_the_rack_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/wine_bottle_1__put_the_wine_bottle_on_the_rack_flow/goal_pointflow.npz",
+  "env_id": "wine_bottle",
+  "episode_uid": "libero_wine_bottle_1__put_the_wine_bottle_on_the_rack",
+  "split": "libero"
+ },
+ {
+  "case_index": 92,
+  "shard": "tasks/libero/pointflow/wine_bottle_1__put_the_wine_bottle_on_top_of_the_cabinet_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/wine_bottle_1__put_the_wine_bottle_on_top_of_the_cabinet_flow/goal_pointflow.npz",
+  "env_id": "wine_bottle",
+  "episode_uid": "libero_wine_bottle_1__put_the_wine_bottle_on_top_of_the_cabinet",
+  "split": "libero"
+ },
+ {
+  "case_index": 93,
+  "shard": "tasks/libero/pointflow/yellow_book_1__study_scene4_pick_up_the_book_on_the_right_and_place_it_on_the_cabinet_shelf_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/yellow_book_1__study_scene4_pick_up_the_book_on_the_right_and_place_it_on_the_cabinet_shelf_flow/goal_pointflow.npz",
+  "env_id": "yellow_book",
+  "episode_uid": "libero_yellow_book_1__study_scene4_pick_up_the_book_on_the_right_and_place_it_on_the_cabinet_shelf",
+  "split": "libero"
+ },
+ {
+  "case_index": 94,
+  "shard": "tasks/libero/pointflow/yellow_book_1__study_scene4_pick_up_the_book_on_the_right_and_place_it_under_the_cabinet_shelf_flow/goal_pointflow.npz",
+  "slot": 0,
+  "goal_npz": "tasks/libero/pointflow/yellow_book_1__study_scene4_pick_up_the_book_on_the_right_and_place_it_under_the_cabinet_shelf_flow/goal_pointflow.npz",
+  "env_id": "yellow_book",
+  "episode_uid": "libero_yellow_book_1__study_scene4_pick_up_the_book_on_the_right_and_place_it_under_the_cabinet_shelf",
+  "split": "libero"
+ }
+]

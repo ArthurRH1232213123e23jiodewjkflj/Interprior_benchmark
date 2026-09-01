@@ -1,0 +1,687 @@
+{
+ "density_kg_m3": 800.0,
+ "objects": [
+  {
+   "env_id": "akita_black_bowl",
+   "urdf": "akita_black_bowl.urdf",
+   "obj": "akita_black_bowl.obj",
+   "mass_kg": 0.04228,
+   "watertight": true,
+   "volume_m3": 5.28502209656558e-05,
+   "extent_m": 0.1118,
+   "bbox_min_m": [
+    -0.05589,
+    -0.05564,
+    -0.0
+   ],
+   "bbox_max_m": [
+    0.05588,
+    0.05562,
+    0.05265
+   ],
+   "size_m": [
+    0.11178,
+    0.11126,
+    0.05265
+   ],
+   "inertial_origin": [
+    5e-05,
+    -0.00069,
+    0.02562
+   ],
+   "n_verts": 37426,
+   "n_faces": 42522
+  },
+  {
+   "env_id": "alphabet_soup",
+   "urdf": "alphabet_soup.urdf",
+   "obj": "alphabet_soup.obj",
+   "mass_kg": 0.1913,
+   "watertight": true,
+   "volume_m3": 0.0002391242774158643,
+   "extent_m": 0.0836,
+   "bbox_min_m": [
+    -0.03303,
+    -0.04195,
+    -0.03572
+   ],
+   "bbox_max_m": [
+    0.03303,
+    0.0416,
+    0.0354
+   ],
+   "size_m": [
+    0.06606,
+    0.08355,
+    0.07112
+   ],
+   "inertial_origin": [
+    -6e-05,
+    -0.0013,
+    -0.00299
+   ],
+   "n_verts": 41577,
+   "n_faces": 13859
+  },
+  {
+   "env_id": "bbq_sauce",
+   "urdf": "bbq_sauce.urdf",
+   "obj": "bbq_sauce.obj",
+   "mass_kg": 0.08755,
+   "watertight": true,
+   "volume_m3": 0.00010943377427096805,
+   "extent_m": 0.1112,
+   "bbox_min_m": [
+    -0.02424,
+    -0.0163,
+    -0.05562
+   ],
+   "bbox_max_m": [
+    0.02424,
+    0.0163,
+    0.05562
+   ],
+   "size_m": [
+    0.04847,
+    0.03261,
+    0.11125
+   ],
+   "inertial_origin": [
+    4e-05,
+    0.0,
+    -0.00844
+   ],
+   "n_verts": 33494,
+   "n_faces": 16090
+  },
+  {
+   "env_id": "black_book",
+   "urdf": "black_book.urdf",
+   "obj": "black_book.obj",
+   "mass_kg": 0.02415,
+   "watertight": true,
+   "volume_m3": 3.0189340946778272e-05,
+   "extent_m": 0.1382,
+   "bbox_min_m": [
+    -0.01554,
+    -0.06871,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.01465,
+    0.04462,
+    0.1382
+   ],
+   "size_m": [
+    0.03019,
+    0.11333,
+    0.1382
+   ],
+   "inertial_origin": [
+    0.00052,
+    -0.00334,
+    0.07484
+   ],
+   "n_verts": 4698,
+   "n_faces": 7160
+  },
+  {
+   "env_id": "butter",
+   "urdf": "butter.urdf",
+   "obj": "butter.obj",
+   "mass_kg": 0.04045,
+   "watertight": true,
+   "volume_m3": 5.056238955404614e-05,
+   "extent_m": 0.0775,
+   "bbox_min_m": [
+    -0.03874,
+    -0.01956,
+    -0.00898
+   ],
+   "bbox_max_m": [
+    0.03873,
+    0.02006,
+    0.00898
+   ],
+   "size_m": [
+    0.07748,
+    0.03962,
+    0.01795
+   ],
+   "inertial_origin": [
+    0.00015,
+    0.00026,
+    -2e-05
+   ],
+   "n_verts": 43185,
+   "n_faces": 14395
+  },
+  {
+   "env_id": "chefmate_8_frypan",
+   "urdf": "chefmate_8_frypan.urdf",
+   "obj": "chefmate_8_frypan.obj",
+   "mass_kg": 0.12712,
+   "watertight": true,
+   "volume_m3": 0.0001589023125439173,
+   "extent_m": 0.3559,
+   "bbox_min_m": [
+    -0.09421,
+    -0.10187,
+    -0.0001
+   ],
+   "bbox_max_m": [
+    0.26166,
+    0.10248,
+    0.05492
+   ],
+   "size_m": [
+    0.35588,
+    0.20435,
+    0.05502
+   ],
+   "inertial_origin": [
+    0.05746,
+    0.00185,
+    0.02181
+   ],
+   "n_verts": 27950,
+   "n_faces": 9320
+  },
+  {
+   "env_id": "chocolate_pudding",
+   "urdf": "chocolate_pudding.urdf",
+   "obj": "chocolate_pudding.obj",
+   "mass_kg": 0.09113,
+   "watertight": true,
+   "volume_m3": 0.00011390925857746177,
+   "extent_m": 0.0835,
+   "bbox_min_m": [
+    -0.04175,
+    -0.02471,
+    -0.01492
+   ],
+   "bbox_max_m": [
+    0.04175,
+    0.02477,
+    0.01501
+   ],
+   "size_m": [
+    0.0835,
+    0.04947,
+    0.02992
+   ],
+   "inertial_origin": [
+    -0.00029,
+    -0.0002,
+    5e-05
+   ],
+   "n_verts": 54162,
+   "n_faces": 18054
+  },
+  {
+   "env_id": "cream_cheese",
+   "urdf": "cream_cheese.urdf",
+   "obj": "cream_cheese.obj",
+   "mass_kg": 0.04957,
+   "watertight": true,
+   "volume_m3": 6.195965231810294e-05,
+   "extent_m": 0.0829,
+   "bbox_min_m": [
+    -0.04125,
+    -0.02135,
+    -0.00971
+   ],
+   "bbox_max_m": [
+    0.04162,
+    0.02121,
+    0.00967
+   ],
+   "size_m": [
+    0.08287,
+    0.04256,
+    0.01938
+   ],
+   "inertial_origin": [
+    0.00017,
+    0.00012,
+    -0.00011
+   ],
+   "n_verts": 22560,
+   "n_faces": 16237
+  },
+  {
+   "env_id": "ketchup",
+   "urdf": "ketchup.urdf",
+   "obj": "ketchup.obj",
+   "mass_kg": 0.20739,
+   "watertight": true,
+   "volume_m3": 0.00025924279622945273,
+   "extent_m": 0.1486,
+   "bbox_min_m": [
+    -0.03225,
+    -0.0743,
+    -0.02169
+   ],
+   "bbox_max_m": [
+    0.03226,
+    0.0743,
+    0.02168
+   ],
+   "size_m": [
+    0.06451,
+    0.14861,
+    0.04337
+   ],
+   "inertial_origin": [
+    3e-05,
+    -0.01118,
+    0.00023
+   ],
+   "n_verts": 46605,
+   "n_faces": 15535
+  },
+  {
+   "env_id": "milk",
+   "urdf": "milk.urdf",
+   "obj": "milk.obj",
+   "mass_kg": 0.26875,
+   "watertight": true,
+   "volume_m3": 0.0003359400189650453,
+   "extent_m": 0.1428,
+   "bbox_min_m": [
+    -0.02711,
+    -0.0714,
+    -0.0272
+   ],
+   "bbox_max_m": [
+    0.02701,
+    0.07137,
+    0.02774
+   ],
+   "size_m": [
+    0.05412,
+    0.14277,
+    0.05495
+   ],
+   "inertial_origin": [
+    -0.00049,
+    -0.01092,
+    0.00023
+   ],
+   "n_verts": 43842,
+   "n_faces": 14614
+  },
+  {
+   "env_id": "moka_pot",
+   "urdf": "moka_pot.urdf",
+   "obj": "moka_pot.obj",
+   "mass_kg": 0.41402,
+   "watertight": true,
+   "volume_m3": 0.0005175192449395259,
+   "extent_m": 0.1384,
+   "bbox_min_m": [
+    -0.0396,
+    -0.06072,
+    -0.06713
+   ],
+   "bbox_max_m": [
+    0.0396,
+    0.0522,
+    0.07126
+   ],
+   "size_m": [
+    0.07919,
+    0.11292,
+    0.13839
+   ],
+   "inertial_origin": [
+    0.0,
+    -0.00023,
+    -0.0001
+   ],
+   "n_verts": 1563,
+   "n_faces": 1437
+  },
+  {
+   "env_id": "new_salad_dressing",
+   "urdf": "new_salad_dressing.urdf",
+   "obj": "new_salad_dressing.obj",
+   "mass_kg": 0.18313,
+   "watertight": true,
+   "volume_m3": 0.00022891480086690904,
+   "extent_m": 0.1474,
+   "bbox_min_m": [
+    -0.0327,
+    -0.0737,
+    -0.02185
+   ],
+   "bbox_max_m": [
+    0.03134,
+    0.07374,
+    0.02185
+   ],
+   "size_m": [
+    0.06404,
+    0.14744,
+    0.0437
+   ],
+   "inertial_origin": [
+    -0.00064,
+    -0.01156,
+    -0.00021
+   ],
+   "n_verts": 58830,
+   "n_faces": 19610
+  },
+  {
+   "env_id": "orange_juice",
+   "urdf": "orange_juice.urdf",
+   "obj": "orange_juice.obj",
+   "mass_kg": 0.27276,
+   "watertight": true,
+   "volume_m3": 0.00034094394939140183,
+   "extent_m": 0.1444,
+   "bbox_min_m": [
+    -0.0269,
+    -0.07218,
+    -0.02733
+   ],
+   "bbox_max_m": [
+    0.02678,
+    0.07218,
+    0.02725
+   ],
+   "size_m": [
+    0.05369,
+    0.14436,
+    0.05459
+   ],
+   "inertial_origin": [
+    -3e-05,
+    -0.01075,
+    5e-05
+   ],
+   "n_verts": 59796,
+   "n_faces": 19932
+  },
+  {
+   "env_id": "plate",
+   "urdf": "plate.urdf",
+   "obj": "plate.obj",
+   "mass_kg": 0.03086,
+   "watertight": true,
+   "volume_m3": 3.8577379292817545e-05,
+   "extent_m": 0.1372,
+   "bbox_min_m": [
+    -0.06862,
+    -0.06849,
+    -2e-05
+   ],
+   "bbox_max_m": [
+    0.06862,
+    0.0685,
+    0.01663
+   ],
+   "size_m": [
+    0.13725,
+    0.13699,
+    0.01665
+   ],
+   "inertial_origin": [
+    0.00561,
+    -0.00187,
+    0.00625
+   ],
+   "n_verts": 2087,
+   "n_faces": 3464
+  },
+  {
+   "env_id": "porcelain_mug",
+   "urdf": "porcelain_mug.urdf",
+   "obj": "porcelain_mug.obj",
+   "mass_kg": 0.14386,
+   "watertight": true,
+   "volume_m3": 0.00017982272192817734,
+   "extent_m": 0.1307,
+   "bbox_min_m": [
+    -0.06563,
+    -0.04999,
+    -0.0
+   ],
+   "bbox_max_m": [
+    0.06511,
+    0.04653,
+    0.11462
+   ],
+   "size_m": [
+    0.13074,
+    0.09652,
+    0.11462
+   ],
+   "inertial_origin": [
+    0.0127,
+    -0.00174,
+    0.05634
+   ],
+   "n_verts": 14000,
+   "n_faces": 16644
+  },
+  {
+   "env_id": "red_coffee_mug",
+   "urdf": "red_coffee_mug.urdf",
+   "obj": "red_coffee_mug.obj",
+   "mass_kg": 0.15535,
+   "watertight": true,
+   "volume_m3": 0.00019418277160095773,
+   "extent_m": 0.1349,
+   "bbox_min_m": [
+    -0.06307,
+    -0.04645,
+    -3e-05
+   ],
+   "bbox_max_m": [
+    0.06325,
+    0.04417,
+    0.13491
+   ],
+   "size_m": [
+    0.12632,
+    0.09062,
+    0.13494
+   ],
+   "inertial_origin": [
+    -0.01216,
+    -0.00038,
+    0.06253
+   ],
+   "n_verts": 9412,
+   "n_faces": 11224
+  },
+  {
+   "env_id": "salad_dressing",
+   "urdf": "salad_dressing.urdf",
+   "obj": "salad_dressing.obj",
+   "mass_kg": 0.18313,
+   "watertight": true,
+   "volume_m3": 0.00022891480086690904,
+   "extent_m": 0.1474,
+   "bbox_min_m": [
+    -0.0327,
+    -0.0737,
+    -0.02185
+   ],
+   "bbox_max_m": [
+    0.03134,
+    0.07374,
+    0.02185
+   ],
+   "size_m": [
+    0.06404,
+    0.14744,
+    0.0437
+   ],
+   "inertial_origin": [
+    -0.00064,
+    -0.01156,
+    -0.00021
+   ],
+   "n_verts": 58830,
+   "n_faces": 19610
+  },
+  {
+   "env_id": "tomato_sauce",
+   "urdf": "tomato_sauce.urdf",
+   "obj": "tomato_sauce.obj",
+   "mass_kg": 0.18958,
+   "watertight": true,
+   "volume_m3": 0.0002369750255206575,
+   "extent_m": 0.0828,
+   "bbox_min_m": [
+    -0.03323,
+    -0.04142,
+    -0.03514
+   ],
+   "bbox_max_m": [
+    0.03323,
+    0.04142,
+    0.03506
+   ],
+   "size_m": [
+    0.06647,
+    0.08285,
+    0.0702
+   ],
+   "inertial_origin": [
+    -9e-05,
+    -0.0009,
+    -0.00199
+   ],
+   "n_verts": 85764,
+   "n_faces": 28588
+  },
+  {
+   "env_id": "white_bowl",
+   "urdf": "white_bowl.urdf",
+   "obj": "white_bowl.obj",
+   "mass_kg": 0.02229,
+   "watertight": true,
+   "volume_m3": 2.7863496083160876e-05,
+   "extent_m": 0.0849,
+   "bbox_min_m": [
+    -0.04245,
+    -0.04158,
+    -2e-05
+   ],
+   "bbox_max_m": [
+    0.04243,
+    0.04159,
+    0.03535
+   ],
+   "size_m": [
+    0.08488,
+    0.08316,
+    0.03536
+   ],
+   "inertial_origin": [
+    -0.00014,
+    7e-05,
+    0.01619
+   ],
+   "n_verts": 7221,
+   "n_faces": 14030
+  },
+  {
+   "env_id": "white_yellow_mug",
+   "urdf": "white_yellow_mug.urdf",
+   "obj": "white_yellow_mug.obj",
+   "mass_kg": 0.13792,
+   "watertight": true,
+   "volume_m3": 0.0001723993230112352,
+   "extent_m": 0.1382,
+   "bbox_min_m": [
+    -0.0691,
+    -0.05218,
+    -1e-05
+   ],
+   "bbox_max_m": [
+    0.06913,
+    0.05031,
+    0.10478
+   ],
+   "size_m": [
+    0.13823,
+    0.10249,
+    0.10479
+   ],
+   "inertial_origin": [
+    -0.01203,
+    -0.00058,
+    0.05421
+   ],
+   "n_verts": 7107,
+   "n_faces": 8454
+  },
+  {
+   "env_id": "wine_bottle",
+   "urdf": "wine_bottle.urdf",
+   "obj": "wine_bottle.obj",
+   "mass_kg": 0.115,
+   "watertight": false,
+   "volume_m3": -7.474346605089533e-05,
+   "extent_m": 0.1514,
+   "bbox_min_m": [
+    -0.02178,
+    -0.02183,
+    -0.0
+   ],
+   "bbox_max_m": [
+    0.02178,
+    0.02178,
+    0.1514
+   ],
+   "size_m": [
+    0.04355,
+    0.0436,
+    0.1514
+   ],
+   "inertial_origin": [
+    0.0,
+    -3e-05,
+    0.0757
+   ],
+   "n_verts": 2302,
+   "n_faces": 4510
+  },
+  {
+   "env_id": "yellow_book",
+   "urdf": "yellow_book.urdf",
+   "obj": "yellow_book.obj",
+   "mass_kg": 0.01471,
+   "watertight": true,
+   "volume_m3": 1.8389329704941225e-05,
+   "extent_m": 0.1235,
+   "bbox_min_m": [
+    -0.01073,
+    -0.05136,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.01624,
+    0.04988,
+    0.12346
+   ],
+   "size_m": [
+    0.02697,
+    0.10124,
+    0.12346
+   ],
+   "inertial_origin": [
+    0.00531,
+    0.00243,
+    0.07125
+   ],
+   "n_verts": 4692,
+   "n_faces": 7160
+  }
+ ]
+}

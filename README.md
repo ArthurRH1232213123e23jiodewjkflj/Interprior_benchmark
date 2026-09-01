@@ -1,89 +1,6 @@
-# Interprior benchmark
 
-在 Isaac Sim 里评测机器人操作策略(抓取 + 物体轨迹跟随)的评测平台。策略跑在**自己的
-进程和 conda env 里**,通过 FIFO 和仿真侧通话 —— 平台从不 import 你的 checkpoint,
-所以你的框架版本和 CUDA 版本与仿真侧无关。
 
-**这个平台相对一个普通 eval 脚本多两样东西,它们是全部价值所在:**
 
-1. **冻结的物理闸门。** 建仿真**之前**,把活的 cfg 和一份冻结 profile 逐字段比对
-   (23~28 个语义字段),不一致直接 raise 而不是产出一个看似合理的数字。
-   `physics/profiles/*.yaml` 逐字节进 git,因为闸门比的就是它的 sha256。
-2. **可分离的 teacher replay 闸门。** 把录制的教师动作喂回仿真,问"平台能不能复现录制"。
-   这是唯一能把「平台坏了」和「策略差」分开的测试,所以它在任何策略数字被采信**之前**跑。
-
-读法:`README.md`(本文件下半部分,集成手册)、`docs/API.md`(契约 + 线协议)、
-`docs/ARCHITECTURE.md`(布局)、`log/Structure.md`(**活文档** —— 当前状态、约定、坑)。
-
----
-
-## 跑不起来:这个 repo 缺三样东西
-
-公开的这份是**源码和冻结真值**,不是一个开箱可跑的包。缺的都是别人的东西或大文件:
-
-| 缺的 | 为什么不在这 | 怎么补 |
-|---|---|---|
-| **模型 checkpoint**(`*.pt`,各 595 MB) | 超 GitHub 单文件 100 MB 上限;且是训练产物不是源码 | 路径 + sha256 记在 `train_eval/ckpt/PROVENANCE.txt` |
-| **`train_eval/vendor/flow_policy/`** | 同事的模型实现,我们只是 vendored 了一份冻结副本,**不是我们的东西,不由这里再发布** | 见 `PROVENANCE.txt` 里的源路径 |
-| **`_upstream/`** | 上游训练仓库的参考实现(policy server 等),同上 | 从上游仓库取 |
-| **数据集** | TB 级,在内部共享 CFS 上 | `train_eval/registry.json` 声明了三个数据集及其协议文档 |
-| **Isaac Sim 环境代码** | `isaacsimenvs`,来自数据生产 checkout。**不能打包只能钉住** —— suite 的 `interprior_root` 必须和 physics profile 同源 | 内部 checkout |
-| **LIBERO 物体网格**(106 MB) | 派生自 LIBERO 数据集 | 下完源 hdf5 后跑 `bench_libero/tasks/libero/pipeline/batch_libero_realmesh.py` |
-| **viewer / rollout HTML** | 每个 9~30 MB(共 1 GB),都能重建 | `tasks/*/pipeline/build_*_viewer*.py`,或跑一次 driver |
-
-**suite yaml 和 cases json 里的路径是内部集群的绝对路径**(`/mnt/zuoyufan/...`)。
-外部无法解析 —— 它们作为**溯源记录**保留:哪条 episode、哪个 shard、哪个 slot、
-选样清单的 sha256。换数据集就是换一个 suite yaml + 一个 profile yaml,零 Python。
-
----
-
-## 三个包,一个 benchmark 一个
-
-**包名就是 benchmark 的选择,不靠参数传。**
-
-```bash
-python -m bench_cube_val  replay --cases 8 --gpus 2,3    # 单方块,物理闸门
-python -m bench_multi_val replay --suite objaverse_val436 --frames auto --gpus 0
-python -m bench_libero    tasks                          # LIBERO(仅资产,评测通路未接)
-```
-
-命令面:`tasks`(列 suite)/ `verify`(物理闸门)/ `replay`(teacher 回放)/ `run`(评策略)。
-
-三个包是**刻意的副本**,不是复制粘贴失误:任务语义(四类阈值、v10 指标、状态注入)会
-分头演进,而共用一份 driver 会让一个 benchmark 静默用上另一个的 profile。
-加新包时唯一硬约束:**路径从包自身推导,绝不写包名**
-(`WORKER = PACKAGE_DIR/"driver.py"`、`profile_path = Path(V.__file__).parent/"profiles"/...`)。
-
-当前状态见 `log/Structure.md`。简要:`bench_cube_val` 可用(exp04 在 200 条 held-out 上
-demo_success 112);`bench_multi_val` 物理层已接完(436/436 catalog join + replay 闸门 PASS);
-`bench_libero` 只有资产,driver 仍是 cube 的 —— LIBERO 没有机器人关节数据,
-teacher replay 在结构上不可能,见 `bench_libero/tasks/libero/MOVED.md`。
-
----
-
-## 手工编排轨迹 → 可跑的 task
-
-`bench_cube_val/tasks/build_task/` 是完整流水线:浏览器里拖关键帧 → 物体轨迹 npz →
-suite yaml。四步和坑见 `bench_cube_val/tasks/build_task/README.md`。
-
-它会**强制查可达性**:编排页的场景常量曾经和仿真器对不上(`robot_base` 差 0.6 m、
-桌面高度差 0.07 m、方块尺寸差 0.01 m),而超出可达域的轨迹照样能转换、能渲染、
-能跑出一个看着合理的分数 —— 那分数其实是「任务不可能完成」。所以工具不看声明的
-`reach_max`(手设的),只和教师录制里方块**实际**去过的范围比。
-
----
-
-## 两个读数陷阱
-
-- **`pos_err_median` 的 PASS 只对 replay 有意义。** policy eval 里物体几乎不动,
-  中位数落在 float32 地板上,必然 PASS。真闸门是 `physics_gate_ok`。
-- **`guide_tracking_fraction_within_3cm ≈ 0.69` 不是「跟得好」** —— 它意味着物体几乎
-  没动过。永远和 `ever_lifted` 一起读。
-
----
----
-
-_以下是原有的内部集成手册。_
 
 # bench_cube_val
 
@@ -98,16 +15,7 @@ _以下是原有的内部集成手册。_
 
 
 
----
 
-## 任务
-
-每个 episode 从一个录制的初始状态开始，方块**放在桌上** —— 不是预先抓住的。
-reset 时你的策略会收到该 episode 的完整 object-flow 计划。
-
-**先自己抓起方块，然后跟随计划。** 两半都计分。
-
----
 
 ## 第 1 步 — 挑用哪几张卡
 
@@ -562,5 +470,144 @@ python -m bench_cube_val replay --cases 8 --gpus 2,3,4,5
 
 它存在的意义是：万一你的分数看起来不对，我们能用它证明问题在 ckpt 还是在平台。
 
-`bench_multi_val` 现在是 cube 的完整副本，suite 和 profile 都还是 cube 的。多物体的实质
-待做，见 `log/0829_zjw_multi_object.md`。结构说明：`log/0829_new.md`。
+`bench_multi_val` 的多物体已接完（物理 profile 冻结 + n>1 并行 + replay 闸门 PASS），
+见 `log/0829_zjw_multi_object.md` 里被推翻的部分和后续记录。结构说明：`log/0829_new.md`。
+
+`bench_libero` 是 LIBERO object-flow，**资产和 suite 已就位，driver 还没接**，见下节。
+
+
+
+
+
+# bench_libero —— LIBERO object-flow
+
+```bash
+python -m bench_libero tasks
+```
+
+130 条 LIBERO 示范的物体轨迹，重锚到我们的机器人基座系。资产在
+`bench_libero/tasks/libero/`，结构和推导写在 `tasks/libero/STRUCTURE.md`。
+
+**22 个 env，95 条可跑 case。** 这里的划分是：**env = 一个物体资产**（一个目录），
+**case = 一条轨迹**（`cases.json` 的一行）。和 `bench_multi_val` 那 436 条一样 ——
+一份 catalog 加 per-case pin，不是 436 个目录。
+
+## 为什么是 22 个 env 而不是 130
+
+130 是**轨迹**数。要 spawn 一个 env 需要的只有物体资产，而那是 22 个。三条实测：
+
+**支撑高度已经被归一化掉了。** pointflow 那一步把每个任务的支撑面高度吸收进了 `goal_traj`：
+
+| 支撑面 | n | world z0 (均值) | 基座系 z0 (均值) |
+|---|---|---|---|
+| floor | 10 | 0.0476 | 0.0464 |
+| low_table | 32 | 0.4712 | 0.0247 |
+| table | 88 | 0.9133 | 0.0053 |
+
+world frame 差 0.87 m，基座系全落在 0.005–0.046 m（都是「物体贴桌面」）。
+`world_z − base_z` 从 −0.005 到 1.126、std 0.29，**所以不是减一个常量 robot_base** ——
+逐任务的支撑高度真的被吸收了。一套桌高服务全部 130 条，支撑面和 z0 都不是 env 轴。
+
+**资产一名一份。** 22 个 mesh basename，每个在 130 条里**只有一个 sha256**（0 个 basename
+有多份哈希）。`points_obj` 在同 env 的所有任务间逐位相同（bowl 43 条全 True）——
+表面点只取决于资产，与轨迹无关。
+
+**带尾号的 uid 是场景实例，不是不同物体。** 26 个 uid 塌成 22 个资产：
+`akita_black_bowl_{1,2,3}`、`butter_{1,2}`、`yellow_book_{1,2}` 各共用一份 mesh。
+`new_salad_dressing` 和 `salad_dressing` **字节完全相同** → 21 个真几何。
+
+被否掉的方案：130 个目录（其中 79 个只是同 env 换条轨迹，而 `pointflow/` 现有的
+130 份 mesh 复制已经占掉 116M 里的 106M）；51 个 `(物体,支撑,z0)` 组合（三个轴里两个是假的）；
+23 个 bddl 场景（横切资产，一个场景装多个物体）。
+
+## 想跑 LIBERO 里某一个具体任务
+
+`--cases N` 是**个数不是选择器**，取的是 `cases.json` 的前 N 行。要指名跑用
+`pick_case.py`，它把选中的 case 写成一份一次性 suite，之后走正常的 `run`：
+
+```bash
+cd ~/benchmark
+P=$HOME/pro5000_env/.venv_isaacsim_pro5000/bin/python
+S=bench_libero/tasks/libero/build_env/pick_case.py
+
+# 有哪些 env、各有几条可跑
+$P $S --list-envs
+
+# 某个 env 下有哪些任务（先看再跑）
+$P $S --env wine_bottle --list
+
+# 生成一份只含这个 env 的 suite
+$P $S --env wine_bottle
+#   -> bench_libero/suites/libero_pick_wine_bottle.yaml   (3 cases)
+
+# 精确到一条任务，并自己命名
+$P $S --match "put_the_wine_bottle_on_the_rack" --name libero_one_winerack
+#   -> bench_libero/suites/libero_one_winerack.yaml       (1 case)
+
+# 然后照常跑
+python -m bench_libero run --suite libero_one_winerack \
+  --policy "$YOUR_PY server.py --ckpt model.pt" --gpus 0
+```
+
+| 参数 | 说明 |
+|---|---|
+| `--list-envs` | 列 22 个 env：可跑数、被排除数、extent、是否 OVERSIZE |
+| `--env <id>` | 按 env 选（`akita_black_bowl` / `wine_bottle` / …） |
+| `--match <substr>` | 按任务 stem 子串选，可与 `--env` 叠加 |
+| `--list` | 只列出匹配项，不写 suite |
+| `--include-excluded` | 把那 35 条被排除的也纳入匹配（会标 `<EXCLUDED: 原因>`） |
+| `--name` | suite 名，默认 `libero_pick_<env>_<match>` |
+
+生成的 suite **物理 profile 和 donor 与全量 suite 逐字相同**，只有 case 列表不同，
+所以结果可以和全量对比。用完可以直接删 yaml，不影响别的。
+
+## cases.json：130 条里的 95 条
+
+排除 35 条：**12 条 no_motion**（`ENV_LIST.csv` 标的，目标从不动，没有可跟随的东西）
++ **23 条 xy 超包络**。
+
+包络是 cube donor 的实测可达范围（`bench_cube_val/tasks/build_task`）：
+xy ≤ 0.687 m、z ≤ 0.653 m、3D ≤ 0.907 m。LIBERO 的 z **130/130**、3D **130/130** 全在内，
+只有 xy **107/130** —— LIBERO 横向伸得比 xArm7 远。和手画的 cube 轨迹 4/7 可用同一形状：
+**超出包络的是任务出了训练分布，不是策略失败**。bowl 43 条里丢 14 条。逐条原因见
+`tasks/libero/reachability_report.json`。
+
+`chefmate_8_frypan` 的 extent 是 **0.354 m，cube 的 5.9 倍**。Wuji 手没训过这个量级，
+它那 6 条应当单独看，别并进总数。
+
+## 还跑不了 —— 两个独立障碍
+
+1. **`driver.py` 对 `goal_source: authored_npz` 零处理。** 这个字段从 cube 那条线起就声明在
+   `suites/suite.py` 里，但本包没有任何代码读它。入口是
+   `bench_cube_val/envs/authored_episode.py`：它用 donor shard 加一条 authored `[K,7]`
+   合成完整 DerivedEpisode，正是这批数据的形状。
+2. **LIBERO 完全没有机器人关节数据**（它是 Franka + 夹爪，我们是 xArm7 + Wuji）。
+   `envs/episode.py` 硬要 `robot_joint_pos` / `_target`，所以这里的 teacher replay
+   **结构上不可能**，不是「还没实现」。
+
+第 1 条背后还有个真障碍：donor 的 canonical 点云是 **0.06 m 方块**，而这些物体是
+**0.077–0.354 m**。那个对手画 cube 轨迹精确成立的替换，**在这里不成立**。这是下一个
+要做的决定，不是细节。
+
+## 指标含义变了
+
+`guide_tracking_*` 和 `demo_success` 原本是和**教师录制**逐帧比。LIBERO 轨迹背后没有
+教师 rollout，所以同样的算式量的是「和目标路径有多近」：是「跟没跟上」，不是
+「复现没复现」。**这些数字不能和 held-out shard 的结果混着平均。**
+
+## 重生成资产
+
+```bash
+export HOME=/home/huangsicheng
+PY=$HOME/pro5000_env/.venv_isaacsim_pro5000/bin/python   # 系统 python3 没有 numpy
+cd ~/benchmark
+rm -rf bench_libero/tasks/libero/envs        # builder 拒绝覆盖已存在的目录
+$PY bench_libero/tasks/libero/build_env/build_env_dirs.py
+$PY bench_libero/tasks/libero/build_env/verify_env_dirs.py    # 期望 FAILURES: 0
+```
+
+`ENV_LIST.csv` + `flows/` + `pointflow/` 是输入，只读不写。
+
+**已知缺口**：`viewers/` 只有 **54/130**（930M）—— 从 js4 传的后台 tar 没跑完。
+轻产物（flows/pointflow/pipeline/samples）是完整的 130/130。
+

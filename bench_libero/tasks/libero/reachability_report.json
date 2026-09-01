@@ -1,0 +1,285 @@
+{
+ "donor_envelope": {
+  "xy_max": 0.687,
+  "z_max": 0.653,
+  "d3_max": 0.907
+ },
+ "n_tasks": 130,
+ "n_cases": 95,
+ "n_excluded": 35,
+ "excluded": [
+  {
+   "stem": "akita_black_bowl_1__kitchen_scene10_close_the_top_drawer_of_the_cabinet",
+   "env_id": "akita_black_bowl",
+   "reason": "no_motion",
+   "xy_max": 0.45,
+   "disp": 0.0002
+  },
+  {
+   "stem": "akita_black_bowl_1__kitchen_scene1_open_the_bottom_drawer_of_the_cabinet",
+   "env_id": "akita_black_bowl",
+   "reason": "no_motion",
+   "xy_max": 0.4505,
+   "disp": 0.0314
+  },
+  {
+   "stem": "akita_black_bowl_1__kitchen_scene1_open_the_top_drawer_of_the_cabinet",
+   "env_id": "akita_black_bowl",
+   "reason": "no_motion",
+   "xy_max": 0.45,
+   "disp": 0.0002
+  },
+  {
+   "stem": "akita_black_bowl_1__kitchen_scene2_open_the_top_drawer_of_the_cabinet",
+   "env_id": "akita_black_bowl",
+   "reason": "no_motion",
+   "xy_max": 0.45,
+   "disp": 0.0002
+  },
+  {
+   "stem": "akita_black_bowl_1__kitchen_scene4_close_the_bottom_drawer_of_the_cabinet_and_open_the_top_drawer",
+   "env_id": "akita_black_bowl",
+   "reason": "no_motion",
+   "xy_max": 0.45,
+   "disp": 0.0002
+  },
+  {
+   "stem": "akita_black_bowl_1__kitchen_scene5_close_the_top_drawer_of_the_cabinet",
+   "env_id": "akita_black_bowl",
+   "reason": "no_motion",
+   "xy_max": 0.45,
+   "disp": 0.0002
+  },
+  {
+   "stem": "akita_black_bowl_1__living_room_scene4_pick_up_the_black_bowl_on_the_left_and_put_it_in_the_tray",
+   "env_id": "akita_black_bowl",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.6945,
+   "disp": 0.4323
+  },
+  {
+   "stem": "akita_black_bowl_1__living_room_scene4_stack_the_left_bowl_on_the_right_bowl_and_place_them_in_the_tray",
+   "env_id": "akita_black_bowl",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.6984,
+   "disp": 0.4435
+  },
+  {
+   "stem": "akita_black_bowl_1__open_the_middle_drawer_of_the_cabinet",
+   "env_id": "akita_black_bowl",
+   "reason": "no_motion",
+   "xy_max": 0.45,
+   "disp": 0.0002
+  },
+  {
+   "stem": "akita_black_bowl_1__pick_up_the_black_bowl_next_to_the_ramekin_and_place_it_on_the_plate",
+   "env_id": "akita_black_bowl",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.7146,
+   "disp": 0.268
+  },
+  {
+   "stem": "akita_black_bowl_1__pick_up_the_black_bowl_on_the_ramekin_and_place_it_on_the_plate",
+   "env_id": "akita_black_bowl",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.7893,
+   "disp": 0.2858
+  },
+  {
+   "stem": "akita_black_bowl_1__pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate",
+   "env_id": "akita_black_bowl",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.8512,
+   "disp": 0.4719
+  },
+  {
+   "stem": "akita_black_bowl_1__pick_up_the_black_bowl_on_the_wooden_cabinet_and_place_it_on_the_plate",
+   "env_id": "akita_black_bowl",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.6957,
+   "disp": 0.5283
+  },
+  {
+   "stem": "akita_black_bowl_1__turn_on_the_stove",
+   "env_id": "akita_black_bowl",
+   "reason": "no_motion",
+   "xy_max": 0.45,
+   "disp": 0.0002
+  },
+  {
+   "stem": "alphabet_soup_1__pick_up_the_alphabet_soup_and_place_it_in_the_basket",
+   "env_id": "alphabet_soup",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.7257,
+   "disp": 0.4837
+  },
+  {
+   "stem": "butter_1__pick_up_the_butter_and_place_it_in_the_basket",
+   "env_id": "butter",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.7961,
+   "disp": 0.5052
+  },
+  {
+   "stem": "butter_2__kitchen_scene10_put_the_butter_at_the_back_in_the_top_drawer_of_the_cabinet_and_close_it",
+   "env_id": "butter",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.7763,
+   "disp": 0.5646
+  },
+  {
+   "stem": "chefmate_8_frypan_1__kitchen_scene3_turn_on_the_stove",
+   "env_id": "chefmate_8_frypan",
+   "reason": "no_motion",
+   "xy_max": 0.45,
+   "disp": 0.0002
+  },
+  {
+   "stem": "chocolate_pudding_1__living_room_scene6_put_the_chocolate_pudding_to_the_left_of_the_plate",
+   "env_id": "chocolate_pudding",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.6948,
+   "disp": 0.2861
+  },
+  {
+   "stem": "chocolate_pudding_1__pick_up_the_chocolate_pudding_and_place_it_in_the_basket",
+   "env_id": "chocolate_pudding",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.7488,
+   "disp": 0.4996
+  },
+  {
+   "stem": "ketchup_1__living_room_scene1_pick_up_the_ketchup_and_put_it_in_the_basket",
+   "env_id": "ketchup",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.7926,
+   "disp": 0.4772
+  },
+  {
+   "stem": "ketchup_1__living_room_scene3_pick_up_the_ketchup_and_put_it_in_the_tray",
+   "env_id": "ketchup",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.8364,
+   "disp": 0.5471
+  },
+  {
+   "stem": "ketchup_1__pick_up_the_ketchup_and_place_it_in_the_basket",
+   "env_id": "ketchup",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.766,
+   "disp": 0.5014
+  },
+  {
+   "stem": "milk_1__pick_up_the_milk_and_place_it_in_the_basket",
+   "env_id": "milk",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.7706,
+   "disp": 0.5038
+  },
+  {
+   "stem": "moka_pot_1__kitchen_scene8_turn_off_the_stove",
+   "env_id": "moka_pot",
+   "reason": "no_motion",
+   "xy_max": 0.45,
+   "disp": 0.0
+  },
+  {
+   "stem": "new_salad_dressing_1__living_room_scene4_pick_up_the_salad_dressing_and_put_it_in_the_tray",
+   "env_id": "new_salad_dressing",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.7575,
+   "disp": 0.4186
+  },
+  {
+   "stem": "porcelain_mug_1__living_room_scene6_put_the_white_mug_on_the_plate",
+   "env_id": "porcelain_mug",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.7525,
+   "disp": 0.3028
+  },
+  {
+   "stem": "porcelain_mug_1__living_room_scene6_put_the_white_mug_on_the_plate_and_put_the_chocolate_pudding_to_the_right_of_the_plate",
+   "env_id": "porcelain_mug",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.7252,
+   "disp": 0.2933
+  },
+  {
+   "stem": "red_coffee_mug_1__living_room_scene5_put_the_red_mug_on_the_left_plate",
+   "env_id": "red_coffee_mug",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.7376,
+   "disp": 0.3798
+  },
+  {
+   "stem": "red_coffee_mug_1__living_room_scene5_put_the_red_mug_on_the_right_plate",
+   "env_id": "red_coffee_mug",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.7555,
+   "disp": 0.353
+  },
+  {
+   "stem": "red_coffee_mug_1__living_room_scene6_put_the_red_mug_on_the_plate",
+   "env_id": "red_coffee_mug",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.8271,
+   "disp": 0.3384
+  },
+  {
+   "stem": "white_bowl_1__kitchen_scene7_open_the_microwave",
+   "env_id": "white_bowl",
+   "reason": "no_motion",
+   "xy_max": 0.45,
+   "disp": 0.0003
+  },
+  {
+   "stem": "white_bowl_1__kitchen_scene9_turn_on_the_stove",
+   "env_id": "white_bowl",
+   "reason": "no_motion",
+   "xy_max": 0.45,
+   "disp": 0.0002
+  },
+  {
+   "stem": "wine_bottle_1__kitchen_scene4_put_the_wine_bottle_in_the_bottom_drawer_of_the_cabinet",
+   "env_id": "wine_bottle",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.7103,
+   "disp": 0.2477
+  },
+  {
+   "stem": "yellow_book_2__study_scene4_pick_up_the_book_on_the_left_and_place_it_on_top_of_the_shelf",
+   "env_id": "yellow_book",
+   "reason": "xy_out_of_envelope",
+   "xy_max": 0.7658,
+   "disp": 0.6188
+  }
+ ],
+ "support_height_absorbed": {
+  "note": "pointflow already rebases each task's support height into goal_traj",
+  "by_support": {
+   "floor": {
+    "n": 10,
+    "world_z0_mean": 0.0476,
+    "base_z0_mean": 0.0464
+   },
+   "low_table": {
+    "n": 32,
+    "world_z0_mean": 0.4712,
+    "base_z0_mean": 0.0247
+   },
+   "table": {
+    "n": 88,
+    "world_z0_mean": 0.9133,
+    "base_z0_mean": 0.0053
+   }
+  }
+ },
+ "envelope_counts": {
+  "within_xy": 107,
+  "within_z": 130,
+  "within_3d": 130
+ },
+ "oversize_envs": [
+  "chefmate_8_frypan"
+ ]
+}
