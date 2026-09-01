@@ -1,0 +1,57 @@
+# Exp76: throughput-oriented Exp68 object-flow branch.  The immutable plan is
+# serialized with its first frame, so all query states from one episode can
+# share one plan encoding inside a physical batch.  The current cube remains a
+# separate query-specific PointNet input.
+policy_topology: full_t_dual_memory
+
+robot_state_dim: 81
+action_dim: 27
+arm_action_dim: 7
+chunk_size: 60
+
+d_model: 512
+n_heads: 8
+dropout: 0.1
+temporal_layers: 1
+policy_layers: 1
+state_encoder_layers: 2
+ffn_ratio: 4
+
+flow_tokens_per_frame: 1
+current_object_tokens: 1
+share_point_encoder: false
+current_object_input: xyz_only
+robot_tokenization: state_groups
+require_current_object_points: true
+
+flow_encoder:
+  type: full_t_object_flow_sequence
+  frame_chunk_size: 128
+  activation_checkpointing: true
+  object_flow_depth: 1
+  object_flow_patch_size: 32
+  object_flow_use_velocity: true
+  object_flow_max_frames: null
+  object_flow_temporal_point_chunk_size: 128
+  object_flow_topology: first_frame
+
+point_encoder:
+  type: pointnet
+  morton_bits: 10
+  pointnet_width: 256
+  pointnet_layers: 3
+
+action_head:
+  type: dual_memory_decoder
+  layers: 7
+  append_raw_arm_hand_tokens: false
+
+progress_alignment:
+  type: none
+
+use_history: false
+history_dim: 27
+history_layers: 1
+
+action_output_tanh: false
+action_output_tanh_dims: 7

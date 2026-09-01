@@ -1,0 +1,393 @@
+action_space: 19
+assets:
+  cube_sampling_mode: fixed
+  fingertip_body_mode: auto
+  object_scale:
+  - 1.0
+  - 1.0
+  - 1.0
+  object_size_m:
+  - 0.06
+  - 0.06
+  - 0.06
+  object_urdf: assets/urdf/cube_0p06m.urdf
+  robot_profile: xhand
+  robot_self_collision_enabled: true
+  robot_urdf: assets/urdf/xarm7_xhand_right_description/xarm7_xhand_right.urdf
+data_generation_contract:
+  ee_goal_sampling:
+    implementation: isaacsimenvs.tasks.tro_mp.utils.ee_goal_sampling.sample_ee_goal_pose
+    logic: tro_mp_sector_shell_sampler_v1
+    parameters:
+      continue_ee_sampling_until_episode_limit: true
+      ee_goal_first_max_rotation_rad: 0.5235987755982988
+      ee_goal_hand_envelope_radius_m: 0.18
+      ee_goal_held_cube_bounding_radius_m: 0.052
+      ee_goal_max_rejection_attempts: 64
+      ee_goal_radial_max_m: 0.65
+      ee_goal_radial_min_m: 0.3
+      ee_goal_relative_annulus_r_in_m: 0.0
+      ee_goal_relative_annulus_r_out_m: 0.08
+      ee_goal_relative_ball_r_in_m: 0.0
+      ee_goal_relative_ball_r_out_m: 0.08
+      ee_goal_relative_block_xyz_in_m:
+      - 0.0
+      - 0.0
+      - 0.0
+      ee_goal_relative_block_xyz_out_m:
+      - 0.08
+      - 0.08
+      - 0.07
+      ee_goal_relative_height_range_m:
+      - -0.07
+      - 0.07
+      ee_goal_relative_max_rotation_rad: 0.5235987755982988
+      ee_goal_relative_position_delta_maxs:
+      - 0.08
+      - 0.08
+      - 0.07
+      ee_goal_relative_position_delta_mins:
+      - -0.08
+      - -0.08
+      - -0.07
+      ee_goal_sample_mode: relative_annulus
+      ee_goal_table_clearance_margin_m: 0.018
+      ee_goal_table_relative_z_max_m: 0.5
+      ee_goal_table_relative_z_min_m: 0.25
+      ee_target_volume_maxs:
+      - 0.6
+      - 0.28
+      - 2.0
+      ee_target_volume_mins:
+      - 0.25
+      - -0.28
+      - 0.0
+      ee_target_volume_region_scale: 1.0
+  table:
+    logic: static_table_asset_v1
+    parameters:
+      curobo_table_ellipse_strips: 8
+      ee_goal_table_clearance_margin_m: 0.018
+      ee_goal_table_relative_z_max_m: 0.5
+      ee_goal_table_relative_z_min_m: 0.25
+      online_tro_table_surface_seed: 43
+      post_grasp_lift_height_above_table_m: 0.2
+      robot_table_surface_flow_enabled: true
+      table_surface_flow_viewer_max_points: 128
+      table_surface_num_points: 1024
+      table_surface_z_offset_m: 0.15
+      table_top_height_tolerance_m: 0.002
+      table_top_normal_min_z: 0.95
+      trajectory_tall_trigger_z_above_table_m: 0.15
+episode_length_s: 40.0
+reset:
+  fixed_start_pose: null
+  object_reset_annulus_r_in_m: 0.3
+  object_reset_annulus_r_out_m: 0.6
+  object_reset_annulus_theta_center_rad: 0.0
+  object_reset_annulus_theta_half_span_rad: 0.6
+  object_reset_annulus_z_in_high_m: 0.65
+  object_reset_annulus_z_in_low_m: 0.25
+  object_reset_annulus_z_out_high_m: 0.65
+  object_reset_annulus_z_out_low_m: 0.25
+  object_reset_center_xy:
+  - 0.45
+  - 0.0
+  object_reset_orientation_mode: yaw_only
+  object_reset_range_xy:
+  - 0.15
+  - 0.15
+  object_reset_sample_mode: annulus
+  object_reset_z_mode: table_contact_bbox
+  reset_position_noise_z: 0.0
+  robot_start_hand_joint_pos:
+  - 1.42
+  - -1.049
+  - -0.17
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  table_contact_margin: 0.002
+scene:
+  num_envs: 1
+sim:
+  physx:
+    max_position_iteration_count: 64
+    max_velocity_iteration_count: 64
+    min_position_iteration_count: 8
+    min_velocity_iteration_count: 0
+    robot_solver_position_iterations: 16
+    robot_solver_velocity_iterations: 8
+termination:
+  episode_length: 2400
+tro_mp:
+  cartesian_arc_enabled: false
+  cartesian_arc_lift_m: 0.3
+  cartesian_arc_min_translation_m: 0.2
+  cartesian_differential_min_steps: 60
+  cartesian_differential_waypoint_spacing_m: 0.004
+  conservative_closure_fraction: 0.6
+  continue_ee_sampling_until_episode_limit: true
+  cube_lift_height_threshold_m: 0.02
+  curobo_batched_planning: false
+  curobo_collision_activation_distance_m: 0.03
+  curobo_collision_cache_obb: 16
+  curobo_plan_env_batch_size: 1
+  curobo_robot_cfg_path: isaacsimenvs/tasks/tro_mp/curobo/xarm7_xhand_right.yml
+  curobo_table_ellipse_strips: 8
+  differential_damping: 0.04
+  differential_max_joint_step_rad: 0.035
+  differential_orientation_gain: 0.65
+  differential_position_gain: 1.0
+  ee_goal_first_max_rotation_rad: 0.5235987755982988
+  ee_goal_hand_envelope_radius_m: 0.18
+  ee_goal_held_cube_bounding_radius_m: 0.052
+  ee_goal_max_rejection_attempts: 64
+  ee_goal_radial_max_m: 0.65
+  ee_goal_radial_min_m: 0.3
+  ee_goal_relative_annulus_r_in_m: 0.0
+  ee_goal_relative_annulus_r_out_m: 0.08
+  ee_goal_relative_ball_r_in_m: 0.0
+  ee_goal_relative_ball_r_out_m: 0.08
+  ee_goal_relative_block_xyz_in_m:
+  - 0.0
+  - 0.0
+  - 0.0
+  ee_goal_relative_block_xyz_out_m:
+  - 0.08
+  - 0.08
+  - 0.07
+  ee_goal_relative_height_range_m:
+  - -0.07
+  - 0.07
+  ee_goal_relative_max_rotation_rad: 0.5235987755982988
+  ee_goal_relative_position_delta_maxs:
+  - 0.08
+  - 0.08
+  - 0.07
+  ee_goal_relative_position_delta_mins:
+  - -0.08
+  - -0.08
+  - -0.07
+  ee_goal_sample_mode: relative_annulus
+  ee_goal_table_clearance_margin_m: 0.018
+  ee_goal_table_relative_z_max_m: 0.5
+  ee_goal_table_relative_z_min_m: 0.25
+  ee_target_volume_maxs:
+  - 0.6
+  - 0.28
+  - 2.0
+  ee_target_volume_mins:
+  - 0.25
+  - -0.28
+  - 0.0
+  ee_target_volume_region_scale: 1.0
+  execution_mode: gpu_vectorized
+  gpu_ik_batch_max_size: 8
+  gpu_ik_device: ''
+  gpu_ik_dtype: float32
+  gpu_record_ring_enabled: true
+  grasp_buffer_path: isaacsimenvs/tasks/tro_mp/grasp_buffers/cube_num1/idx0/idx0_200/cube_0p06m_xhand_tro.npz
+  grasp_execution_offset_m: 0.0
+  grasp_metadata_path: isaacsimenvs/tasks/tro_mp/grasp_buffers/cube_num1/idx0/idx0_200/cube_0p06m_xhand_tro.json
+  grasp_pose_base_z_euler_filter_enabled: false
+  grasp_pose_max_abs_base_z_euler_deg: 60.0
+  grasp_source_mode: offline_buffer
+  hand_camera_calibration_id: xhand_scene_design_060_direct_link7_v2
+  hand_camera_depth_fps: 60
+  hand_camera_depth_quant_range_m: 0.0
+  hand_camera_height: 720
+  hand_camera_names:
+  - wrist
+  - hukou
+  hand_camera_rgb_fps: 60
+  hand_camera_rgb_jpeg_quality: 90
+  hand_camera_width: 960
+  hand_closure_mode: tro_then_squeeze
+  hand_open_time_s: 0.75
+  ik_active_set_mode: masked
+  ik_interpolation_dt_s: 0.016666666666666666
+  ik_max_iterations: 90
+  ik_max_joint_velocity_rad_s: 0.8
+  ik_min_trajectory_duration_s: 1.0
+  ik_orientation_tolerance_rad: 0.08
+  ik_position_tolerance_m: 0.008
+  ik_profile_enabled: false
+  ik_scheduler_mode: synchronized_epoch
+  ik_trace_capture: false
+  ik_trace_max_rows: 65536
+  joint_trajectory_profile: quintic
+  max_goal_sampling_attempts: 32
+  object_flow_candidate_multiplier: 128
+  object_flow_enabled: true
+  object_flow_geometry_source: visual
+  object_flow_min_candidates: 2048
+  object_flow_num_points: 1024
+  object_flow_record_current_points_w: true
+  object_flow_sampling_method: even
+  object_flow_seed: 4103
+  object_flow_viewer_enabled: true
+  object_flow_viewer_max_segments: 16
+  offline_grasp_pose_selection: top_k
+  offline_num_grasp_pose: 16
+  online_num_grasp_pose: 8
+  online_tro_checkpoint_path: policy/TRO/ckpt/step_1000000.pth.1
+  online_tro_config_path: policy/TRO/config/infer_xhand_sim.yaml
+  online_tro_env_batch_max_size: 1
+  online_tro_env_checkpoint_path: policy/TRO/ckpt/env.ckpt
+  online_tro_input_mode: oracle_geometry
+  online_tro_num_multistart: 8
+  online_tro_object_checkpoint_path: policy/TRO/ckpt/object.ckpt
+  online_tro_object_surface_seed: 42
+  online_tro_table_surface_seed: 43
+  output_compression: none
+  output_mode: episode_hdf5_async
+  parallel_num_envs: 4
+  per_env_reset: true
+  pinned_record_slots: 2
+  place_approach_height_m: 0.1
+  place_descend_clearance_m: 0.03
+  place_enabled: false
+  place_max_sampling_attempts: 2048
+  place_min_clearance_from_obstacle_m: 0.14
+  place_min_clearance_from_pick_m: 0.12
+  place_radial_max_m: 0.5
+  place_radial_min_m: 0.35
+  place_retreat_height_m: 0.15
+  place_xy_tolerance_m: 0.07
+  place_z_tolerance_m: 0.03
+  planner_backend: ik_joint_trajectory
+  post_grasp_lift_height_above_table_m: 0.2
+  post_hand_lock_arrival_orientation_tolerance_rad: 0.25
+  post_hand_lock_arrival_position_tolerance_m: 0.05
+  pre_hand_lock_arrival_orientation_tolerance_rad: 0.1
+  pre_hand_lock_arrival_position_tolerance_m: 0.01
+  pregrasp_offset_m: 0.12
+  pregrasp_z_offset_m: 0.0
+  record_hand_camera_depth: false
+  record_hand_camera_rgb: false
+  record_hz: 60
+  record_output_dir: outputs/tro_mp
+  record_rgbd: false
+  reset_rng_mode: batched_deterministic
+  reset_settle_time_s: 2.0
+  rgbd_camera_convention: ros
+  rgbd_camera_pos:
+  - 0.4
+  - -0.48
+  - 1.2
+  rgbd_camera_quat_wxyz:
+  - -0.254405372
+  - 0.9667477
+  - -0.025158671
+  - 0.006620653
+  rgbd_clipping_range:
+  - 0.1
+  - 3.0
+  rgbd_focal_length: 24.0
+  rgbd_focus_distance: 400.0
+  rgbd_height: 480
+  rgbd_horizontal_aperture: 27.7128
+  rgbd_horizontal_aperture_offset: 0.0
+  rgbd_image_chunk_frames: 4
+  rgbd_vertical_aperture_offset: 0.0
+  rgbd_width: 640
+  robot_arm_surface_num_points: 2048
+  robot_hand_surface_num_points: 1024
+  robot_surface_arm_link_exprs:
+  - link1
+  - link2
+  - link3
+  - link4
+  - link5
+  - link6
+  - link7
+  robot_surface_flow_viewer_max_points: 256
+  robot_surface_geometry_source: visual
+  robot_surface_hand_link_exprs:
+  - Xhand_____SLDASM
+  - right_hand_.*
+  robot_table_surface_flow_enabled: true
+  settle_time_s: 0.5
+  shard_episode_capacity: 256
+  shard_max_frames: 2400
+  squeeze_fraction: 0.6
+  squeeze_time_s: 0.75
+  surface_candidate_multiplier: 128
+  surface_flow_html_enabled: true
+  surface_flow_seed: 5101
+  surface_min_candidates: 2048
+  surface_point_storage_mode: metadata_only
+  surface_points_seed: 4103
+  surface_sampling_algorithm_version: 2
+  surface_sampling_backend: cuda_batch
+  surface_sampling_max_candidates: 262144
+  surface_sampling_method: even
+  surface_sampling_scope: per_env
+  table_surface_flow_viewer_max_points: 128
+  table_surface_num_points: 1024
+  table_surface_z_offset_m: 0.15
+  table_top_height_tolerance_m: 0.002
+  table_top_normal_min_z: 0.95
+  trajectory_obstacle_clearance_m: 0.04
+  trajectory_obstacle_enabled: false
+  trajectory_obstacle_layout_from_planned: false
+  trajectory_obstacle_max_count: 6
+  trajectory_obstacle_min_clearance_from_pick_m: 0.12
+  trajectory_obstacle_min_segment_arc_m: 0.03
+  trajectory_obstacle_min_spacing_m: 0.15
+  trajectory_obstacle_min_turn_angle_rad: 0.17453292519943295
+  trajectory_obstacle_min_z_margin_m: 0.02
+  trajectory_obstacle_payload_half_z_m: 0.06
+  trajectory_obstacle_payload_radius_m: 0.06
+  trajectory_obstacle_phases:
+  - lift
+  - ee_plan_execute
+  - place_plan
+  trajectory_obstacle_scatter_3d: false
+  trajectory_obstacle_scatter_bounds_max:
+  - 1.15
+  - 0.7
+  - 0.8
+  trajectory_obstacle_scatter_bounds_min:
+  - -0.5
+  - -0.7
+  - 0.03
+  trajectory_obstacle_scatter_count: 60
+  trajectory_obstacle_scatter_envelope_m: 0.18
+  trajectory_obstacle_scatter_size_m:
+  - 0.05
+  - 0.05
+  - 0.05
+  trajectory_obstacle_scatter_spacing_m: 0.08
+  trajectory_obstacle_scatter_tall_count: 6
+  trajectory_obstacle_shell_band_m: 0.25
+  trajectory_obstacle_shell_fraction: 0.6
+  trajectory_obstacle_side_offset_m: 0.14
+  trajectory_obstacle_size_m:
+  - 0.05
+  - 0.05
+  - 0.1
+  trajectory_tall_hand_extension_margin_m: 0.03
+  trajectory_tall_hand_radius_m: 0.15
+  trajectory_tall_min_visible_m: 0.05
+  trajectory_tall_near_radius_m: 0.05
+  trajectory_tall_obstacle_count: 1
+  trajectory_tall_obstacle_size_m:
+  - 0.05
+  - 0.05
+  - 0.2
+  trajectory_tall_trigger_z_above_table_m: 0.15
+  tro_hand_transition_time_s: 1.0
+  visualization_enabled: false
+  visualization_env_ids:
+  - 0
+  visualization_every_n_env0_episodes: 10
+  writer_processes: 2
+  writer_queue_max_bytes: 2147483648

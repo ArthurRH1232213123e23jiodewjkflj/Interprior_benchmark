@@ -1,0 +1,67 @@
+{
+  "robot_base": [
+    -0.6,
+    0.0,
+    0.6
+  ],
+  "obj_size": 0.05,
+  "note": "xArm7+Wuji reach test: lift cube off surface, carry to arm-stretch limit, set down. world frame, base=(-0.6,0,0.6), table_top_z=0.6",
+  "keyframes": [
+    {
+      "t": 0.0,
+      "pos": [
+        -0.3,
+        0.0,
+        0.625
+      ],
+      "quat_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "t": 0.3,
+      "pos": [
+        -0.3,
+        0.0,
+        0.825
+      ],
+      "quat_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "t": 0.65,
+      "pos": [
+        0.05,
+        0.0,
+        0.825
+      ],
+      "quat_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "t": 1.0,
+      "pos": [
+        0.05,
+        0.0,
+        0.625
+      ],
+      "quat_wxyz": [
+        1,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

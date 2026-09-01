@@ -1,0 +1,69 @@
+# XHand teacher-replay physics gate -- the first physics check on the XHand line.
+#
+# Purpose: replay each episode's recorded joint targets and ask whether this sim
+# reproduces the object motion the collector recorded. That is a check on the
+# delivery's physics and on our env wiring, NOT a policy score. The cube line's
+# equivalent (cube_lift_follow_v1, 2026-08-28) reached a 1.4-3.3mm median, and
+# that is what licensed trusting its policy numbers.
+#
+# Nothing here has been validated yet -- this suite is the thing being tried.
+
+name: xhand_ge40_0000_replay_v1
+task: cube_lift_follow_v1
+description: >
+  Teacher-action replay of the tromp_xhand_20260828_v002 ge40_0000 delivery:
+  513 success + training_eligible episodes, 19 DOF (7 arm + 12 XHand fingers).
+  Each case restores the recorded frame-0 state and replays
+  robot_joint_pos_target frame by frame; the gate is whether the object follows
+  its recorded path.
+
+# Frozen from the delivery's own resolved config, which the v10 publish embeds in
+# dataset_metadata.json -> environment_configs[0] (with the producer's sha256
+# 47e75b37...) rather than shipping a task_config_resolved.yaml file.
+# 25 leaves came from the data, 7 differ from the cube profile and all 7 are
+# expected: the xhand grasp buffer (cube_0p06m_xhand_tro.npz),
+# squeeze_fraction 0.5 -> 0.6, the reset annulus bounds, and ee_goal_sample_mode.
+#
+# Watch tro_mp.output_mode: shard -> episode_hdf5_async. It is a collector-side
+# key that verify.py nonetheless checks, and replay never writes episodes, so it
+# should be harmless -- but if physics_gate_ok comes back false, look there first.
+physics_profile: tro_mp_xhand_20260828.yaml
+
+# THE critical line. The profile deliberately does not declare robot_urdf,
+# robot_profile or action_space, because the cube template does not declare them
+# either -- in both cases the robot comes from the checkout's TroMpEnvCfg
+# defaults. Those defaults differ:
+#
+#   /mnt/venv_share/H800/Interprior      (8-09)  -> no declaration, inherits Wuji
+#   /home/lijiawei/workspace/Interprior  (feature/tro_mp_xhand)
+#       action_space: int = 19
+#       robot_urdf = xarm7_xhand_right_description/xarm7_xhand_right.urdf
+#       robot_profile = "xhand"
+#
+# So pointing at the XHand checkout is what makes the env build an XHand robot.
+# Pointing at the cube root instead would silently replay 19-dim targets on a
+# 27-DOF Wuji hand, and the object trajectory would diverge in a way that looks
+# like broken physics rather than a wrong robot.
+interprior_root: /home/lijiawei/workspace/Interprior
+
+cases_from: xhand_ge40_0000_cases.json
+
+# start_frame 0: begin at the recorded frame 0, object on the table, nothing
+# pre-grasped -- the replay has to reproduce the grasp too.
+start_frame: 0
+
+# The plan window measured from this delivery's flow_ranges.parquet: the object
+# plan starts at source frame 537 on all 513 episodes (min = median = max).
+plan_source_start: 537
+
+# 1641 is the minimum frame_count across all 513 episodes, so every case can be
+# replayed to this horizon. The recorded episodes run to 1641-1707 frames
+# (termination.episode_length is 2400 but none reach it).
+max_frames: 1641
+
+post_plan_frames: 0
+goal_source: derived_shard
+
+# Start with 4 cases. The point of the first run is whether the wiring is right
+# at all; scaling up before the gate passes once would just multiply a failure.
+limit: 4

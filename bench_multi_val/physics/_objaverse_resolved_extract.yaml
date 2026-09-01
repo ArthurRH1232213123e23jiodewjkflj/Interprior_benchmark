@@ -1,0 +1,729 @@
+action:
+  arm_moving_average: 0.1
+  dof_speed_scale: 1.5
+  hand_moving_average: 0.1
+action_noise_model: null
+action_space: 27
+assets:
+  cube_density: 800.0
+  cube_mass_mode: constant_density
+  cube_pool_size: 64
+  cube_sampling_mode: fixed
+  cube_sampling_seed: 42
+  cube_size_max:
+  - 0.1
+  - 0.1
+  - 0.1
+  cube_size_min:
+  - 0.03
+  - 0.03
+  - 0.03
+  finger_tip_friction: 1.5
+  fingertip_body_mode: link4
+  handle_head_types:
+  - hammer
+  - screwdriver
+  - marker
+  - spatula
+  - eraser
+  - brush
+  modify_asset_frictions: true
+  num_assets_per_type: 100
+  object_bbox_max_m: null
+  object_bbox_min_m: null
+  object_collider_type: convex_hull
+  object_friction: 0.5
+  object_missing_inertial_density_kg_m3: 200.0
+  object_name: handle_head_primitives
+  object_scale: null
+  object_size_m: null
+  object_support_height_m: null
+  object_urdf: ''
+  robot_base_on_table_center: true
+  robot_friction: 0.5
+  robot_initial_pos:
+  - 0.0
+  - -0.08
+  - 0.53
+  robot_initial_rot_wxyz:
+  - 1.0
+  - 0.0
+  - 0.0
+  - 0.0
+  robot_self_collision_enabled: true
+  robot_urdf: assets/urdf/xarm7_wuji_right_description/xarm7_wuji_right.urdf
+  shuffle_assets: true
+  table_friction: 0.5
+  table_scale_num_variants: 1
+  table_scale_range_x:
+  - 1.0
+  - 1.0
+  table_scale_range_y:
+  - 1.0
+  - 1.0
+  table_urdf: assets/urdf/table_round_large.urdf
+data_generation_contract:
+  ee_goal_sampling:
+    implementation: isaacsimenvs.tasks.tro_mp.utils.ee_goal_sampling
+    logic: global_annulus_then_relative_ball_v1
+    parameters:
+      first_goal:
+        azimuth_center_rad: 0.0
+        azimuth_half_angle_rad: 0.5235987755982988
+        height_range_m:
+        - 0.25
+        - 0.65
+        max_rotation_rad: 0.5235987755982988
+        method: global_annulus
+        orientation_reference: current_link7
+        radial_range_m:
+        - 0.32
+        - 0.55
+      frame: robot_base
+      logic: global_annulus_then_relative_ball_v1
+      max_rejection_attempts: 64
+      source: flow_cube_round_table
+      subsequent_goal:
+        global_azimuth_center_rad: 0.0
+        global_azimuth_half_angle_rad: 0.5235987755982988
+        global_height_range_m:
+        - 0.25
+        - 0.65
+        global_radial_range_m:
+        - 0.32
+        - 0.55
+        max_rotation_rad: 0.5235987755982988
+        method: relative_ball
+        orientation_reference: previous_accepted_goal
+        relative_radius_range_m:
+        - 0.04
+        - 0.08
+    trajectory_pattern:
+      config_path: isaacsimenvs/cfg/trajectory/TroMpTrajectory.yaml
+      config_sha256: 06c9e2fe8ac5aa491ecaca214d1a43d1730c54b424ee3074a0d853e18d65072f
+      logic: global_annulus_then_relative_ball_v1
+      parameters:
+        first_goal:
+          azimuth_center_rad: 0.0
+          azimuth_half_angle_rad: 0.5235987755982988
+          height_range_m:
+          - 0.25
+          - 0.65
+          max_rotation_rad: 0.5235987755982988
+          method: global_annulus
+          orientation_reference: current_link7
+          radial_range_m:
+          - 0.32
+          - 0.55
+        frame: robot_base
+        logic: global_annulus_then_relative_ball_v1
+        max_rejection_attempts: 64
+        source: flow_cube_round_table
+        subsequent_goal:
+          global_azimuth_center_rad: 0.0
+          global_azimuth_half_angle_rad: 0.5235987755982988
+          global_height_range_m:
+          - 0.25
+          - 0.65
+          global_radial_range_m:
+          - 0.32
+          - 0.55
+          max_rotation_rad: 0.5235987755982988
+          method: relative_ball
+          orientation_reference: previous_accepted_goal
+          relative_radius_range_m:
+          - 0.04
+          - 0.08
+      pattern_id: 0
+      pattern_name: traj_pattern0
+      pattern_sha256: 9219e5e2a5aa7c3a4ddabd6d963f69794e82a9d3497d96f5621bddda8c6f4e49
+      schema_version: 1
+      source: flow_cube_round_table
+  table:
+    logic: static_table_asset_v1
+    parameters:
+      ee_goal_later_table_relative_z_max_m: 0.8
+      ee_goal_table_clearance_margin_m: 0.018
+      ee_goal_table_relative_z_max_m: 0.5
+      ee_goal_table_relative_z_min_m: 0.25
+      online_tro_table_surface_seed: 43
+      post_grasp_lift_height_above_table_m: 0.2
+      robot_base_on_table_center: true
+      robot_table_surface_flow_enabled: true
+      table_friction: 0.5
+      table_scale_num_variants: 1
+      table_scale_range_x:
+      - 1.0
+      - 1.0
+      table_scale_range_y:
+      - 1.0
+      - 1.0
+      table_surface_flow_viewer_max_points: 512
+      table_surface_num_points: 512
+      table_surface_z_offset_m: 0.15
+      table_top_height_tolerance_m: 0.002
+      table_top_normal_min_z: 0.95
+      table_urdf: assets/urdf/table_round_large.urdf
+decimation: 2
+domain_randomization:
+  action_delay_max: 3
+  fingertip_friction_scale_range:
+  - 1.0
+  - 1.0
+  force_decay: 0.0
+  force_decay_interval: 0.08
+  force_only_when_lifted: true
+  force_prob_range:
+  - 0.001
+  - 0.1
+  force_scale: 20.0
+  friction_n_buckets: 16
+  joint_velocity_obs_noise_std: 0.1
+  object_friction_scale_range:
+  - 1.0
+  - 1.0
+  object_scale_noise_multiplier_range:
+  - 1.0
+  - 1.0
+  object_state_delay_max: 10
+  object_state_rotation_noise_degrees: 5.0
+  object_state_xyz_noise_std: 0.01
+  obs_delay_max: 3
+  torque_decay: 0.0
+  torque_decay_interval: 0.08
+  torque_only_when_lifted: true
+  torque_prob_range:
+  - 0.001
+  - 0.1
+  torque_scale: 2.0
+  use_action_delay: true
+  use_object_state_delay_noise: true
+  use_obs_delay: true
+episode_length_s: 40.0
+events: null
+is_finite_horizon: false
+log_dir: null
+num_actions: null
+num_observations: null
+num_rerenders_on_reset: 0
+num_states: null
+obs:
+  clamp_abs_observations: 10.0
+  obs_list:
+  - joint_pos
+  - joint_vel
+  - prev_action_targets
+  - palm_pos
+  - palm_rot
+  - object_rot
+  - fingertip_pos_rel_palm
+  - keypoints_rel_palm
+  - keypoints_rel_goal
+  - object_scales
+  state_list:
+  - joint_pos
+  - joint_vel
+  - prev_action_targets
+  - palm_pos
+  - palm_rot
+  - palm_vel
+  - object_rot
+  - object_vel
+  - fingertip_pos_rel_palm
+  - keypoints_rel_palm
+  - keypoints_rel_goal
+  - object_scales
+  - closest_keypoint_max_dist
+  - closest_fingertip_dist
+  - lifted_object
+  - progress
+  - successes
+  - reward
+observation_noise_model: null
+observation_space: 140
+rerender_on_reset: false
+reset:
+  delta_goal_distance: 0.1
+  delta_rotation_degrees: 90.0
+  fixed_goal_pose: null
+  fixed_start_pose: null
+  fixed_trajectory_count: 0
+  fixed_trajectory_file: ''
+  goal_orientation_mode: random
+  goal_robot_clearance_m: 0.1
+  goal_sampling_max_attempts: 16
+  goal_sampling_type: delta
+  object_reset_center_xy:
+  - 0.45
+  - 0.0
+  object_reset_orientation_mode: yaw_only
+  object_reset_range_xy:
+  - 0.0
+  - 0.0
+  object_reset_sampling_mode: front_sector
+  object_reset_sector_edge_margin_m: 0.01
+  object_reset_sector_half_angle_rad: 1.3089969389957472
+  object_reset_sector_radial_range_m:
+  - 0.3
+  - 0.6
+  object_reset_sector_table_radius_m: 0.7
+  object_reset_z_mode: table_contact_bbox
+  reset_dof_pos_random_interval_arm: 0.0
+  reset_dof_pos_random_interval_fingers: 0.0
+  reset_dof_vel_random_interval: 0.0
+  reset_position_noise_x: 0.1
+  reset_position_noise_y: 0.1
+  reset_position_noise_z: 0.0
+  robot_start_arm_joint_pos:
+  - 0.0
+  - -0.548838
+  - -4.0e-06
+  - 0.096461
+  - 0.0
+  - 0.64349
+  - 5.0e-06
+  start_arm_higher: false
+  table_contact_margin: 0.002
+  table_object_z_offset: 0.15
+  table_reset_xy_range_m:
+  - 0.0
+  - 0.0
+  table_reset_yaw_range_deg: 0.0
+  table_reset_z: 0.38
+  table_reset_z_range: 0.0
+  table_surface_z_offset: 0.15
+  target_volume_maxs:
+  - 0.6
+  - 0.15
+  - 0.83
+  target_volume_mins:
+  - 0.3
+  - -0.15
+  - 0.83
+  target_volume_region_scale: 1.0
+reward:
+  bonus_lift_mode: legacy
+  dense_lift_reference_mode: legacy
+  distance_delta_rew_scale: 50.0
+  fixed_size:
+  - 0.141
+  - 0.03025
+  - 0.0271
+  fixed_size_keypoint_reward: true
+  hand_actions_penalty_scale: 0.003
+  keypoint_rew_scale: 200.0
+  keypoint_scale: 1.5
+  kuka_actions_penalty_scale: 0.03
+  lifting_bonus: 300.0
+  lifting_bonus_threshold: 0.15
+  lifting_rew_scale: 20.0
+  object_base_size: 0.04
+  reach_goal_bonus: 1000.0
+scene:
+  clone_in_fabric: false
+  env_spacing: 1.2
+  filter_collisions: true
+  lazy_sensor_update: true
+  num_envs: 8192
+  replicate_physics: false
+seed: null
+sim:
+  create_stage_in_memory: false
+  device: cuda:0
+  dt: 0.008333333333333333
+  enable_scene_query_support: false
+  gravity:
+  - 0.0
+  - 0.0
+  - -9.81
+  log_dir: /home/zuoyufan/code/Interprior/outputs/logs/tro_mp
+  logging_level: WARNING
+  physics_material:
+    compliant_contact_damping: 0.0
+    compliant_contact_stiffness: 0.0
+    dynamic_friction: 0.5
+    friction_combine_mode: average
+    func: isaaclab.sim.spawners.materials.physics_materials:spawn_rigid_body_material
+    restitution: 0.0
+    restitution_combine_mode: average
+    static_friction: 0.5
+  physics_prim_path: /physicsScene
+  physx:
+    bounce_threshold_velocity: 0.2
+    enable_ccd: false
+    enable_enhanced_determinism: false
+    enable_external_forces_every_iteration: false
+    enable_stabilization: false
+    friction_correlation_distance: 0.025
+    friction_offset_threshold: 0.04
+    gpu_collision_stack_size: 67108864
+    gpu_found_lost_aggregate_pairs_capacity: 33554432
+    gpu_found_lost_pairs_capacity: 2097152
+    gpu_heap_capacity: 67108864
+    gpu_max_num_partitions: 8
+    gpu_max_particle_contacts: 1048576
+    gpu_max_rigid_contact_count: 16777216
+    gpu_max_rigid_patch_count: 8388608
+    gpu_max_soft_body_contacts: 1048576
+    gpu_temp_buffer_capacity: 16777216
+    gpu_total_aggregate_pairs_capacity: 2097152
+    max_position_iteration_count: 64
+    max_velocity_iteration_count: 64
+    min_position_iteration_count: 8
+    min_velocity_iteration_count: 0
+    robot_solver_position_iterations: 16
+    robot_solver_velocity_iterations: 8
+    solve_articulation_contact_last: false
+    solver_type: 1
+  render:
+    antialiasing_mode: null
+    carb_settings: null
+    dlss_mode: null
+    dome_light_upper_lower_strategy: null
+    enable_ambient_occlusion: null
+    enable_direct_lighting: null
+    enable_dl_denoiser: null
+    enable_dlssg: null
+    enable_global_illumination: null
+    enable_reflections: null
+    enable_shadows: null
+    enable_translucency: null
+    rendering_mode: null
+    samples_per_pixel: null
+  render_interval: 2
+  save_logs_to_file: true
+  use_fabric: true
+state_space: 140
+student_obs:
+  camera_backend: tiled
+  camera_convention: ros
+  camera_delay_max: 0
+  camera_mount: world
+  camera_pos:
+  - 0.0
+  - -1.0
+  - 1.0
+  camera_pos_noise_m:
+  - 0.01
+  - 0.01
+  - 0.01
+  camera_quat_wxyz:
+  - 1.0
+  - 0.0
+  - 0.0
+  - 0.0
+  camera_rot_noise_deg:
+  - 1.0
+  - 1.0
+  - 1.0
+  camera_update_period_s: 0.0
+  clipping_range:
+  - 0.1
+  - 5.0
+  crop_bottom_right:
+  - 0
+  - 0
+  crop_enabled: false
+  crop_top_left:
+  - 0
+  - 0
+  depth_aug_correlated_kernel_size: 5
+  depth_aug_correlated_std_m: 0.003
+  depth_aug_dropout_prob: 0.003
+  depth_aug_gaussian_std_m: 0.002
+  depth_aug_max_sticks_per_image: 8
+  depth_aug_randu_max_m: 1.3
+  depth_aug_randu_min_m: 0.5
+  depth_aug_randu_prob: 0.003
+  depth_aug_stick_max_len_px: 18
+  depth_aug_stick_max_width_px: 3
+  depth_aug_stick_prob: 0.00025
+  depth_max_m: 1.25
+  depth_min_m: 0.45
+  depth_preprocess_mode: window_normalize
+  enabled: false
+  focal_length: 24.0
+  focus_distance: 400.0
+  fs_downsample_to_policy_res: true
+  fs_engine_dir: ''
+  fs_max_disp: 192
+  fs_model_dir: third_party/Fast-FoundationStereo/weights/23-36-37
+  fs_stereo_baseline_m: 0.12
+  fs_stereo_height: 224
+  fs_stereo_width: 384
+  fs_valid_iters: 4
+  hide_goal_viz: true
+  horizontal_aperture: 33.19737869997174
+  horizontal_aperture_offset: 0.0035
+  image_enabled: true
+  image_height: 90
+  image_input_height: 90
+  image_input_width: 160
+  image_modality: depth
+  image_width: 160
+  proprio_list:
+  - joint_pos
+  - joint_vel
+  - prev_action_targets
+  raycast_depth_clipping_behavior: none
+  raycast_dynamic_prim_exprs:
+  - /World/envs/env_.*/Table/box/visuals
+  - /World/envs/env_.*/Hole/hole/visuals
+  - /World/envs/env_.*/Object/.*/visuals
+  - /World/envs/env_.*/Robot/link.*/visuals
+  - /World/envs/env_.*/Robot/right_.*/visuals
+  raycast_max_distance_m: 10.0
+  raycast_static_prim_exprs:
+  - /World/ground
+  student_obs_delay_max: 0
+  use_camera_delay: false
+  use_camera_pose_rand: false
+  use_depth_aug: false
+  use_student_obs_delay: false
+  vertical_aperture_offset: 0.4418
+termination:
+  episode_length: 2400
+  eval_success_tolerance: null
+  force_consecutive_near_goal_steps: false
+  max_consecutive_successes: 50
+  success_steps: 10
+  success_tolerance: 0.075
+  target_success_tolerance: 0.01
+  tolerance_curriculum_increment: 0.9
+  tolerance_curriculum_interval: 3000
+  tolerance_curriculum_success_threshold: 3.0
+trajectory_pattern:
+  config_path: isaacsimenvs/cfg/trajectory/TroMpTrajectory.yaml
+  config_sha256: 06c9e2fe8ac5aa491ecaca214d1a43d1730c54b424ee3074a0d853e18d65072f
+  logic: global_annulus_then_relative_ball_v1
+  parameters:
+    first_goal:
+      azimuth_center_rad: 0.0
+      azimuth_half_angle_rad: 0.5235987755982988
+      height_range_m:
+      - 0.25
+      - 0.65
+      max_rotation_rad: 0.5235987755982988
+      method: global_annulus
+      orientation_reference: current_link7
+      radial_range_m:
+      - 0.32
+      - 0.55
+    frame: robot_base
+    logic: global_annulus_then_relative_ball_v1
+    max_rejection_attempts: 64
+    source: flow_cube_round_table
+    subsequent_goal:
+      global_azimuth_center_rad: 0.0
+      global_azimuth_half_angle_rad: 0.5235987755982988
+      global_height_range_m:
+      - 0.25
+      - 0.65
+      global_radial_range_m:
+      - 0.32
+      - 0.55
+      max_rotation_rad: 0.5235987755982988
+      method: relative_ball
+      orientation_reference: previous_accepted_goal
+      relative_radius_range_m:
+      - 0.04
+      - 0.08
+  pattern_id: 0
+  pattern_name: traj_pattern0
+  pattern_sha256: 9219e5e2a5aa7c3a4ddabd6d963f69794e82a9d3497d96f5621bddda8c6f4e49
+  schema_version: 1
+  source: flow_cube_round_table
+tro_mp:
+  artifact_mode: full_trajectory
+  cartesian_differential_min_steps: 60
+  cartesian_differential_waypoint_spacing_m: 0.004
+  conservative_closure_fraction: 0.6
+  continue_ee_sampling_until_episode_limit: true
+  cube_lift_height_threshold_m: 0.02
+  differential_damping: 0.04
+  differential_max_joint_step_rad: 0.035
+  differential_orientation_gain: 0.65
+  differential_position_gain: 1.0
+  ee_first_target_volume_maxs:
+  - 0.6
+  - 0.6
+  - 2.0
+  ee_first_target_volume_mins:
+  - 0.0
+  - -0.6
+  - 0.0
+  ee_goal_first_local_sector_angle_rad: 1.0471975511965976
+  ee_goal_first_max_rotation_rad: 0.5235987755982988
+  ee_goal_hand_envelope_radius_m: 0.18
+  ee_goal_held_cube_bounding_radius_m: 0.052
+  ee_goal_later_table_relative_z_max_m: 0.8
+  ee_goal_radial_max_m: 0.6
+  ee_goal_radial_min_m: 0.3
+  ee_goal_relative_max_rotation_rad: 0.5235987755982988
+  ee_goal_relative_shell_radius_m:
+  - 0.15
+  - 0.3
+  ee_goal_sector_half_angle_rad: 1.3089969389957472
+  ee_goal_table_clearance_margin_m: 0.018
+  ee_goal_table_relative_z_max_m: 0.5
+  ee_goal_table_relative_z_min_m: 0.25
+  ee_target_volume_maxs:
+  - 0.6
+  - 0.6
+  - 2.0
+  ee_target_volume_mins:
+  - 0.0
+  - -0.6
+  - 0.0
+  ee_target_volume_region_scale: 1.0
+  execution_mode: gpu_vectorized
+  family_reset_sampling_mode: tabletop_se2
+  family_reset_seed_mode: stateless_episode_key_v1
+  family_reset_xy_half_range_m:
+  - 0.02
+  - 0.02
+  family_reset_yaw_half_range_rad: 3.141592653589793
+  gpu_ik_batch_max_size: 8192
+  gpu_ik_device: ''
+  gpu_ik_dtype: float32
+  gpu_record_ring_enabled: true
+  grasp_buffer_path: /home/zuoyufan/code/Interprior/isaacsimenvs/tasks/tro_mp/grasp_buffers/cube_num1/idx0/idx0_520/cube_0p06m_wuji_tro.npz
+  grasp_execution_offset_m: 0.0
+  grasp_metadata_path: /home/zuoyufan/code/Interprior/isaacsimenvs/tasks/tro_mp/grasp_buffers/cube_num1/idx0/idx0_520/cube_0p06m_wuji_tro.json
+  grasp_pose_base_z_euler_filter_enabled: false
+  grasp_pose_max_abs_base_z_euler_deg: 60.0
+  grasp_source_mode: offline_buffer
+  hand_closure_mode: tro_then_squeeze
+  ik_active_set_mode: masked
+  ik_interpolation_dt_s: 0.016666666666666666
+  ik_max_iterations: 90
+  ik_max_joint_velocity_rad_s: 0.8
+  ik_min_trajectory_duration_s: 1.0
+  ik_orientation_tolerance_rad: 0.08
+  ik_position_tolerance_m: 0.008
+  ik_profile_enabled: false
+  ik_scheduler_mode: synchronized_epoch
+  ik_trace_capture: false
+  ik_trace_max_rows: 65536
+  joint_trajectory_profile: quintic
+  max_goal_sampling_attempts: 32
+  obj_source: objaverse
+  objaverse_reset_mode: direct_pose_pair
+  object_flow_candidate_multiplier: 128
+  object_flow_enabled: true
+  object_flow_geometry_source: visual
+  object_flow_min_candidates: 2048
+  object_flow_num_points: 1024
+  object_flow_record_current_points_w: true
+  object_flow_sampling_method: even
+  object_flow_seed: 4103
+  object_flow_viewer_enabled: true
+  object_flow_viewer_max_segments: 128
+  offline_grasp_pose_selection: top_k
+  offline_num_grasp_pose: 1
+  online_num_grasp_pose: 8
+  online_tro_checkpoint_path: policy/TRO/ckpt/tro_wuji/step_975000.pth
+  online_tro_config_path: policy/TRO/config/infer_wuji_sim.yaml
+  online_tro_env_batch_max_size: 1
+  online_tro_input_mode: oracle_geometry
+  online_tro_num_multistart: 8
+  online_tro_object_surface_seed: 42
+  online_tro_table_surface_seed: 43
+  output_compression: none
+  output_mode: shard
+  parallel_num_envs: 4
+  per_env_reset: true
+  pinned_record_slots: 2
+  planner_backend: cartesian_differential_ik
+  post_grasp_lift_height_above_table_m: 0.2
+  post_hand_lock_arrival_orientation_tolerance_rad: 0.25
+  post_hand_lock_arrival_position_tolerance_m: 0.05
+  pre_hand_lock_arrival_orientation_tolerance_rad: 0.1
+  pre_hand_lock_arrival_position_tolerance_m: 0.01
+  pregrasp_offset_m: 0.12
+  record_hz: 60
+  record_rgbd: false
+  render_profile_path: ''
+  reset_rng_mode: batched_deterministic
+  reset_settle_time_s: 2.0
+  rgbd_camera_convention: ros
+  rgbd_camera_pos:
+  - 0.4
+  - -0.48
+  - 1.2
+  rgbd_camera_quat_wxyz:
+  - -0.254405372
+  - 0.9667477
+  - -0.025158671
+  - 0.006620653
+  rgbd_clipping_range:
+  - 0.1
+  - 3.0
+  rgbd_focal_length: 24.0
+  rgbd_focus_distance: 400.0
+  rgbd_height: 480
+  rgbd_horizontal_aperture: 27.7128
+  rgbd_horizontal_aperture_offset: 0.0
+  rgbd_image_chunk_frames: 4
+  rgbd_vertical_aperture_offset: 0.0
+  rgbd_width: 640
+  robot_arm_surface_num_points: 512
+  robot_hand_surface_num_points: 512
+  robot_surface_arm_link_exprs:
+  - link1
+  - link2
+  - link3
+  - link4
+  - link5
+  - link6
+  - link7
+  robot_surface_flow_viewer_max_points: 1024
+  robot_surface_geometry_source: visual
+  robot_surface_hand_link_exprs:
+  - right_palm_link
+  - right_finger[1-5]_.*
+  robot_table_surface_flow_enabled: true
+  scoring_shard_episode_capacity: 1024
+  settle_time_s: 0.5
+  shard_episode_capacity: 512
+  shard_max_frames: 2400
+  squeeze_fraction: 0.6
+  squeeze_time_s: 0.75
+  surface_candidate_multiplier: 128
+  surface_flow_html_enabled: true
+  surface_flow_seed: 5101
+  surface_min_candidates: 2048
+  surface_point_storage_mode: metadata_only
+  surface_sampling_method: even
+  table_surface_flow_viewer_max_points: 512
+  table_surface_num_points: 512
+  table_surface_z_offset_m: 0.15
+  table_top_height_tolerance_m: 0.002
+  table_top_normal_min_z: 0.95
+  tro_hand_transition_time_s: 1.0
+  visualization_enabled: false
+  visualization_env_ids:
+  - 0
+  visualization_every_n_env0_episodes: 10
+  writer_processes: 1
+  writer_queue_max_bytes: 2147483648
+ui_window_class_type: isaaclab.envs.ui.base_env_window:BaseEnvWindow
+viewer:
+  asset_name: null
+  body_name: null
+  cam_prim_path: /OmniverseKit_Persp
+  env_index: 0
+  eye:
+  - 0.5
+  - -1.5
+  - 1.2
+  lookat:
+  - 0.0
+  - 0.4
+  - 0.5
+  origin_type: world
+  resolution:
+  - 640
+  - 480
+wait_for_textures: true
+xr: null

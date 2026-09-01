@@ -1,0 +1,16 @@
+{
+  "n_demos": 1,
+  "n_ok": 1,
+  "n_err": 0,
+  "rows": [
+    {
+      "demo": "/home/huangsicheng/libero_flow/data/libero_object/pick_up_the_alphabet_soup_and_place_it_in_the_basket_demo.hdf5",
+      "ok": true,
+      "task": "pick up the alphabet soup and place it in the basket",
+      "object": "alphabet_soup_1",
+      "frames": 148,
+      "npz": "/home/huangsicheng/000/5.object_flow/libero/object_flow_from_libero/alphabet_soup_1_flow.npz",
+      "error": null
+    }
+  ]
+}

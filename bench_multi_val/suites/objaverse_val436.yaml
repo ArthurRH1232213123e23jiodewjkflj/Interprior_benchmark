@@ -1,0 +1,63 @@
+# Objaverse multi-object lift+follow — 436 held-out validation episodes.
+#
+# One episode per validation-covered self-collision object, taken from zjw's
+# FROZEN selection (sha256 recorded below). We do not re-derive the selection:
+# `objaverse_val460_v1` computes its population at run time from
+# `val_split_mod`/`val_bucket`, and both protocol docs say never to glob a
+# dataset root to discover samples. A frozen list with a digest is the shape we
+# can pin, and it is also what makes our numbers comparable to zjw's.
+#
+# PHYSICS: this suite does NOT use the cube profile. The Objaverse data was
+# produced by a different checkout whose cfg schema differs (front_sector reset
+# instead of annulus, object_flow_seed instead of surface_points_seed), so the
+# cube profile would overlay keys this env cannot read while leaving the real
+# ones unpinned.
+#
+# Of the two Objaverse profiles, this suite pins the ZJW EVAL PAIRING, because its
+# purpose is a number comparable with his 436-case results and his eval overlays
+# isaacsimenvs/cfg/task/TroMp.yaml rather than the dataset's recorded config. The
+# data-production profile (tro_mp_objaverse_selfcoll_20260824.yaml) stays in the
+# package as the A/B counterpart: swap physics_profile to it to measure what the
+# two real differences (robot self-collision, and object mass for URDFs with no
+# inertial block) are worth. Do not change it silently -- the frozen profile is
+# what makes a published number mean something.
+
+name: objaverse_val436
+task: objaverse_lift_follow_v1
+description: >
+  436 held-out Objaverse episodes, one per validation-covered self-collision
+  object. Each case starts from the recorded initial state at source frame 121
+  with the object resting on the table -- NOT pre-grasped -- and receives that
+  episode's object-flow plan cropped to source [121, 768). The policy must grasp
+  its own object, which differs per case, then follow the plan.
+
+# Env code must be this checkout: the venv_share roots predate
+# heterogeneous_pool_mode and cannot spawn these assets at all.
+physics_profile: tro_mp_objaverse_zjw_eval_pairing_20260826.yaml
+interprior_root: /home/zhangjiawei/Interprior
+
+# zjw's frozen selection, converted to our case schema by
+# `python -m bench_multi_val.suites.convert_selection`.
+#   source      : configs/evaluation/selections/txy_exp18_selfcoll_val_one_per_object_v1.json
+#   selection   : cd6a487812124e0be19c235eb16c2b0b911f17ccda246fbc215bdaf5a1ac6371
+#   publish     : 6db58a89ffee2273ef97f911cd31fd215199ec7242e97597aea8112fef04dab1
+#   partition   : d8966040891b9a000aeada9bb1cc7aa49756cd15ab2603ac174f0f3ec23be0db
+cases_from: objaverse_val436_cases.json
+
+# THE THREE OFFSETS ARE INDEPENDENT. Getting two of three aligned is what faked
+# a 0/200 on the cube benchmark when the truth was 112/200.
+#   start_frame        -- where the SIMULATION begins
+#   plan_source_start  -- which slice of the recorded plan is the TASK
+#   (scoring reference follows plan_source_start, inside the driver)
+# zjw's benchmark JSON pins source [121, 768) for all three multi-object suites.
+start_frame: 121
+plan_source_start: 121
+
+# 647 = 768 - 121, and it is also hard-locked by the checkpoints
+# (object_flow_plan_min_frames == max_frames == 647 for exp17_*). Asking for more
+# is silently truncated.
+max_frames: 647
+post_plan_frames: 0
+
+goal_source: derived_shard
+limit: 8

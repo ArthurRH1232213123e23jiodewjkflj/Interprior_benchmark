@@ -1,0 +1,43 @@
+{
+  "donor_envelope": {
+    "shard": "/mnt/zuoyufan/tro_output/runs/20260818/4gpu_10k_env_2ep_20260818_174153_batch01_gpu4/runs/4gpu_10k_env_2ep_20260818_174153_batch01_gpu4_postprocess/derived/success/shards/derived_000427",
+    "slot": 2,
+    "xy_radius_min_m": 0.395956197791354,
+    "xy_radius_max_m": 0.687219157099628,
+    "z_min_m": 0.029993951320648193,
+    "z_max_m": 0.6531290411949158,
+    "dist3d_max_m": 0.9073981000534583,
+    "cube_half_extent_m": 0.030000001192092896,
+    "frames": 2400
+  },
+  "trajectories": [
+    {
+      "goal_npz": "/home/huangsicheng/benchmark/bench_cube_val/tasks/cube_reach/flows_authored/my_traj_v1/my_traj_v1_pointflow.npz",
+      "name": "my_traj_v1_pointflow",
+      "frames": 64,
+      "start_pos_m": [
+        0.3965,
+        0.0985,
+        0.03
+      ],
+      "end_pos_m": [
+        0.3965,
+        -0.1316,
+        0.0309
+      ],
+      "displacement_m": 0.2301,
+      "xy_radius_range_m": [
+        0.3965,
+        0.4178
+      ],
+      "z_range_m": [
+        0.03,
+        0.2146
+      ],
+      "rise_m": 0.1846,
+      "in_envelope": true,
+      "reasons": [],
+      "notes": []
+    }
+  ]
+}

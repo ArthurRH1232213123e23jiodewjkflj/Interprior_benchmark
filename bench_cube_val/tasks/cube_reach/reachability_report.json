@@ -1,0 +1,230 @@
+{
+  "donor_envelope": {
+    "shard": "/mnt/zuoyufan/tro_output/runs/20260818/4gpu_10k_env_2ep_20260818_174153_batch01_gpu4/runs/4gpu_10k_env_2ep_20260818_174153_batch01_gpu4_postprocess/derived/success/shards/derived_000427",
+    "slot": 2,
+    "xy_radius_min_m": 0.395956197791354,
+    "xy_radius_max_m": 0.687219157099628,
+    "z_min_m": 0.029993951320648193,
+    "z_max_m": 0.6531290411949158,
+    "dist3d_max_m": 0.9073981000534583,
+    "cube_half_extent_m": 0.030000001192092896,
+    "frames": 2400
+  },
+  "trajectories": [
+    {
+      "goal_npz": "/home/huangsicheng/benchmark/bench_cube_val/tasks/cube_reach/flows/reach_0_pointflow.npz",
+      "name": "reach_0_pointflow",
+      "frames": 64,
+      "start_pos_m": [
+        0.4016,
+        0.1831,
+        0.0257
+      ],
+      "end_pos_m": [
+        1.1365,
+        0.1831,
+        0.0243
+      ],
+      "displacement_m": 0.735,
+      "xy_radius_range_m": [
+        0.4413,
+        1.1512
+      ],
+      "z_range_m": [
+        0.0243,
+        0.3005
+      ],
+      "rise_m": 0.2748,
+      "in_envelope": false,
+      "reasons": [
+        "reaches 1.151 m from base, donor envelope is 0.907 m",
+        "xy radius 1.151 m exceeds donor 0.687 m"
+      ],
+      "notes": []
+    },
+    {
+      "goal_npz": "/home/huangsicheng/benchmark/bench_cube_val/tasks/cube_reach/flows/reach_1_pointflow.npz",
+      "name": "reach_1_pointflow",
+      "frames": 64,
+      "start_pos_m": [
+        0.3722,
+        0.1831,
+        0.0243
+      ],
+      "end_pos_m": [
+        0.055,
+        -0.5624,
+        0.0264
+      ],
+      "displacement_m": 0.8102,
+      "xy_radius_range_m": [
+        0.4148,
+        1.1478
+      ],
+      "z_range_m": [
+        0.0243,
+        0.3246
+      ],
+      "rise_m": 0.3003,
+      "in_envelope": false,
+      "reasons": [
+        "reaches 1.193 m from base, donor envelope is 0.907 m",
+        "xy radius 1.148 m exceeds donor 0.687 m"
+      ],
+      "notes": []
+    },
+    {
+      "goal_npz": "/home/huangsicheng/benchmark/bench_cube_val/tasks/cube_reach/flows/reach_2_pointflow.npz",
+      "name": "reach_2_pointflow",
+      "frames": 64,
+      "start_pos_m": [
+        0.6358,
+        -0.0106,
+        0.0264
+      ],
+      "end_pos_m": [
+        0.6459,
+        0.0879,
+        0.0253
+      ],
+      "displacement_m": 0.099,
+      "xy_radius_range_m": [
+        0.6359,
+        1.1621
+      ],
+      "z_range_m": [
+        0.0253,
+        0.0264
+      ],
+      "rise_m": 0.0,
+      "in_envelope": false,
+      "reasons": [
+        "reaches 1.162 m from base, donor envelope is 0.907 m",
+        "xy radius 1.162 m exceeds donor 0.687 m"
+      ],
+      "notes": [
+        "stays on the table (max rise 0 mm): push, not lift"
+      ]
+    },
+    {
+      "goal_npz": "/home/huangsicheng/benchmark/bench_cube_val/tasks/cube_reach/flows/reach_3_pointflow.npz",
+      "name": "reach_3_pointflow",
+      "frames": 64,
+      "start_pos_m": [
+        0.5332,
+        -0.0627,
+        0.0253
+      ],
+      "end_pos_m": [
+        0.5275,
+        -0.065,
+        0.0253
+      ],
+      "displacement_m": 0.0062,
+      "xy_radius_range_m": [
+        0.4127,
+        0.9518
+      ],
+      "z_range_m": [
+        0.0253,
+        0.0253
+      ],
+      "rise_m": 0.0,
+      "in_envelope": false,
+      "reasons": [
+        "xy radius 0.952 m exceeds donor 0.687 m"
+      ],
+      "notes": [
+        "stays on the table (max rise 0 mm): push, not lift"
+      ]
+    },
+    {
+      "goal_npz": "/home/huangsicheng/benchmark/bench_cube_val/tasks/cube_reach/flows/reach_4_pointflow.npz",
+      "name": "reach_4_pointflow",
+      "frames": 64,
+      "start_pos_m": [
+        0.5275,
+        0.1206,
+        0.0253
+      ],
+      "end_pos_m": [
+        0.5275,
+        0.1206,
+        0.0279
+      ],
+      "displacement_m": 0.0026,
+      "xy_radius_range_m": [
+        0.5411,
+        0.5411
+      ],
+      "z_range_m": [
+        0.0253,
+        0.3915
+      ],
+      "rise_m": 0.3662,
+      "in_envelope": true,
+      "reasons": [],
+      "notes": []
+    },
+    {
+      "goal_npz": "/home/huangsicheng/benchmark/bench_cube_val/tasks/cube_reach/flows/reach_5_pointflow.npz",
+      "name": "reach_5_pointflow",
+      "frames": 64,
+      "start_pos_m": [
+        0.5275,
+        0.1206,
+        0.0279
+      ],
+      "end_pos_m": [
+        0.5991,
+        0.1713,
+        0.0294
+      ],
+      "displacement_m": 0.0877,
+      "xy_radius_range_m": [
+        0.5411,
+        0.6404
+      ],
+      "z_range_m": [
+        0.0248,
+        0.5149
+      ],
+      "rise_m": 0.487,
+      "in_envelope": true,
+      "reasons": [],
+      "notes": []
+    },
+    {
+      "goal_npz": "/home/huangsicheng/benchmark/bench_cube_val/tasks/cube_reach/flows/reach_6_pointflow.npz",
+      "name": "reach_6_pointflow",
+      "frames": 64,
+      "start_pos_m": [
+        0.545,
+        0.1459,
+        0.0294
+      ],
+      "end_pos_m": [
+        0.8531,
+        0.2974,
+        0.0384
+      ],
+      "displacement_m": 0.3435,
+      "xy_radius_range_m": [
+        0.3491,
+        0.9035
+      ],
+      "z_range_m": [
+        0.0275,
+        0.8937
+      ],
+      "rise_m": 0.8643,
+      "in_envelope": false,
+      "reasons": [
+        "reaches 1.155 m from base, donor envelope is 0.907 m",
+        "xy radius 0.903 m exceeds donor 0.687 m",
+        "peak z 0.894 m exceeds donor 0.653 m"
+      ],
+      "notes": []
+    }
+  ]
+}

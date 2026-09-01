@@ -1,0 +1,13 @@
+[exp04] loaded exp04_ckpt_0055000.pt on cpu, action_dim=27, replan_interval=30
+[exp04] contract: {"action_dim": 27, "action_space": "joint", "flow_conditioning": "full_plan", "flow_frames": 647, "flow_representation": "surface_point_tracks", "name": "exp04:exp04_ckpt_0055000.pt", "object_path_source": "source_timeline", "plan_max_frames": 647, "plan_min_frames": 647}
+[exp04] connected: /home/huangsicheng/tmp/bench_ipc_ghhoix9b/env_to_policy -> /home/huangsicheng/tmp/bench_ipc_ghhoix9b/policy_to_env
+[exp04] contract sent: joint dim=27 flow=full_plan frames=647
+[exp04] plan received: env=0 (647, 1024, 3) (float32, finite=True)
+[exp04] plan received: env=1 (647, 1024, 3) (float32, finite=True)
+[exp04] plan received: env=2 (647, 1024, 3) (float32, finite=True)
+[exp04] plan received: env=3 (647, 1024, 3) (float32, finite=True)
+[exp04] runner reset: env=0 base joints[:3]=[0.009999999776482582, 0.009999999776482582, 0.009999999776482582] plan=yes
+[exp04] runner reset: env=1 base joints[:3]=[0.019999999552965164, 0.019999999552965164, 0.019999999552965164] plan=yes
+[exp04] runner reset: env=2 base joints[:3]=[0.029999999329447746, 0.029999999329447746, 0.029999999329447746] plan=yes
+[exp04] runner reset: env=3 base joints[:3]=[0.03999999910593033, 0.03999999910593033, 0.03999999910593033] plan=yes
+[exp04] shutdown after 10 ticks; {"round_trips": 10, "envs": 4, "rows": 40, "inference_calls": 4, "calls_per_tick": 0.1, "per_env": {"0": {"ticks": 10, "commits": 10, "inference_calls": 1, "calls_per_tick": 0.1}, "1": {"ticks": 10, "commits": 10, "inference_calls": 1, "calls_per_tick": 0.1}, "2": {"ticks": 10, "commits": 10, "inference_calls": 1, "calls_per_tick": 0.1}, "3": {"ticks": 10, "commits": 10, "inference_calls": 1, "calls_per_tick": 0.1}}}

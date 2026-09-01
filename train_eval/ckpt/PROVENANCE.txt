@@ -1,0 +1,30 @@
+vendored_from: /home/zhangjiawei/Interprior_train/flow_policy
+vendored_at: 2026-08-27T16:29:07+08:00
+ckpt_from: /home/zhangjiawei/Interprior_train/runs/txy_exp04_v10_lqr_strict_replay_train479_source121to768_all_endpoints_fk_ee_position_loss_dual_memory_object_flow_episode_plan_reuse_hybrid_action_queries_arm2x_p64_bs256_50epochs/ckpt_0055000.pt
+ckpt_sha256: 834174cd2dab0bb88bee23d259a27fe11d42c5c20bd9b4c8b3617ff4989d252a
+
+--- exp04.1 cube repro (added 2026-08-30) ---
+vendored_from: /home/huangsicheng/Interprior_exp/flow_policy (same tree as exp04 vendor; model config byte-identical)
+ckpt_from: /home/huangsicheng/Interprior_exp/runs/exp04_1_cube_repro_20260829/ckpt_0036000.pt
+ckpt_sha256: 1c3c2d21323c5e53ffa28806e7f5c451c3732065cfda1f2a52463d728ea609cf
+step: 36000 / 55050 (epoch 32, 65%) -- run killed at 00:54 by a Lustre MDT outage, not converged
+episode_selection_sha256: 8fc9f66257375d14923e3c538c3eed0f2deb15afafe6393e711a4e76e351b62d
+train/test overlap with exp04_test200_cases.json: 0 of 200 (verified by episode_uid)
+
+--- local copies removed 2026-09-01 (repo going to git) ---
+The two 595 MB .pt files were deleted from this directory. They are training
+artifacts, not source: 595 MB exceeds GitHub's 100 MB per-file hard limit, and
+exp04_ckpt_0055000.pt belongs to a colleague (see ckpt_from above) so it is not
+ours to publish. Both upstream sources were verified readable at deletion time.
+
+Restore before running an eval:
+
+  cp /home/zhangjiawei/Interprior_train/runs/txy_exp04_v10_lqr_strict_replay_train479_source121to768_all_endpoints_fk_ee_position_loss_dual_memory_object_flow_episode_plan_reuse_hybrid_action_queries_arm2x_p64_bs256_50epochs/ckpt_0055000.pt \
+     exp04_ckpt_0055000.pt
+  cp ~/Interprior_exp/runs/exp04_1_cube_repro_20260829/ckpt_0036000.pt \
+     exp04_1_repro_ckpt_0036000.pt
+
+Then check the digests match the ckpt_sha256 lines above:
+  sha256sum exp04_ckpt_0055000.pt exp04_1_repro_ckpt_0036000.pt
+    834174cd2dab0bb88bee23d259a27fe11d42c5c20bd9b4c8b3617ff4989d252a  exp04_ckpt_0055000.pt
+    1c3c2d21323c5e53ffa28806e7f5c451c3732065cfda1f2a52463d728ea609cf  exp04_1_repro_ckpt_0036000.pt

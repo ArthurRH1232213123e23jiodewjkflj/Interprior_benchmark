@@ -1,0 +1,61 @@
+# exp04 on its held-out LQR test split -- the suite that yields a trustworthy number.
+#
+# Why this exists instead of reusing cube_lift_follow_v1: that suite evaluates the
+# 20260818 teacher shards, and exp04 was trained on 20260821 LQR data. A score
+# across that gap measures the gap, not the policy.
+#
+# The 200 cases are zjw's own held-out test split, not a set we picked:
+#   runs/data_selections/lqr_success_train500_test200_first768_seed768500200_20260822
+#   selection_sha256 7b1fe52bec5c41377a6e9ed50aa2c7fc7036e2a95c08789b5e9bd03c56517f21
+# All success/completed, and overlap with the 500 episodes exp04 trained on is 0
+# (verified by episode_uid). exp04 itself has overfit_all_data=true and logged no
+# val, so this split is the only source of a generalisation number for it.
+
+name: exp04_test200_v1
+task: cube_lift_follow_v1
+description: >
+  exp04 (ckpt_0055000) on the 200 held-out LQR test episodes. Each case starts
+  from the recorded frame-0 state with the cube on the table -- not pre-grasped --
+  and the policy receives that episode's whole object-flow plan at reset. Grasp
+  the cube, then follow the plan.
+
+# Physics truth for THIS data. The 20260821 LQR collection used a different config
+# than the 20260818 teacher data: annulus r_in 0.30->0.32, r_out 0.60->0.55,
+# z_offset 0.03->0.0, orientation random->yaw_only. Scoring 0821 episodes against
+# the 0818 profile would measure that gap and call it policy performance, so this
+# profile is frozen from 0821's own resolved config (source sha ce0a6f7f) by
+# train_eval/freeze_profile.py.
+#
+# Those four reset.* fields are deliberately left UNPINNED, with the reason
+# recorded inside the profile: eval restores the recorded initial state from the
+# shard (start_frame=0) and never samples a random object reset, so they cannot
+# affect a rollout. The fields that DO act during a rollout -- squeeze_fraction
+# 0.5, object_flow_num_points 1024 -- match the live checkout and stay pinned.
+# 29 pinned, 5 exempt.
+physics_profile: tro_mp_lqr_20260821.yaml
+
+# Left on the data-production checkout, which matches 0821 on every pinned field.
+# NOT zjw's eval checkout (/home/zhangjiawei/Interprior): that one declares
+# squeeze_fraction 0.6 and object_flow_num_points 16, both of which act during a
+# rollout, so borrowing it would quietly change the grasp physics.
+interprior_root: /mnt/venv_share/H800/Interprior
+
+cases_from: exp04_test200_cases.json
+
+# start_frame 0 is correct and not a compromise. exp04 cropped its plan to source
+# frames [121, 768), but frames 0-121 are bit-identical to 121 -- measured across
+# three episodes: arm and hand max |delta| 0.0000 rad, object 0.00 mm. That prefix
+# is the static settle. The model never sees an absolute frame index, so a plan cut
+# at [0, 647) preserves the one relation it learned: plan frame 0 == rollout start.
+# It also keeps this number comparable to exp66/exp67 on this platform.
+start_frame: 121
+plan_source_start: 121
+
+# 647 = exp04's own plan_frames, so the plan we hand over is exactly the length it
+# trained on. The object first moves near frame 463 and the teacher's grasp
+# completes near 610, so the whole lift-and-follow arc is inside the window.
+max_frames: 647
+
+post_plan_frames: 0
+goal_source: derived_shard
+limit: 200

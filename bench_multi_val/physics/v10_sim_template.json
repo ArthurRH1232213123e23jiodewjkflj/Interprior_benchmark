@@ -1,0 +1,71 @@
+{
+  "format_version": 1,
+  "plan_frames": 768,
+  "physics_hz": 120,
+  "lift_height_m": 0.02,
+  "recorded_config_path": "isaacsimenvs/cfg/task/TroMp.yaml",
+  "metadata": {
+    "task_id": "Isaacsimenvs-TroMp-Direct-v0",
+    "task_config_sha256": "8ba073e607e6bbf1fd003db54bf8dccfda169bdcacdf830df5b7e2567fe59ee5",
+    "env_origin_w": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "robot_root_pose_w": [
+      0.0,
+      0.0,
+      0.53,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "table_root_pose_w": [
+      0.0,
+      0.0,
+      0.38,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "object_urdf": null,
+    "object_urdf_sha256": null,
+    "robot_urdf_sha256": "8b4cf0b496adb800b2403d04355210adfcf1683426af44c2939bdb42203a53b2",
+    "table_urdf": "assets/urdf/table_round_large.urdf",
+    "table_urdf_sha256": "7b798837ce6367aa6c44d5b460dbc7a1df4e3f9f2743578d58a8a73c1d38d2c3",
+    "object_size_m": null,
+    "robot_joint_names_lab_order": [
+      "joint1",
+      "joint2",
+      "joint3",
+      "joint4",
+      "joint5",
+      "joint6",
+      "joint7",
+      "right_finger1_joint1",
+      "right_finger2_joint1",
+      "right_finger3_joint1",
+      "right_finger4_joint1",
+      "right_finger5_joint1",
+      "right_finger1_joint2",
+      "right_finger2_joint2",
+      "right_finger3_joint2",
+      "right_finger4_joint2",
+      "right_finger5_joint2",
+      "right_finger1_joint3",
+      "right_finger2_joint3",
+      "right_finger3_joint3",
+      "right_finger4_joint3",
+      "right_finger5_joint3",
+      "right_finger1_joint4",
+      "right_finger2_joint4",
+      "right_finger3_joint4",
+      "right_finger4_joint4",
+      "right_finger5_joint4"
+    ],
+    "_object_identity": "per-case: pinned from object_catalog.parquet by object_uid. Null here on purpose -- a value would be one of 512 objects and would silently stand in for the other 511.",
+    "_verified_against_data": "robot_root_pose_w z=0.53 and table_root_pose_w z=0.38 measured from the shards (world-minus-base offset, identity quat, 3 cases); physics_hz=120 from sim.dt=1/120; record_hz=60 from episode_table."
+  }
+}

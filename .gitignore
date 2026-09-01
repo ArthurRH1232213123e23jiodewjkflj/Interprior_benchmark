@@ -1,0 +1,85 @@
+# ---------------------------------------------------------------------------
+# Generated artifacts and run outputs.
+#
+# This repo tracks SOURCE and FROZEN TRUTH: code, physics profiles, suite
+# declarations, frozen case lists, and the small result jsons. Everything a run
+# produces stays out -- it is either regenerable from what is here, or it is a
+# multi-hundred-MB blob that does not belong in git history.
+# ---------------------------------------------------------------------------
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Editor / OS
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Ad-hoc backups. Git is the backup; these were the pre-git convention.
+*.bak
+*.bak_*
+
+# ---------------------------------------------------------------------------
+# Model checkpoints. 595 MB each, over GitHub's 100 MB per-file hard limit, and
+# training artifacts rather than source. train_eval/ckpt/PROVENANCE.txt records
+# the upstream path and sha256 for each -- restore from there before an eval.
+# ---------------------------------------------------------------------------
+*.pt
+*.ckpt
+*.pth
+
+# ---------------------------------------------------------------------------
+# Generated viewer / rollout pages. Each embeds robot meshes and base64 textures,
+# so they run 9-30 MB apiece (1.0 GB in total here). All are rebuildable:
+#   viewers      <- tasks/*/pipeline/build_*_viewer*.py  from the tracked npz
+#   rollout HTML <- a driver run (render/rollout_viewer.py)
+# ---------------------------------------------------------------------------
+*.html
+
+# ---------------------------------------------------------------------------
+# Run output directories. Results of past runs, not inputs to future ones.
+# The numbers worth keeping live in the tracked summary/report jsons.
+# ---------------------------------------------------------------------------
+/replay_test/
+/trial/
+/trial_multigpu/
+/bench_runs/
+
+# Eval outputs: keep the jsons (the actual measurements, ~3 MB), drop the rest
+# (npz frame dumps, logs, ipc fifos).
+/train_eval/eval/**/*.npz
+/train_eval/eval/**/*.log
+/train_eval/eval/**/*.fifo
+
+# ---------------------------------------------------------------------------
+# Third-party dataset assets.
+#
+# LIBERO object meshes: 130 files, 106 MB, derived from the LIBERO dataset
+# (yifengzhu-hf/LIBERO-datasets). Rebuild with
+# bench_libero/tasks/libero/pipeline/batch_libero_realmesh.py once the source
+# hdf5 files are downloaded. The object TRAJECTORIES (*_flow.npz,
+# goal_pointflow.npz) ARE tracked -- they are our extraction, and small.
+# ---------------------------------------------------------------------------
+**/pointflow/**/*_mesh.npz
+**/libero/samples/
+**/libero/pipeline/texture_map.png
+
+# ---------------------------------------------------------------------------
+# Code belonging to other people, kept locally but not republished from here.
+#
+# vendor/flow_policy is a frozen copy of a colleague's model implementation
+# (see train_eval/ckpt/PROVENANCE.txt for the source path and date), and
+# _upstream/ holds reference implementations from the upstream training repo.
+# Both are needed to RUN an eval and neither is ours to publish; see README.
+# ---------------------------------------------------------------------------
+/train_eval/vendor/
+/_upstream/
+
+# Local scratch
+/tmp/
+*.tmp

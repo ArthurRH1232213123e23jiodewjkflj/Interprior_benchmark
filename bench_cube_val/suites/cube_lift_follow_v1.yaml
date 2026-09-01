@@ -1,0 +1,27 @@
+# Baseline cube lift+follow suite — the task exp66/exp67 are measured on.
+#
+# Cases come from the existing eval index (200 success episodes, val split)
+# rather than being re-declared here, so this suite matches what the training
+# repo already evaluates. Trim with `limit`.
+
+name: cube_lift_follow_v1
+task: cube_lift_follow_v1
+description: >
+  Each case starts from a recorded initial state with the cube resting on the
+  table -- NOT pre-grasped (start_frame=0) -- and hands the policy that episode's
+  whole object-flow plan at reset. The policy must grasp the cube itself, then
+  follow the plan. exp67 scored ever_lifted=0/8: it never got past the grasp.
+
+# Physics truth = the config the training data was produced under
+# (/mnt/venv_share/*/Interprior, sha256 e9de8133). NOT the yaml the v10
+# eval path pins -- that one is 160 lines apart. See log/physics_difference.txt.
+physics_profile: tro_mp_dataprod_venvshare_20260808.yaml
+interprior_root: /mnt/venv_share/H800/Interprior
+
+cases_from: ../../_upstream/train_v10/val200_cases.json
+
+start_frame: 0
+max_frames: 2000
+post_plan_frames: 0
+goal_source: derived_shard
+limit: 8

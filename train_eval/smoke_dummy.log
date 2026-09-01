@@ -1,0 +1,18 @@
+[exp04] dummy mode: echoing observed joints, no checkpoint loaded
+[exp04] contract: {"action_dim": 27, "action_space": "joint", "flow_conditioning": "full_plan", "flow_frames": 647, "flow_representation": "surface_point_tracks", "name": "exp04_dummy"}
+[exp04] connected: /tmp/bench_ipc_xlcb8v9t/env_to_policy -> /tmp/bench_ipc_xlcb8v9t/policy_to_env
+[exp04] contract sent: joint dim=27 flow=full_plan frames=647
+[exp04] plan received: (647, 1024, 3) (float32, finite=True)
+[exp04] shutdown after 5 ticks; {"ticks": 0, "inference_calls": 0}
+[exp04] dummy mode: echoing observed joints, no checkpoint loaded
+[exp04] contract: {"action_dim": 27, "action_space": "joint", "flow_conditioning": "full_plan", "flow_frames": 647, "flow_representation": "surface_point_tracks", "name": "exp04_dummy"}
+[exp04] connected: /home/huangsicheng/tmp/bench_ipc_06prsvu1/env_to_policy -> /home/huangsicheng/tmp/bench_ipc_06prsvu1/policy_to_env
+[exp04] contract sent: joint dim=27 flow=full_plan frames=647
+[exp04] plan received: env=-1 (647, 1024, 3) (float32, finite=True)
+[exp04] shutdown after 5 ticks; {"round_trips": 5, "envs": 0, "rows": 0, "inference_calls": 0, "calls_per_tick": null, "per_env": {}}
+[exp04] dummy mode: echoing observed joints, no checkpoint loaded
+[exp04] contract: {"action_dim": 27, "action_space": "joint", "flow_conditioning": "full_plan", "flow_frames": 647, "flow_representation": "surface_point_tracks", "name": "exp04_dummy"}
+[exp04] connected: /home/huangsicheng/tmp/bench_ipc_3gjm8fhu/env_to_policy -> /home/huangsicheng/tmp/bench_ipc_3gjm8fhu/policy_to_env
+[exp04] contract sent: joint dim=27 flow=full_plan frames=647
+[exp04] plan received: env=-1 (647, 1024, 3) (float32, finite=True)
+[exp04] shutdown after 5 ticks; {"round_trips": 5, "envs": 0, "rows": 0, "inference_calls": 0, "calls_per_tick": null, "per_env": {}}

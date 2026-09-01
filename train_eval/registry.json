@@ -1,0 +1,110 @@
+{
+  "_comment": [
+    "Declarative dataset registry. Adding a dataset means adding an entry here",
+    "plus a suite yaml -- no loader or worker code changes.",
+    "",
+    "Authoritative source for every field is that dataset's own protocol doc,",
+    "written by zuoyufan; `protocol_doc` points at it. Where this file and the",
+    "doc disagree, the doc wins and this file is stale.",
+    "",
+    "Two rules both docs state explicitly and this registry exists to enforce:",
+    "  1. Never glob a dataset root to discover samples. Enumerate from a frozen",
+    "     selection/manifest, or the sample set silently grows under a result.",
+    "  2. episode_status (physical outcome) != training_eligible. Filtering on",
+    "     success alone is not the same as having a usable flow."
+  ],
+
+  "schema_version": 1,
+
+  "datasets": {
+    "lqr_cube_4096env_20260821": {
+      "label": "LQR cube, 4096 env, single GPU (20260821)",
+      "protocol_doc": "/mnt/zuoyufan/lqr_test/DATA_PROTOCOL.md",
+      "run_id": "lqr_cube_4096env_1ep_g7_20260821_091345",
+      "derived_root": "/mnt/zuoyufan/lqr_test/runs/20260821/lqr_cube_4096env_1ep_g7_20260821_091345/runs/lqr_cube_4096env_1ep_g7_20260821_091345_postprocess",
+      "schema_version": 10,
+      "artifact_kind": "objflownet_training_full_shard",
+      "profile": "training_full",
+      "coordinate_frame": "mixed_world_and_robot_base",
+      "quaternion_order": "wxyz",
+      "episode_table": "episode_table.parquet",
+      "physics_hz": 120,
+      "record_hz": 60,
+      "action_horizon": 30,
+      "shard_capacity": 64,
+      "surface_point_storage_mode": "metadata_only",
+      "physics_profile": "tro_mp_lqr_20260821.yaml",
+      "task_config_resolved": "/mnt/zuoyufan/lqr_test/runs/20260821/lqr_cube_4096env_1ep_g7_20260821_091345/runs/lqr_cube_4096env_1ep_g7_20260821_091345/task_config_resolved.yaml",
+      "episode_counts": {
+        "total": 4096,
+        "success": 923,
+        "drop": 216,
+        "not": 7,
+        "fail": 2950,
+        "training_eligible": 2057
+      },
+      "notes": [
+        "Frame-wise surface points were NOT recorded (metadata_only). Canonical",
+        "points live in episode_table.parquet.canonical_points_obj and are",
+        "combined with object pose to rebuild the surface per frame -- which is",
+        "what the loader already does.",
+        "EXCLUDE the '.stale_8eps' postprocess dir: it has no final report and is",
+        "not consumable. The path above is the non-stale one.",
+        "'mixed_world_and_robot_base' means BOTH frames are stored (_w suffix for",
+        "world). The unsuffixed arrays are robot-base, same as training_min --",
+        "verified empirically, not just read off the doc."
+      ]
+    },
+
+    "tro_mp_cube_20260818": {
+      "label": "TRO-MP teacher cube (20260818) -- the benchmark's original data",
+      "protocol_doc": "/mnt/zuoyufan/tro_output/rendered_success_b01_2node/DATASET_PROTOCOL.md",
+      "derived_root": "/mnt/zuoyufan/tro_output/runs/20260818",
+      "schema_version": 10,
+      "artifact_kind": "objflownet_training_min_shard",
+      "profile": "training_min",
+      "coordinate_frame": "robot_base",
+      "quaternion_order": "wxyz",
+      "episode_table": "episode_table.parquet",
+      "physics_hz": 120,
+      "record_hz": 60,
+      "physics_profile": "tro_mp_dataprod_venvshare_20260808.yaml",
+      "notes": [
+        "What cube_lift_follow_v1 evaluates. Teacher replay baseline on this data:",
+        "8/8 reference_success, guide mean 5.6 mm, pos err median 2.25 mm.",
+        "Keep it working: it is the regression test for any loader change."
+      ]
+    },
+
+    "tro_objaverse_1m": {
+      "label": "Objaverse 1M multi-object (obj512_ep2048_trajp0_seed42)",
+      "protocol_doc": "/mnt/zuoyufan/tro_objaverse_1m/obj512_ep2048_trajp0_seed42/data_protocal.md",
+      "derived_root": "/mnt/zuoyufan/tro_objaverse_1m/obj512_ep2048_trajp0_seed42/training_full",
+      "schema_version": 10,
+      "artifact_kind": "objflownet_training_full_shard",
+      "profile": "training_full",
+      "coordinate_frame": "mixed_world_and_robot_base",
+      "quaternion_order": "wxyz",
+      "physics_hz": 120,
+      "record_hz": 60,
+      "action_horizon": 30,
+      "shard_capacity": 512,
+      "surface_point_storage_mode": "metadata_only",
+      "physics_profile": null,
+      "episode_counts": {
+        "durable_requests": 1048576,
+        "with_trajectory": 644537,
+        "outcome_only": 404039,
+        "training_eligible": 609429,
+        "success": 176871
+      },
+      "notes": [
+        "NOT wired up yet: physics_profile is unfrozen, and this dataset uses",
+        "episodes.parquet (not episode_table.parquet) plus per-object geometry,",
+        "so the loader needs work beyond the training_full dispatch.",
+        "404,039 outcome-only rows have no trajectory and no Zarr slot; they live",
+        "in fail/outcomes.parquet and must never enter a case list."
+      ]
+    }
+  }
+}
