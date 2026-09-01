@@ -154,23 +154,29 @@ def _run(args: argparse.Namespace, root: Path) -> int:
     import isaacsimenvs  # noqa: F401 -- registers the TRO-MP task
     from isaacsimenvs.tasks.tro_mp.tro_mp_env_cfg import TroMpEnvCfg
 
-    from bench_cube_val.adapters.recorded_teacher import RecordedTeacherAdapter
-    from bench_cube_val.envs.episode import (
+    from bench_libero.adapters.recorded_teacher import RecordedTeacherAdapter
+    from bench_libero.envs.authored_episode import build_authored_episode
+    from bench_libero.envs.libero_assets import (
+        pin_case_object,
+        resolve_env_asset,
+        verify_case_pin,
+    )
+    from bench_libero.envs.episode import (
         compose_pose,
         live_surface_in_base,
         load_derived_episode,
         points_from_pose,
         quat_normalize,
     )
-    from bench_cube_val.envs.rotation import rotation_matrix_to_quat_wxyz  # noqa: F401
-    from bench_cube_val.physics import verify as V
-    from bench_cube_val.render.rollout_viewer import (
+    from bench_libero.envs.rotation import rotation_matrix_to_quat_wxyz  # noqa: F401
+    from bench_libero.physics import verify as V
+    from bench_libero.render.rollout_viewer import (
         CENTER_PATH_COLORS,
         CENTER_PATH_WIDTHS,
         build_center_path_guide,
         write_rollout_html,
     )
-    from bench_cube_val.suites.suite import load_suite
+    from bench_libero.suites.suite import load_suite
 
     args.out.mkdir(parents=True, exist_ok=True)
     suite = load_suite(args.suite)
@@ -205,11 +211,62 @@ def _run(args: argparse.Namespace, root: Path) -> int:
           f"sha={V.sha256_file(profile_path)[:16]}", flush=True)
 
     # ---------------------------------------------------------------- load data
+    # Two sources of an episode, chosen by the suite:
+    #   derived_shard  a real recorded episode (the cube/objaverse default)
+    #   authored_npz   an object trajectory with no teacher rollout behind it.
+    # LIBERO is the second: it ships object poses only, no robot joint data at
+    # all (it is Franka + gripper), so the robot and scene come from a donor
+    # shard while the object path AND the canonical cloud come from LIBERO.
+    # Everything downstream is shared -- an authored episode satisfies the same
+    # DerivedEpisode contract.
+    authored = str(getattr(suite, "goal_source", "derived_shard")) == "authored_npz"
+    envs_dir = getattr(suite, "envs_dir", None)
     episodes = []
-    for case in cases:
-        episodes.append(
-            load_derived_episode(case.shard, case.slot, frames=args.frames)
-        )
+    if authored:
+        for case in cases:
+            goal_npz = getattr(case, "goal_npz", None)
+            if not goal_npz:
+                raise SystemExit(
+                    f"case {case.case_index}: goal_source=authored_npz requires "
+                    "a per-case `goal_npz`"
+                )
+            donor_shard = getattr(case, "donor_shard", None) or getattr(
+                suite, "donor_shard", None
+            )
+            if not donor_shard:
+                raise SystemExit(
+                    "goal_source=authored_npz requires `donor_shard` on the suite "
+                    "or the case"
+                )
+            donor_slot = getattr(case, "donor_slot", None)
+            if donor_slot is None:
+                donor_slot = getattr(suite, "donor_slot", 0)
+            env_id = getattr(case, "env_id", None)
+            env_dir = None
+            if env_id:
+                if not envs_dir:
+                    raise SystemExit(
+                        f"case {case.case_index} names env_id={env_id!r} but the "
+                        "suite has no `envs_dir`"
+                    )
+                env_dir = Path(envs_dir) / str(env_id)
+                if not env_dir.is_dir():
+                    raise SystemExit(f"case {case.case_index}: no env dir {env_dir}")
+            episodes.append(
+                build_authored_episode(
+                    goal_npz,
+                    donor_shard,
+                    int(donor_slot),
+                    frames=args.frames,
+                    env_dir=env_dir,
+                    episode_uid=getattr(case, "episode_uid", None),
+                )
+            )
+    else:
+        for case in cases:
+            episodes.append(
+                load_derived_episode(case.shard, case.slot, frames=args.frames)
+            )
 
     # One policy server serves every case in this shard: loading a checkpoint is
     # expensive and the protocol is batched (num_rows per tick), so a second
@@ -230,7 +287,7 @@ def _run(args: argparse.Namespace, root: Path) -> int:
             if repo not in sys.path:
                 sys.path.insert(0, repo)
 
-        from bench_cube_val.adapters.flow_policy_v10 import FlowPolicyV10Adapter
+        from bench_libero.adapters.flow_policy_v10 import FlowPolicyV10Adapter
 
         # One model for every case: loading is expensive and the runner is
         # stateless across reset(), which is how the upstream eval used it too.
@@ -261,7 +318,7 @@ def _run(args: argparse.Namespace, root: Path) -> int:
     elif args.policy_cmd is not None:
         import shlex
 
-        from bench_cube_val.adapters.subprocess_adapter import SubprocessAdapter
+        from bench_libero.adapters.subprocess_adapter import SubprocessAdapter
 
         policy_log = args.policy_log or (args.out / "policy_server.log")
         server = SubprocessAdapter(
@@ -276,8 +333,9 @@ def _run(args: argparse.Namespace, root: Path) -> int:
         adapters = [
             RecordedTeacherAdapter(case.shard, case.slot,
                                    start_frame=case.start_frame,
-                                   frames=args.frames)
-            for case in cases
+                                   frames=args.frames,
+                                   episode=ep if authored else None)
+            for case, ep in zip(cases, episodes)
         ]
     # The loader has already applied --frames; the suite cap only applies when
     # the caller did not ask for a specific window.
@@ -298,6 +356,12 @@ def _run(args: argparse.Namespace, root: Path) -> int:
     action_dim = contracts[0].action_dim
     if any(c.action_dim != action_dim for c in contracts):
         raise RuntimeError("cases disagree on action_dim")
+    if authored and args.policy_cmd is None and args.policy_ckpt is None:
+        print("[replay] NOTE authored suite in teacher-replay mode: the episode's "
+              "robot targets are the donor's frame 0 held constant (LIBERO ships "
+              "no robot joint data), so the arm stays home and the object is NOT "
+              "carried. This is a smoke test of env/asset/gate/viewer, NOT "
+              "evidence of following. Use `run --policy ...` to follow.", flush=True)
     print(f"[replay] adapter contract: action_dim={action_dim} "
           f"consumes_flow={contracts[0].consumes_flow}", flush=True)
 
@@ -327,6 +391,53 @@ def _run(args: argparse.Namespace, root: Path) -> int:
     # NO_RESET_GUARD: lift the timeout above the replay horizon (js4 NO_RESET_GUARD.md).
     cfg.episode_length_s = 1.0e9
     cfg.termination.episode_length = 10**9
+
+    # ------------------------------------------------------- per-case object pin
+    # The physics profile pins `object_urdf: assets/urdf/cube_0p06m.urdf`. Left
+    # alone, a LIBERO case spawns a 6 cm cube and follows a bottle's trajectory
+    # with every gate green -- the shape of the 436-cases-one-object bug
+    # (log/0829) and of the xhand run that scored a cube instead of its mesh.
+    asset_pin = None
+    case_env_ids = [getattr(c, "env_id", None) for c in cases]
+    if any(case_env_ids):
+        missing_env = [i for i, e in enumerate(case_env_ids) if not e]
+        if missing_env:
+            raise SystemExit(
+                f"cases {missing_env} lack env_id while others have it; a LIBERO "
+                "suite must name an env for every case"
+            )
+        if not envs_dir:
+            raise SystemExit("cases name env_id but the suite has no `envs_dir`")
+        distinct = sorted({str(e) for e in case_env_ids})
+        if len(distinct) > 1:
+            raise SystemExit(
+                "one env build spawns ONE object (cfg.assets.object_urdf is a "
+                f"single value), but this shard mixes {len(distinct)} objects: "
+                f"{distinct}. Shard by env, or take the pool path "
+                "(bench_multi_val/envs/objaverse_assets.build_object_pool)."
+            )
+        asset_metadata = resolve_env_asset(envs_dir, distinct[0], verify_sha256=True)
+        pinned = pin_case_object(cfg, asset_metadata)
+        checked = verify_case_pin(cfg, asset_metadata)
+        if not checked["ok"]:
+            raise RuntimeError(
+                "LIBERO object pin failed:\n"
+                + "\n".join(f"  {p}" for p in checked["problems"])
+            )
+        asset_pin = {
+            **pinned,
+            "verified": True,
+            "extent_m": asset_metadata["extent_m"],
+            "oversize": asset_metadata["oversize"],
+            "object_urdf_sha256": asset_metadata["object_urdf_sha256"],
+        }
+        print(f"[replay] object pin: env_id={asset_metadata['env_id']} "
+              f"urdf={Path(asset_metadata['object_urdf']).name} "
+              f"extent={asset_metadata['extent_m']:.4f}m verified", flush=True)
+        if asset_metadata["oversize"]:
+            print(f"[replay]   WARN {asset_metadata['env_id']} is oversize "
+                  f"({asset_metadata['extent_m']:.3f} m); the hand has trained on "
+                  "nothing near it", flush=True)
 
     print(f"[replay] making env num_envs={n} device={args.device}", flush=True)
     env = gym.make("Isaacsimenvs-TroMp-Direct-v0", cfg=cfg)
@@ -698,12 +809,19 @@ def _run(args: argparse.Namespace, root: Path) -> int:
         # `episodes` was loaded with --frames, so its arrays stop at the plan
         # window (768 for exp04). Reload this one case at full length purely for
         # the curve; only the HTML cases pay for it, and nothing else reads it.
-        recorded_full = np.asarray(
-            load_derived_episode(
-                cases[i].shard, cases[i].slot, frames=0
-            ).arrays["object_root_current_pose"],
-            dtype=np.float32,
-        )
+        if authored:
+            # An authored episode has no shard to reload, and needs none: it was
+            # never cropped to a plan window, so its own poses ARE the full curve.
+            recorded_full = np.asarray(
+                episodes[i].arrays["object_root_current_pose"], dtype=np.float32
+            )
+        else:
+            recorded_full = np.asarray(
+                load_derived_episode(
+                    cases[i].shard, cases[i].slot, frames=0
+                ).arrays["object_root_current_pose"],
+                dtype=np.float32,
+            )
         live_padded = live_pose_w[:, i]
         if recorded_full.shape[0] > live_padded.shape[0]:
             pad = np.repeat(
@@ -922,7 +1040,7 @@ def _v10_metrics(
 
     # Module-level function: names imported inside _run() are not
     # visible here, so this import is required, not duplicated.
-    from bench_cube_val.envs.episode import points_from_pose
+    from bench_libero.envs.episode import points_from_pose
 
 
     # --- guide tracking: 1024 live surface points vs the recorded ones -------

@@ -1,8 +1,8 @@
-"""`python -m bench_cube_val ...` -> the same CLI as the console entry point.
+"""`python -m bench_libero ...` -> the same CLI as the console entry point.
 
 One package per benchmark, and the package name IS the choice of benchmark:
 
-    python -m bench_cube_val  replay --cases 8 --gpus 2,3
+    python -m bench_libero   replay --cases 8 --gpus 2,3
     python -m bench_multi_val replay --cases 8 --gpus 2,3
 
 Both packages carry their own driver, suites, physics profiles and task

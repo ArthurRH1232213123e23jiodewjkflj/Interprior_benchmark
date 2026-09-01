@@ -40,6 +40,18 @@ class Case:
     outcome: str | None = None
     selection_rank: int | None = None
     split: str | None = None
+    #: Authored-trajectory case: path to a `[K,7]` goal-pose npz (see
+    #: `envs/authored_episode.py`). Declared on `Case` because `from_dict` keeps
+    #: only `__dataclass_fields__` -- an undeclared key is dropped SILENTLY, which
+    #: is how 436 multi-object cases once all ran the same object (log/0829).
+    goal_npz: str | None = None
+    #: Optional per-case donor override; falls back to the suite's donor.
+    donor_shard: str | None = None
+    donor_slot: int | None = None
+    #: LIBERO: which env (= object asset) this trajectory belongs to. Names a
+    #: directory under `tasks/libero/envs/`. Dropped silently if undeclared, and
+    #: a dropped env_id means every case spawns whatever the donor held.
+    env_id: str | None = None
 
     @classmethod
     def from_dict(cls, payload: dict[str, Any], index: int = 0) -> Case:
@@ -88,7 +100,20 @@ class Suite:
     max_frames: int = 2000
     post_plan_frames: int = 0
     goal_source: str = "derived_shard"
-    """derived_shard | authored_npz — authored uses the goal_traj toolchain."""
+    """derived_shard | authored_npz.
+
+    `authored_npz` runs trajectories that have no teacher rollout behind them
+    (hand-drawn cube paths, or LIBERO object-flow): each case names a `goal_npz`,
+    and the robot/scene context is borrowed from `donor_shard`/`donor_slot`.
+    Metrics keep their formulas but change meaning -- they measure following an
+    authored target, not reproducing a teacher recording."""
+    donor_shard: str | None = None
+    """authored_npz only: real shard supplying robot, scene and the canonical
+    point cloud. Required when `goal_source == "authored_npz"`."""
+    donor_slot: int = 0
+    #: authored_npz only: directory holding one subdirectory per env (object
+    #: asset), resolved against the package dir like `goal_npz` is.
+    envs_dir: str | None = None
     goal_traj: str | None = None
     limit: int | None = None
     extra: dict[str, Any] = field(default_factory=dict)
@@ -126,7 +151,28 @@ def load_suite(path: Path) -> Suite:
     kwargs = {k: v for k, v in payload.items() if k in known}
     kwargs.setdefault("name", path.stem)
     kwargs["cases"] = [Case.from_dict(c, i) for i, c in enumerate(raw_cases)]
-    return Suite(**kwargs)
+    suite = Suite(**kwargs)
+
+    # Resolve authored paths NOW, against the package directory. The driver does
+    # `os.chdir(interprior_root)` before building the sim (task yamls carry
+    # relative asset paths), so a relative `goal_npz` would be looked up inside
+    # someone else's checkout and fail -- or worse, hit a same-named file there.
+    package_dir = Path(__file__).resolve().parent.parent
+
+    def _resolve(value: str) -> str:
+        candidate = Path(str(value))
+        return str(candidate if candidate.is_absolute() else (package_dir / candidate))
+
+    if suite.donor_shard:
+        suite.donor_shard = _resolve(suite.donor_shard)
+    if suite.envs_dir:
+        suite.envs_dir = _resolve(suite.envs_dir)
+    for case in suite.cases:
+        if case.goal_npz:
+            case.goal_npz = _resolve(case.goal_npz)
+        if case.donor_shard:
+            case.donor_shard = _resolve(case.donor_shard)
+    return suite
 
 
 def discover(suites_dir: Path) -> dict[str, Path]:

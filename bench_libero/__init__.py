@@ -1,6 +1,6 @@
-"""bench_cube_val — evaluate a manipulation policy against TRO-MP.
+"""bench_libero — evaluate a manipulation policy against TRO-MP.
 
-    from bench_cube_val import run
+    from bench_libero import run
 
     report = run(
         policy="/your/env/bin/python your_server.py --ckpt model.pt",

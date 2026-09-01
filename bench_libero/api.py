@@ -1,6 +1,6 @@
 """Public API — one call runs a checkpoint through the benchmark.
 
-    from bench_cube_val import run
+    from bench_libero import run
 
     report = run(
         policy="/your/conda/env/bin/python your_server.py --ckpt model.pt",
@@ -267,7 +267,7 @@ def run(
 
     policy          command that starts your policy server; it will be given
                     --in-pipe/--out-pipe. None runs the physics gate instead.
-    suite           name under `bench_cube_val/suites/` or a path to a yaml
+    suite           name under `bench_libero/suites/` or a path to a yaml
     cases           how many cases to evaluate (None keeps the suite's own limit)
     frames          0 = the full recording (2400); None = the 768 training
                     window; N = the first N frames

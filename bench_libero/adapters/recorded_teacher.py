@@ -43,12 +43,20 @@ class RecordedTeacherAdapter(PolicyAdapter):
         start_frame: int = 0,
         target_array: str = "robot_joint_pos_target",
         frames: int | None = None,
+        episode: Any = None,
     ) -> None:
         self.shard = Path(shard)
         self.slot = slot
         self.start_frame = start_frame
         self.target_array = target_array
-        self._episode = load_derived_episode(self.shard, self.slot, frames=frames)
+        # `episode` lets the caller hand over an episode it already built. An
+        # AUTHORED case must use it: `shard` is then a trajectory npz, not a
+        # shard directory, and loading it would look for commit.json inside a
+        # file. See envs/authored_episode.py.
+        if episode is not None:
+            self._episode = episode
+        else:
+            self._episode = load_derived_episode(self.shard, self.slot, frames=frames)
         if target_array not in self._episode.arrays:
             raise KeyError(f"episode has no array {target_array!r}")
         self._targets = np.asarray(

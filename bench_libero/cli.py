@@ -50,7 +50,7 @@ def _add_common(parser: argparse.ArgumentParser) -> None:
 
 def cmd_tasks(args: argparse.Namespace) -> int:
     sys.path.insert(0, str(BENCH_ROOT))
-    from bench_cube_val.suites.suite import discover, load_suite
+    from bench_libero.suites.suite import discover, load_suite
 
     found = discover(SUITES_DIR)
     if not found:
@@ -67,7 +67,7 @@ def cmd_tasks(args: argparse.Namespace) -> int:
 
 
 def cmd_verify(args: argparse.Namespace) -> int:
-    from bench_cube_val.api import DEFAULT_INTERPRIOR_ROOT, DEFAULT_ISAAC_PYTHON
+    from bench_libero.api import DEFAULT_INTERPRIOR_ROOT, DEFAULT_ISAAC_PYTHON
 
     command = [
         args.isaac_python or DEFAULT_ISAAC_PYTHON, "-u",
@@ -84,7 +84,7 @@ def cmd_verify(args: argparse.Namespace) -> int:
 
 def _run(args: argparse.Namespace, policy: str | None) -> int:
     sys.path.insert(0, str(BENCH_ROOT))
-    from bench_cube_val.api import (
+    from bench_libero.api import (
         DEFAULT_INTERPRIOR_ROOT, DEFAULT_ISAAC_PYTHON, run,
     )
 
