@@ -1,22 +1,44 @@
 # `tasks/libero/` — structure
 
-LIBERO object-flow benchmark assets inside `bench_libero`. **22 envs**
-(21 distinct geometries), **130 trajectories**, **95 runnable cases**.
+LIBERO object-flow benchmark assets inside `bench_libero`. **22 target envs**
+(21 distinct geometries) + **11 scene props**, **130 trajectories**,
+**95 runnable cases**.
 
 The split that organises everything here: an **env is an object asset** (a directory),
 a **case is a trajectory** (a row in `cases.json`). That matches how `bench_cube_val`
 and `bench_multi_val` are laid out — 436 objaverse cases are likewise one catalog
 plus per-case pins, not 436 directories.
 
+> **Corrected 2026-09-06 — an env is a target object, but a scene is not one object.**
+> Everything below about "22 not 130" is still right about *target* assets. But the
+> 130 scenes reference **33** categories: the other 11 are never the target, so they
+> were never built, and **120 of the 130 scenes were being assembled with objects
+> missing** — including the support surfaces goals end on. `case 0`'s bowl is placed
+> *on top of a cabinet* that did not exist; its goal endpoint sat 0.228 m in mid air.
+> Fixed by `props/`, see **`props/PROPS_PIPELINE.md`**. With the cabinet present the
+> bowl's endpoint lands on its top surface to **0.000 m**.
+
 ## Layout
 
 ```
 tasks/libero/
-├── envs/                       17M    ← THE ENVS. 22 dirs, generated
+├── envs/                       48M    ← THE ENVS. 22 dirs, generated
 │   └── <env_id>/                        e.g. akita_black_bowl, wine_bottle
 │       ├── mesh.npz                   HOPE scan: verts/faces/uv. verts already in METRES
 │       ├── points_obj.npy             16 canonical surface points, float32 [16,3]
-│       └── env.yaml                   extent/bbox/sha256 + which LIBERO uids & scenes map here
+│       ├── env.yaml                   extent/bbox/sha256 + which LIBERO uids & scenes map here
+│       ├── <env_id>.obj               spawnable mesh, written by build_env/build_object_urdf.py
+│       └── <env_id>.urdf              spawnable asset; references <env_id>.obj by name
+│                                      22/22 carry all five. ONE EXCEPTION: alphabet_soup/
+│                                      holds 7 extra leftovers from the 0813 single-object
+│                                      worked example (.usd, config.yaml, textured.obj,
+│                                      textured.mtl, texture_map.png, textures/, usd_src/).
+│                                      Those are residue, NOT a second env contract — do not
+│                                      copy that shape when adding an env.
+├── props/                      6.2M   ← THE OTHER 11. static scene fixtures
+│   ├── <category>/mesh.npz              verts [N,3] float32 METRES, faces [M,3]
+│   ├── props_registry.json              source_xml + geom stats + articulated_baked
+│   └── PROPS_PIPELINE.md                how they are extracted; READ THIS FIRST
 ├── env_registry.json           24K    all 22 env records + geometry_aliases
 ├── cases.json                  46K    95 runnable: case_index, shard, slot, goal_npz, env_id, episode_uid
 ├── reachability_report.json    7.6K   why the other 35 are excluded, per trajectory
@@ -32,9 +54,13 @@ tasks/libero/
 ├── pipeline/                  1.2M    7 extraction/viewer scripts + texture_map.png (run on js4)
 ├── samples/                    19M    alphabet_soup single-object worked example
 │
-├── build_env/                  36K    ← THE CODE
+├── build_env/                  100K   ← THE CODE
 │   ├── build_env_dirs.py              generates envs/ + the 3 JSON indexes. Refuses to overwrite.
+│   ├── extract_libero_props.py        builds props/ from the LIBERO install. RUNS ON js4.
+│   ├── build_object_urdf.py           writes <env_id>.obj + .urdf into each env dir
 │   ├── verify_env_dirs.py             22 checks incl. cross-package no-damage. Exit on any failure.
+│   ├── verify_object_urdf.py          checks the generated urdf/obj pairs
+│   ├── pick_case.py                   case selection helper
 │   └── README.md                      the measurements behind "22 not 130"
 │
 ├── MOVED.md                           transfer record from js4 (2026-09-01)
@@ -59,13 +85,18 @@ flows/<stem>_flow.npz          obj_traj [T,7]  WORLD frame
 pointflow/<stem>_flow/goal_pointflow.npz   goal_traj [K,7]  BASE frame
   │  build_env/build_env_dirs.py                  [any python + numpy]
   ▼
-envs/<env_id>/{mesh.npz, points_obj.npy, env.yaml}  +  cases.json  +  env_registry.json
+envs/<env_id>/{mesh.npz, points_obj.npy, env.yaml, .obj, .urdf}
+  +  cases.json  +  env_registry.json
   │  suites/libero_object_flow_v1.yaml
   ▼
-driver.py  ← NOT WIRED YET (see "Not runnable")
+driver.py  ← WIRED (2026-09-01 20:52). Never rolled out; see "Status".
 ```
 
 ## Why 22 envs and not 130
+
+> Read with the correction at the top of this file: this section is about **target**
+> assets, and is correct about them. It is *not* a claim that a scene contains one
+> object. The 11 non-target categories live in `props/`.
 
 130 is the trajectory count. What a sim needs to spawn an env is the object asset.
 Three measurements, none assumed:
@@ -148,27 +179,55 @@ export HOME=/home/huangsicheng
 PY=$HOME/pro5000_env/.venv_isaacsim_pro5000/bin/python   # needs numpy
 rm -rf tasks/libero/envs        # build_env_dirs.py refuses to overwrite
 cd $HOME/benchmark && $PY bench_libero/tasks/libero/build_env/build_env_dirs.py
-$PY bench_libero/tasks/libero/build_env/verify_env_dirs.py    # expect FAILURES: 0
+$PY bench_libero/tasks/libero/build_env/build_object_urdf.py   # the .obj + .urdf
+$PY bench_libero/tasks/libero/build_env/verify_env_dirs.py     # expect FAILURES: 0
+$PY bench_libero/tasks/libero/build_env/verify_object_urdf.py
 $PY -m bench_libero tasks
 ```
 
 `ENV_LIST.csv` + `flows/` + `pointflow/` are the inputs and are only ever read.
 
-## Not runnable yet
+> **`rm -rf tasks/libero/envs` destroys `alphabet_soup/`'s 7 extra files.** They are
+> the 0813 worked-example residue (usd/textures/config), and **no script here
+> regenerates them** — `build_env_dirs.py` never writes usd or textures. If you want
+> them, back that one directory up first. Everything the env *contract* needs is
+> regenerated; only the residue is lost.
 
-Two independent blockers:
+## Status (corrected 2026-09-06)
 
-1. **`driver.py` has zero handling for `goal_source: authored_npz`.** The field has
-   been declared in `suites/suite.py` since the cube work; nothing in this package
-   reads it. The way in is `bench_cube_val/envs/authored_episode.py`, which
-   synthesises a full DerivedEpisode from a donor shard plus an authored `[K,7]`.
+**The `authored_npz` path is wired.** This section previously said `driver.py` had
+zero handling for it. That was written at 20:15 on 2026-09-01; the wiring landed at
+20:52 the same evening and the text was never updated. What exists now:
+
+| | |
+|---|---|
+| `driver.py:222` | reads `goal_source`, branches on `authored_npz` |
+| `driver.py:158` | imports `build_authored_episode` from `envs/authored_episode.py` |
+| `envs/authored_episode.py` | present, 15.6K |
+| both libero suites | declare `donor_shard` (20260818 `derived_000427`) |
+
+Commits: `a80df18 wire LIBERO object-flow end to end`, then
+`9f65a61 22 LIBERO env dirs, spawnable URDFs, 95-case index`.
+
+**Still true: no rollout has ever been run.** `verify_env_dirs.py` passing
+(`FAILURES: 0`, `95 + 35 = 130`) is a *static* check — it does not start Isaac.
+Run one case as an infrastructure gate before the full 95.
+
+### Two constraints that are not going away
+
+1. **The donor cube is 0.06 m; these objects are 0.077–0.354 m.**
+   `authored_episode.py` synthesises a DerivedEpisode from a donor shard whose
+   canonical cloud is a 0.06 m cube. That substitution was *exact* for authored cube
+   paths. It is **not** exact here, and the error has never been measured. Measure it
+   before reading any number — this is the next decision, not a detail.
+   `chefmate_8_frypan` at 0.354 m is 5.9x the cube; its 7 tasks are a separate
+   question, not part of a headline.
 2. **LIBERO ships no robot joint data at all** — it is Franka + gripper, ours is
-   xArm7 + Wuji. `envs/episode.py` requires `robot_joint_pos`/`_target`, so a
+   xArm7 + Wuji 27 DoF. `envs/episode.py` requires `robot_joint_pos`/`_target`, so a
    teacher replay here is *structurally* impossible, not merely unimplemented.
-
-And a real obstacle behind (1): the donor's canonical cloud is a **0.06 m cube**,
-while these objects are **0.077–0.354 m**. The substitution that was exact for
-authored cube paths is **not** exact here. That is the next decision, not a detail.
+   Consequence worth stating plainly: **the replay gate does not exist on LIBERO.**
+   Per the 0827/0828 lessons that gate is the only thing that separates "the platform
+   is broken" from "the policy is bad", so every LIBERO number must be read without it.
 
 ## Metrics change meaning
 

@@ -1,0 +1,183 @@
+{
+ "assets_root": "/home/huangsicheng/libero/LIBERO/libero/libero/assets",
+ "max_faces": 20000,
+ "articulation": "dropped -- every visual geom baked static",
+ "props": {
+  "wooden_cabinet": {
+   "source_xml": "articulated_objects/wooden_cabinet.xml",
+   "articulated_baked": true,
+   "verts": 4698,
+   "faces": 1566,
+   "decimated": false,
+   "extent_m": [
+    0.2564,
+    0.2218,
+    0.217
+   ],
+   "mesh_geoms": 7,
+   "prim_geoms": 0,
+   "skipped_geoms": 0,
+   "bodies": 6
+  },
+  "flat_stove": {
+   "source_xml": "articulated_objects/flat_stove.xml",
+   "articulated_baked": true,
+   "verts": 3086,
+   "faces": 1038,
+   "decimated": false,
+   "extent_m": [
+    0.2945,
+    0.19,
+    0.0739
+   ],
+   "mesh_geoms": 2,
+   "prim_geoms": 1,
+   "skipped_geoms": 0,
+   "bodies": 6
+  },
+  "basket": {
+   "source_xml": "stable_scanned_objects/basket/basket.xml",
+   "articulated_baked": false,
+   "verts": 199170,
+   "faces": 66390,
+   "decimated": false,
+   "extent_m": [
+    0.1734,
+    0.1622,
+    0.1476
+   ],
+   "mesh_geoms": 1,
+   "prim_geoms": 0,
+   "skipped_geoms": 0,
+   "bodies": 2
+  },
+  "wine_rack": {
+   "source_xml": "turbosquid_objects/wine_rack/wine_rack.xml",
+   "articulated_baked": false,
+   "verts": 3537,
+   "faces": 1179,
+   "decimated": false,
+   "extent_m": [
+    0.27,
+    0.2656,
+    0.3236
+   ],
+   "mesh_geoms": 3,
+   "prim_geoms": 0,
+   "skipped_geoms": 0,
+   "bodies": 2
+  },
+  "desk_caddy": {
+   "source_xml": "turbosquid_objects/desk_caddy/desk_caddy.xml",
+   "articulated_baked": false,
+   "verts": 74910,
+   "faces": 24970,
+   "decimated": false,
+   "extent_m": [
+    0.1578,
+    0.44,
+    0.1694
+   ],
+   "mesh_geoms": 1,
+   "prim_geoms": 0,
+   "skipped_geoms": 0,
+   "bodies": 2
+  },
+  "white_cabinet": {
+   "source_xml": "articulated_objects/white_cabinet.xml",
+   "articulated_baked": true,
+   "verts": 4698,
+   "faces": 1566,
+   "decimated": false,
+   "extent_m": [
+    0.2564,
+    0.2218,
+    0.217
+   ],
+   "mesh_geoms": 7,
+   "prim_geoms": 0,
+   "skipped_geoms": 0,
+   "bodies": 6
+  },
+  "cookies": {
+   "source_xml": "stable_hope_objects/cookies/cookies.xml",
+   "articulated_baked": false,
+   "verts": 53562,
+   "faces": 17854,
+   "decimated": false,
+   "extent_m": [
+    0.0614,
+    0.0836,
+    0.0201
+   ],
+   "mesh_geoms": 1,
+   "prim_geoms": 0,
+   "skipped_geoms": 0,
+   "bodies": 2
+  },
+  "glazed_rim_porcelain_ramekin": {
+   "source_xml": "stable_scanned_objects/glazed_rim_porcelain_ramekin/glazed_rim_porcelain_ramekin.xml",
+   "articulated_baked": false,
+   "verts": 48822,
+   "faces": 16274,
+   "decimated": false,
+   "extent_m": [
+    0.0887,
+    0.0887,
+    0.0433
+   ],
+   "mesh_geoms": 1,
+   "prim_geoms": 0,
+   "skipped_geoms": 0,
+   "bodies": 2
+  },
+  "wooden_tray": {
+   "source_xml": "turbosquid_objects/wooden_tray/wooden_tray.xml",
+   "articulated_baked": false,
+   "verts": 540,
+   "faces": 180,
+   "decimated": false,
+   "extent_m": [
+    0.2974,
+    0.1652,
+    0.0821
+   ],
+   "mesh_geoms": 1,
+   "prim_geoms": 0,
+   "skipped_geoms": 0,
+   "bodies": 2
+  },
+  "wooden_two_layer_shelf": {
+   "source_xml": "turbosquid_objects/wooden_two_layer_shelf/wooden_two_layer_shelf.xml",
+   "articulated_baked": false,
+   "verts": 330,
+   "faces": 110,
+   "decimated": false,
+   "extent_m": [
+    0.3506,
+    0.1909,
+    0.2091
+   ],
+   "mesh_geoms": 1,
+   "prim_geoms": 0,
+   "skipped_geoms": 0,
+   "bodies": 2
+  },
+  "microwave": {
+   "source_xml": "articulated_objects/microwave.xml",
+   "articulated_baked": true,
+   "verts": 2040,
+   "faces": 680,
+   "decimated": false,
+   "extent_m": [
+    0.3446,
+    0.2228,
+    0.1869
+   ],
+   "mesh_geoms": 5,
+   "prim_geoms": 0,
+   "skipped_geoms": 0,
+   "bodies": 3
+  }
+ }
+}
