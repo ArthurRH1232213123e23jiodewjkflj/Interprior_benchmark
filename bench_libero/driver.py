@@ -102,6 +102,10 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--viewer-flow-points", type=int, default=96,
                     help="guide points drawn per frame")
     ap.add_argument("--viewer-point-radius-m", type=float, default=0.006)
+    ap.add_argument("--no-scene-objects", action="store_true",
+                    help="do NOT spawn the per-case dynamic scene objects (plates, "
+                         "bottles, a second bowl); only the target object spawns, "
+                         "leaving the scenes incomplete")
     ap.add_argument("--no-props", action="store_true",
                     help="do NOT bake this case's static scene props into the table; "
                          "the target spawns alone, so any goal that ends on furniture "
@@ -164,6 +168,8 @@ def _run(args: argparse.Namespace, root: Path) -> int:
         build as build_scene_table,
         resolve_case as resolve_scene_case,
     )
+    from bench_libero.envs import scene_env as SCENE_ENV
+    from bench_libero.envs import scene_spawn as SCENE_SPAWN
     from bench_libero.envs.libero_assets import (
         pin_case_object,
         resolve_env_asset,
@@ -490,11 +496,45 @@ def _run(args: argparse.Namespace, root: Path) -> int:
             print("[replay] --no-props: target spawns alone (goals that end on "
                   "furniture will end in mid air)", flush=True)
 
-    print(f"[replay] making env num_envs={n} device={args.device}", flush=True)
-    env = gym.make("Isaacsimenvs-TroMp-Direct-v0", cfg=cfg)
+    # ---------------------------------------------- per-case dynamic scene objects
+    # The props (furniture) are welded into the table above. The graspables that
+    # complete each scene -- a plate the goal ends on, a second bowl -- are real
+    # dynamic bodies, spawned by a TroMpEnv subclass so the read-only checkout
+    # stays untouched. env i runs case i, so the list order IS the mapping.
+    task_id = "Isaacsimenvs-TroMp-Direct-v0"
+    scene_records = None
+    if not args.no_scene_objects and case_env_ids and any(case_env_ids):
+        scene_records = [resolve_scene_case(str(getattr(c, "goal_npz", "") or ""))
+                         for c in cases]
+        planned = SCENE_SPAWN.plan_slots(scene_records)
+        cfg.libero_scene_cases = scene_records
+        task_id = SCENE_ENV.register()
+        print(f"[replay] scene objects: {sum(planned['counts'])} dynamic body(ies) "
+              f"in {planned['n_slots']} slot(s) across {n} env(s)", flush=True)
+        for e, rec in enumerate(scene_records):
+            names = [o["name"] for o in SCENE_SPAWN.case_objects(rec)]
+            print(f"[replay]   env {e} case #{rec['case_index']}: {names}", flush=True)
+    elif args.no_scene_objects:
+        print("[replay] --no-scene-objects: only the target object spawns "
+              "(scenes stay incomplete)", flush=True)
+
+    print(f"[replay] making env num_envs={n} device={args.device} task={task_id}", flush=True)
+    env = gym.make(task_id, cfg=cfg)
     inner = env.unwrapped
     device = inner.device
     print(f"[replay] env built, device={device}", flush=True)
+
+    # Prove each env got EXACTLY its own case's objects. A plausible-but-wrong
+    # scene passes every other gate -- that is how props-by-case_index, the
+    # 436-case object pin and the xhand cube all got through.
+    if scene_records is not None:
+        checked_scene = SCENE_SPAWN.verify_spawn(inner, scene_records)
+        if not checked_scene["ok"]:
+            raise RuntimeError("scene object spawn failed:\n"
+                               + "\n".join(f"  {p}" for p in checked_scene["problems"]))
+        print(f"[replay] scene objects verified: {checked_scene['n_objects']} "
+              f"bod(ies) in {checked_scene['n_slots']} slot(s), per-env counts "
+              f"{checked_scene['per_env_counts']}", flush=True)
 
     # ZOH from the data, not assumed.
     strides = {int(np.median(np.diff(ep.arrays["physics_step"]))) for ep in episodes}
