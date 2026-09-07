@@ -26,7 +26,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.1105,
@@ -96,7 +96,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.0827,
@@ -159,7 +159,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.1093,
@@ -216,7 +216,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.1377,
@@ -277,7 +277,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.0772,
@@ -341,7 +341,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.3544,
@@ -399,7 +399,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.0829,
@@ -462,7 +462,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.0822,
@@ -528,7 +528,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.1474,
@@ -591,7 +591,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.1398,
@@ -651,7 +651,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.1333,
@@ -710,7 +710,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.1466,
@@ -767,7 +767,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.1432,
@@ -827,7 +827,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.1346,
@@ -884,7 +884,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.1274,
@@ -945,7 +945,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.1322,
@@ -1005,7 +1005,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.1466,
@@ -1062,7 +1062,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.0815,
@@ -1124,7 +1124,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.0832,
@@ -1182,7 +1182,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.1306,
@@ -1243,7 +1243,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.1498,
@@ -1302,7 +1302,7 @@
      2
     ]
    },
-   "mesh_units": "centimetre (HOPE scan; x0.01 -> metre)",
+   "mesh_units": "metre (already scaled from the cm HOPE scan upstream)",
    "points_obj": "points_obj.npy",
    "n_points": 16,
    "extent_m": 0.1224,

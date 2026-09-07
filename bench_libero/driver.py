@@ -102,6 +102,10 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--viewer-flow-points", type=int, default=96,
                     help="guide points drawn per frame")
     ap.add_argument("--viewer-point-radius-m", type=float, default=0.006)
+    ap.add_argument("--no-props", action="store_true",
+                    help="do NOT bake this case's static scene props into the table; "
+                         "the target spawns alone, so any goal that ends on furniture "
+                         "ends in mid air (the pre-0907 behaviour)")
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--max-target-step-rad", type=float, default=0.05,
                     help="policy actions only: max joint target change per tick. "
@@ -156,10 +160,16 @@ def _run(args: argparse.Namespace, root: Path) -> int:
 
     from bench_libero.adapters.recorded_teacher import RecordedTeacherAdapter
     from bench_libero.envs.authored_episode import build_authored_episode
+    from bench_libero.envs.build_scene_table import (
+        build as build_scene_table,
+        resolve_case as resolve_scene_case,
+    )
     from bench_libero.envs.libero_assets import (
         pin_case_object,
         resolve_env_asset,
         verify_case_pin,
+        pin_case_table,
+        verify_case_table,
     )
     from bench_libero.envs.episode import (
         compose_pose,
@@ -438,6 +448,47 @@ def _run(args: argparse.Namespace, root: Path) -> int:
             print(f"[replay]   WARN {asset_metadata['env_id']} is oversize "
                   f"({asset_metadata['extent_m']:.3f} m); the hand has trained on "
                   "nothing near it", flush=True)
+
+        # ---------------------------------------------------- static scene props
+        # The furniture the goals end on. Without this the target spawns alone
+        # and a goal that finishes on a cabinet top finishes in mid air.
+        table_pin = None
+        if not args.no_props:
+            # Identify the case by goal_npz. A suite's case_index is its
+            # position in that suite (pick_case.py renumbers from 0), so an
+            # index lookup would build a different case's scene and every gate
+            # would still pass.
+            case0 = cases[0]
+            gid = str(getattr(case0, "goal_npz", "") or "")
+            rec = resolve_scene_case(gid or int(getattr(case0, "case_index", -1)))
+            ci = int(rec["case_index"])
+            comp = Path(args.out) / "scene_table" / f"case{ci}" / "table.urdf"
+            info = build_scene_table(rec, str(comp), interprior_root=str(root), verbose=False)
+            if len(cases) > 1:
+                raise SystemExit(
+                    f"props are baked per case but this shard has {len(cases)} cases; "
+                    "one composite table cannot serve several scenes. Shard by case, "
+                    "or pass --no-props.")
+            print(f"[replay] scene case: cases.json #{ci} {rec['episode_uid']}", flush=True)
+            stock = str(cfg.assets.table_urdf)
+            if not os.path.isabs(stock):
+                stock = str(root / stock)
+            pinned_t = pin_case_table(cfg, str(comp))
+            checked_t = verify_case_table(cfg, str(comp), stock, str(root))
+            if not checked_t["ok"]:
+                raise RuntimeError("LIBERO table pin failed:\n"
+                                   + "\n".join(f"  {p}" for p in checked_t["problems"]))
+            table_pin = {**pinned_t, **checked_t, "props": info["props"]}
+            print(f"[replay] scene props: {len(info['props'])} baked into the table "
+                  f"({checked_t['n_links']} links); robot base center/top "
+                  f"{checked_t['composite_center_top']} == stock "
+                  f"{checked_t['stock_center_top']} verified", flush=True)
+            for b in info["props"]:
+                print(f"[replay]   prop {b['category']:<24} "
+                      f"origin_table_local={b['origin_table_local']}", flush=True)
+        else:
+            print("[replay] --no-props: target spawns alone (goals that end on "
+                  "furniture will end in mid air)", flush=True)
 
     print(f"[replay] making env num_envs={n} device={args.device}", flush=True)
     env = gym.make("Isaacsimenvs-TroMp-Direct-v0", cfg=cfg)

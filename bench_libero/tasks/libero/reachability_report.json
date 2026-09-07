@@ -5,20 +5,42 @@
   "d3_max": 0.907
  },
  "n_tasks": 130,
- "n_cases": 95,
- "n_excluded": 35,
+ "n_cases": 72,
+ "n_excluded": 58,
  "excluded": [
   {
    "stem": "akita_black_bowl_1__kitchen_scene10_close_the_top_drawer_of_the_cabinet",
    "env_id": "akita_black_bowl",
    "reason": "no_motion",
+   "articulation": "verb:close",
+   "carried_objects": null,
    "xy_max": 0.45,
    "disp": 0.0002
+  },
+  {
+   "stem": "akita_black_bowl_1__kitchen_scene10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it",
+   "env_id": "akita_black_bowl",
+   "reason": "articulation_required",
+   "articulation": "verb:close",
+   "carried_objects": null,
+   "xy_max": 0.6233,
+   "disp": 0.398
+  },
+  {
+   "stem": "akita_black_bowl_1__kitchen_scene10_put_the_black_bowl_in_the_top_drawer_of_the_cabinet",
+   "env_id": "akita_black_bowl",
+   "reason": "articulation_required",
+   "articulation": "goal_inside_baked_enclosure",
+   "carried_objects": null,
+   "xy_max": 0.5745,
+   "disp": 0.2511
   },
   {
    "stem": "akita_black_bowl_1__kitchen_scene1_open_the_bottom_drawer_of_the_cabinet",
    "env_id": "akita_black_bowl",
    "reason": "no_motion",
+   "articulation": "verb:open",
+   "carried_objects": null,
    "xy_max": 0.4505,
    "disp": 0.0314
   },
@@ -26,34 +48,89 @@
    "stem": "akita_black_bowl_1__kitchen_scene1_open_the_top_drawer_of_the_cabinet",
    "env_id": "akita_black_bowl",
    "reason": "no_motion",
+   "articulation": "verb:open",
+   "carried_objects": null,
    "xy_max": 0.45,
    "disp": 0.0002
+  },
+  {
+   "stem": "akita_black_bowl_1__kitchen_scene1_open_the_top_drawer_of_the_cabinet_and_put_the_bowl_in_it",
+   "env_id": "akita_black_bowl",
+   "reason": "articulation_required",
+   "articulation": "verb:open",
+   "carried_objects": null,
+   "xy_max": 0.5024,
+   "disp": 0.2284
   },
   {
    "stem": "akita_black_bowl_1__kitchen_scene2_open_the_top_drawer_of_the_cabinet",
    "env_id": "akita_black_bowl",
    "reason": "no_motion",
+   "articulation": "verb:open",
+   "carried_objects": null,
    "xy_max": 0.45,
    "disp": 0.0002
+  },
+  {
+   "stem": "akita_black_bowl_1__kitchen_scene4_close_the_bottom_drawer_of_the_cabinet",
+   "env_id": "akita_black_bowl",
+   "reason": "articulation_required",
+   "articulation": "verb:close",
+   "carried_objects": null,
+   "xy_max": 0.4517,
+   "disp": 0.1235
   },
   {
    "stem": "akita_black_bowl_1__kitchen_scene4_close_the_bottom_drawer_of_the_cabinet_and_open_the_top_drawer",
    "env_id": "akita_black_bowl",
    "reason": "no_motion",
+   "articulation": "verb:close",
+   "carried_objects": null,
    "xy_max": 0.45,
    "disp": 0.0002
+  },
+  {
+   "stem": "akita_black_bowl_1__kitchen_scene4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet",
+   "env_id": "akita_black_bowl",
+   "reason": "articulation_required",
+   "articulation": "goal_inside_baked_enclosure",
+   "carried_objects": null,
+   "xy_max": 0.5083,
+   "disp": 0.2077
+  },
+  {
+   "stem": "akita_black_bowl_1__kitchen_scene4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it",
+   "env_id": "akita_black_bowl",
+   "reason": "articulation_required",
+   "articulation": "verb_and_enclosure:close",
+   "carried_objects": null,
+   "xy_max": 0.515,
+   "disp": 0.3379
   },
   {
    "stem": "akita_black_bowl_1__kitchen_scene5_close_the_top_drawer_of_the_cabinet",
    "env_id": "akita_black_bowl",
    "reason": "no_motion",
+   "articulation": "verb:close",
+   "carried_objects": null,
    "xy_max": 0.45,
    "disp": 0.0002
+  },
+  {
+   "stem": "akita_black_bowl_1__kitchen_scene5_put_the_black_bowl_in_the_top_drawer_of_the_cabinet",
+   "env_id": "akita_black_bowl",
+   "reason": "articulation_required",
+   "articulation": "goal_inside_baked_enclosure",
+   "carried_objects": null,
+   "xy_max": 0.5087,
+   "disp": 0.2884
   },
   {
    "stem": "akita_black_bowl_1__living_room_scene4_pick_up_the_black_bowl_on_the_left_and_put_it_in_the_tray",
    "env_id": "akita_black_bowl",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.6945,
    "disp": 0.4323
   },
@@ -61,6 +138,15 @@
    "stem": "akita_black_bowl_1__living_room_scene4_stack_the_left_bowl_on_the_right_bowl_and_place_them_in_the_tray",
    "env_id": "akita_black_bowl",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": [
+    {
+     "name": "akita_black_bowl_2",
+     "category": "akita_black_bowl",
+     "disp_m": 0.216946,
+     "rise_m": 0.141365
+    }
+   ],
    "xy_max": 0.6984,
    "disp": 0.4435
   },
@@ -68,13 +154,35 @@
    "stem": "akita_black_bowl_1__open_the_middle_drawer_of_the_cabinet",
    "env_id": "akita_black_bowl",
    "reason": "no_motion",
+   "articulation": "verb:open",
+   "carried_objects": null,
    "xy_max": 0.45,
    "disp": 0.0002
+  },
+  {
+   "stem": "akita_black_bowl_1__open_the_top_drawer_and_put_the_bowl_inside",
+   "env_id": "akita_black_bowl",
+   "reason": "articulation_required",
+   "articulation": "verb:open",
+   "carried_objects": null,
+   "xy_max": 0.5485,
+   "disp": 0.2106
+  },
+  {
+   "stem": "akita_black_bowl_1__pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate",
+   "env_id": "akita_black_bowl",
+   "reason": "articulation_required",
+   "articulation": "goal_inside_baked_enclosure",
+   "carried_objects": null,
+   "xy_max": 0.5725,
+   "disp": 0.3775
   },
   {
    "stem": "akita_black_bowl_1__pick_up_the_black_bowl_next_to_the_ramekin_and_place_it_on_the_plate",
    "env_id": "akita_black_bowl",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.7146,
    "disp": 0.268
   },
@@ -82,6 +190,8 @@
    "stem": "akita_black_bowl_1__pick_up_the_black_bowl_on_the_ramekin_and_place_it_on_the_plate",
    "env_id": "akita_black_bowl",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.7893,
    "disp": 0.2858
   },
@@ -89,6 +199,8 @@
    "stem": "akita_black_bowl_1__pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate",
    "env_id": "akita_black_bowl",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.8512,
    "disp": 0.4719
   },
@@ -96,6 +208,8 @@
    "stem": "akita_black_bowl_1__pick_up_the_black_bowl_on_the_wooden_cabinet_and_place_it_on_the_plate",
    "env_id": "akita_black_bowl",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.6957,
    "disp": 0.5283
   },
@@ -103,20 +217,83 @@
    "stem": "akita_black_bowl_1__turn_on_the_stove",
    "env_id": "akita_black_bowl",
    "reason": "no_motion",
+   "articulation": "verb:turn_on",
+   "carried_objects": null,
    "xy_max": 0.45,
    "disp": 0.0002
+  },
+  {
+   "stem": "akita_black_bowl_2__living_room_scene4_stack_the_right_bowl_on_the_left_bowl_and_place_them_in_the_tray",
+   "env_id": "akita_black_bowl",
+   "reason": "untracked_carried_object",
+   "articulation": null,
+   "carried_objects": [
+    {
+     "name": "akita_black_bowl_1",
+     "category": "akita_black_bowl",
+     "disp_m": 0.462453,
+     "rise_m": 0.172154
+    }
+   ],
+   "xy_max": 0.6032,
+   "disp": 0.2735
+  },
+  {
+   "stem": "alphabet_soup_1__living_room_scene1_put_both_the_alphabet_soup_and_the_cream_cheese_box_in_the_basket",
+   "env_id": "alphabet_soup",
+   "reason": "untracked_carried_object",
+   "articulation": null,
+   "carried_objects": [
+    {
+     "name": "cream_cheese_1",
+     "category": "cream_cheese",
+     "disp_m": 0.239867,
+     "rise_m": 0.245658
+    }
+   ],
+   "xy_max": 0.5051,
+   "disp": 0.3452
+  },
+  {
+   "stem": "alphabet_soup_1__living_room_scene2_put_both_the_alphabet_soup_and_the_tomato_sauce_in_the_basket",
+   "env_id": "alphabet_soup",
+   "reason": "untracked_carried_object",
+   "articulation": null,
+   "carried_objects": [
+    {
+     "name": "tomato_sauce_1",
+     "category": "tomato_sauce",
+     "disp_m": 0.285528,
+     "rise_m": 0.193052
+    }
+   ],
+   "xy_max": 0.6522,
+   "disp": 0.4174
   },
   {
    "stem": "alphabet_soup_1__pick_up_the_alphabet_soup_and_place_it_in_the_basket",
    "env_id": "alphabet_soup",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.7257,
    "disp": 0.4837
+  },
+  {
+   "stem": "butter_1__kitchen_scene10_put_the_butter_at_the_front_in_the_top_drawer_of_the_cabinet_and_close_it",
+   "env_id": "butter",
+   "reason": "articulation_required",
+   "articulation": "verb_and_enclosure:close",
+   "carried_objects": null,
+   "xy_max": 0.6769,
+   "disp": 0.5261
   },
   {
    "stem": "butter_1__pick_up_the_butter_and_place_it_in_the_basket",
    "env_id": "butter",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.7961,
    "disp": 0.5052
   },
@@ -124,6 +301,8 @@
    "stem": "butter_2__kitchen_scene10_put_the_butter_at_the_back_in_the_top_drawer_of_the_cabinet_and_close_it",
    "env_id": "butter",
    "reason": "xy_out_of_envelope",
+   "articulation": "verb_and_enclosure:close",
+   "carried_objects": null,
    "xy_max": 0.7763,
    "disp": 0.5646
   },
@@ -131,13 +310,44 @@
    "stem": "chefmate_8_frypan_1__kitchen_scene3_turn_on_the_stove",
    "env_id": "chefmate_8_frypan",
    "reason": "no_motion",
+   "articulation": "verb:turn_on",
+   "carried_objects": null,
    "xy_max": 0.45,
    "disp": 0.0002
+  },
+  {
+   "stem": "chefmate_8_frypan_1__kitchen_scene3_turn_on_the_stove_and_put_the_frying_pan_on_it",
+   "env_id": "chefmate_8_frypan",
+   "reason": "articulation_required",
+   "articulation": "verb:turn_on",
+   "carried_objects": null,
+   "xy_max": 0.6194,
+   "disp": 0.4375
+  },
+  {
+   "stem": "chefmate_8_frypan_1__kitchen_scene9_turn_on_the_stove_and_put_the_frying_pan_on_it",
+   "env_id": "chefmate_8_frypan",
+   "reason": "articulation_required",
+   "articulation": "verb:turn_on",
+   "carried_objects": null,
+   "xy_max": 0.4713,
+   "disp": 0.2803
+  },
+  {
+   "stem": "chocolate_pudding_1__kitchen_scene10_put_the_chocolate_pudding_in_the_top_drawer_of_the_cabinet_and_close_it",
+   "env_id": "chocolate_pudding",
+   "reason": "articulation_required",
+   "articulation": "verb_and_enclosure:close",
+   "carried_objects": null,
+   "xy_max": 0.5566,
+   "disp": 0.3892
   },
   {
    "stem": "chocolate_pudding_1__living_room_scene6_put_the_chocolate_pudding_to_the_left_of_the_plate",
    "env_id": "chocolate_pudding",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.6948,
    "disp": 0.2861
   },
@@ -145,13 +355,42 @@
    "stem": "chocolate_pudding_1__pick_up_the_chocolate_pudding_and_place_it_in_the_basket",
    "env_id": "chocolate_pudding",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.7488,
    "disp": 0.4996
+  },
+  {
+   "stem": "cream_cheese_1__living_room_scene2_put_both_the_cream_cheese_box_and_the_butter_in_the_basket",
+   "env_id": "cream_cheese",
+   "reason": "untracked_carried_object",
+   "articulation": null,
+   "carried_objects": [
+    {
+     "name": "butter_1",
+     "category": "butter",
+     "disp_m": 0.241872,
+     "rise_m": 0.242839
+    }
+   ],
+   "xy_max": 0.6029,
+   "disp": 0.4782
+  },
+  {
+   "stem": "ketchup_1__kitchen_scene5_put_the_ketchup_in_the_top_drawer_of_the_cabinet",
+   "env_id": "ketchup",
+   "reason": "articulation_required",
+   "articulation": "goal_inside_baked_enclosure",
+   "carried_objects": null,
+   "xy_max": 0.5925,
+   "disp": 0.2743
   },
   {
    "stem": "ketchup_1__living_room_scene1_pick_up_the_ketchup_and_put_it_in_the_basket",
    "env_id": "ketchup",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.7926,
    "disp": 0.4772
   },
@@ -159,6 +398,8 @@
    "stem": "ketchup_1__living_room_scene3_pick_up_the_ketchup_and_put_it_in_the_tray",
    "env_id": "ketchup",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.8364,
    "disp": 0.5471
   },
@@ -166,6 +407,8 @@
    "stem": "ketchup_1__pick_up_the_ketchup_and_place_it_in_the_basket",
    "env_id": "ketchup",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.766,
    "disp": 0.5014
   },
@@ -173,13 +416,42 @@
    "stem": "milk_1__pick_up_the_milk_and_place_it_in_the_basket",
    "env_id": "milk",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.7706,
    "disp": 0.5038
+  },
+  {
+   "stem": "moka_pot_1__kitchen_scene3_turn_on_the_stove_and_put_the_moka_pot_on_it",
+   "env_id": "moka_pot",
+   "reason": "articulation_required",
+   "articulation": "verb:turn_on",
+   "carried_objects": null,
+   "xy_max": 0.45,
+   "disp": 0.2214
+  },
+  {
+   "stem": "moka_pot_1__kitchen_scene8_put_both_moka_pots_on_the_stove",
+   "env_id": "moka_pot",
+   "reason": "untracked_carried_object",
+   "articulation": null,
+   "carried_objects": [
+    {
+     "name": "moka_pot_2",
+     "category": "moka_pot",
+     "disp_m": 0.302535,
+     "rise_m": 0.107358
+    }
+   ],
+   "xy_max": 0.6544,
+   "disp": 0.4433
   },
   {
    "stem": "moka_pot_1__kitchen_scene8_turn_off_the_stove",
    "env_id": "moka_pot",
    "reason": "no_motion",
+   "articulation": "verb:turn_off",
+   "carried_objects": null,
    "xy_max": 0.45,
    "disp": 0.0
   },
@@ -187,6 +459,8 @@
    "stem": "new_salad_dressing_1__living_room_scene4_pick_up_the_salad_dressing_and_put_it_in_the_tray",
    "env_id": "new_salad_dressing",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.7575,
    "disp": 0.4186
   },
@@ -194,6 +468,8 @@
    "stem": "porcelain_mug_1__living_room_scene6_put_the_white_mug_on_the_plate",
    "env_id": "porcelain_mug",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.7525,
    "disp": 0.3028
   },
@@ -201,6 +477,8 @@
    "stem": "porcelain_mug_1__living_room_scene6_put_the_white_mug_on_the_plate_and_put_the_chocolate_pudding_to_the_right_of_the_plate",
    "env_id": "porcelain_mug",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.7252,
    "disp": 0.2933
   },
@@ -208,6 +486,8 @@
    "stem": "red_coffee_mug_1__living_room_scene5_put_the_red_mug_on_the_left_plate",
    "env_id": "red_coffee_mug",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.7376,
    "disp": 0.3798
   },
@@ -215,6 +495,8 @@
    "stem": "red_coffee_mug_1__living_room_scene5_put_the_red_mug_on_the_right_plate",
    "env_id": "red_coffee_mug",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.7555,
    "disp": 0.353
   },
@@ -222,6 +504,8 @@
    "stem": "red_coffee_mug_1__living_room_scene6_put_the_red_mug_on_the_plate",
    "env_id": "red_coffee_mug",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.8271,
    "disp": 0.3384
   },
@@ -229,6 +513,8 @@
    "stem": "white_bowl_1__kitchen_scene7_open_the_microwave",
    "env_id": "white_bowl",
    "reason": "no_motion",
+   "articulation": "verb:open",
+   "carried_objects": null,
    "xy_max": 0.45,
    "disp": 0.0003
   },
@@ -236,13 +522,51 @@
    "stem": "white_bowl_1__kitchen_scene9_turn_on_the_stove",
    "env_id": "white_bowl",
    "reason": "no_motion",
+   "articulation": "verb:turn_on",
+   "carried_objects": null,
    "xy_max": 0.45,
    "disp": 0.0002
+  },
+  {
+   "stem": "white_yellow_mug_1__kitchen_scene6_close_the_microwave",
+   "env_id": "white_yellow_mug",
+   "reason": "articulation_required",
+   "articulation": "verb:close",
+   "carried_objects": null,
+   "xy_max": 0.4644,
+   "disp": 0.316
+  },
+  {
+   "stem": "white_yellow_mug_1__kitchen_scene6_put_the_yellow_and_white_mug_in_the_microwave_and_close_it",
+   "env_id": "white_yellow_mug",
+   "reason": "articulation_required",
+   "articulation": "verb_and_enclosure:close",
+   "carried_objects": null,
+   "xy_max": 0.5387,
+   "disp": 0.3215
+  },
+  {
+   "stem": "white_yellow_mug_1__living_room_scene5_put_the_white_mug_on_the_left_plate_and_put_the_yellow_and_white_mug_on_the_right_plate",
+   "env_id": "white_yellow_mug",
+   "reason": "untracked_carried_object",
+   "articulation": null,
+   "carried_objects": [
+    {
+     "name": "porcelain_mug_1",
+     "category": "porcelain_mug",
+     "disp_m": 0.190732,
+     "rise_m": 0.118569
+    }
+   ],
+   "xy_max": 0.5708,
+   "disp": 0.2225
   },
   {
    "stem": "wine_bottle_1__kitchen_scene4_put_the_wine_bottle_in_the_bottom_drawer_of_the_cabinet",
    "env_id": "wine_bottle",
    "reason": "xy_out_of_envelope",
+   "articulation": "goal_inside_baked_enclosure",
+   "carried_objects": null,
    "xy_max": 0.7103,
    "disp": 0.2477
   },
@@ -250,6 +574,8 @@
    "stem": "yellow_book_2__study_scene4_pick_up_the_book_on_the_left_and_place_it_on_top_of_the_shelf",
    "env_id": "yellow_book",
    "reason": "xy_out_of_envelope",
+   "articulation": null,
+   "carried_objects": null,
    "xy_max": 0.7658,
    "disp": 0.6188
   }

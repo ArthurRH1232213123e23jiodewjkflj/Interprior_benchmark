@@ -1,0 +1,348 @@
+{
+ "density_kg_m3": 800.0,
+ "root": "props",
+ "kinematic_when_spawned": true,
+ "objects": [
+  {
+   "env_id": "basket",
+   "urdf": "basket.urdf",
+   "obj": "basket.obj",
+   "mass_kg": 1.22671,
+   "watertight": true,
+   "volume_m3": 0.0015333813669009641,
+   "extent_m": 0.1734,
+   "bbox_min_m": [
+    -0.08667,
+    -0.08087,
+    -2e-05
+   ],
+   "bbox_max_m": [
+    0.08675,
+    0.08133,
+    0.14759
+   ],
+   "size_m": [
+    0.17341,
+    0.16219,
+    0.14761
+   ],
+   "inertial_origin": [
+    -0.00013,
+    -0.00225,
+    0.06278
+   ],
+   "n_verts": 199170,
+   "n_faces": 66390
+  },
+  {
+   "env_id": "cookies",
+   "urdf": "cookies.urdf",
+   "obj": "cookies.obj",
+   "mass_kg": 0.07523,
+   "watertight": true,
+   "volume_m3": 9.403776314473039e-05,
+   "extent_m": 0.0836,
+   "bbox_min_m": [
+    -0.03069,
+    -0.04181,
+    -0.01004
+   ],
+   "bbox_max_m": [
+    0.03069,
+    0.04181,
+    0.01004
+   ],
+   "size_m": [
+    0.06137,
+    0.08362,
+    0.02008
+   ],
+   "inertial_origin": [
+    -0.00013,
+    0.00049,
+    0.00028
+   ],
+   "n_verts": 53562,
+   "n_faces": 17854
+  },
+  {
+   "env_id": "desk_caddy",
+   "urdf": "desk_caddy.urdf",
+   "obj": "desk_caddy.obj",
+   "mass_kg": 1.99823,
+   "watertight": true,
+   "volume_m3": 0.0024977834311987334,
+   "extent_m": 0.44,
+   "bbox_min_m": [
+    -0.07861,
+    -0.21964,
+    -2e-05
+   ],
+   "bbox_max_m": [
+    0.07919,
+    0.22037,
+    0.16939
+   ],
+   "size_m": [
+    0.1578,
+    0.44002,
+    0.16941
+   ],
+   "inertial_origin": [
+    0.00622,
+    -0.0141,
+    0.05548
+   ],
+   "n_verts": 74910,
+   "n_faces": 24970
+  },
+  {
+   "env_id": "flat_stove",
+   "urdf": "flat_stove.urdf",
+   "obj": "flat_stove.obj",
+   "mass_kg": 1.35541,
+   "watertight": true,
+   "volume_m3": 0.001694259387741961,
+   "extent_m": 0.2945,
+   "bbox_min_m": [
+    -0.04946,
+    -0.095,
+    -0.02
+   ],
+   "bbox_max_m": [
+    0.245,
+    0.095,
+    0.0539
+   ],
+   "size_m": [
+    0.29446,
+    0.19,
+    0.0739
+   ],
+   "inertial_origin": [
+    0.13337,
+    -8e-05,
+    0.00288
+   ],
+   "n_verts": 3086,
+   "n_faces": 1038
+  },
+  {
+   "env_id": "glazed_rim_porcelain_ramekin",
+   "urdf": "glazed_rim_porcelain_ramekin.urdf",
+   "obj": "glazed_rim_porcelain_ramekin.obj",
+   "mass_kg": 0.0596,
+   "watertight": true,
+   "volume_m3": 7.450579297221077e-05,
+   "extent_m": 0.0887,
+   "bbox_min_m": [
+    -0.04438,
+    -0.04436,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.0443,
+    0.04429,
+    0.04333
+   ],
+   "size_m": [
+    0.08868,
+    0.08865,
+    0.04333
+   ],
+   "inertial_origin": [
+    0.00013,
+    -9e-05,
+    0.01691
+   ],
+   "n_verts": 48822,
+   "n_faces": 16274
+  },
+  {
+   "env_id": "microwave",
+   "urdf": "microwave.urdf",
+   "obj": "microwave.obj",
+   "mass_kg": 6.33237,
+   "watertight": true,
+   "volume_m3": 0.007915459604443243,
+   "extent_m": 0.3446,
+   "bbox_min_m": [
+    -0.17229,
+    -0.11235,
+    0.0
+   ],
+   "bbox_max_m": [
+    0.17229,
+    0.11042,
+    0.18691
+   ],
+   "size_m": [
+    0.34458,
+    0.22278,
+    0.18691
+   ],
+   "inertial_origin": [
+    0.02939,
+    0.01321,
+    0.09573
+   ],
+   "n_verts": 2040,
+   "n_faces": 680
+  },
+  {
+   "env_id": "white_cabinet",
+   "urdf": "white_cabinet.urdf",
+   "obj": "white_cabinet.obj",
+   "mass_kg": 2.77164,
+   "watertight": true,
+   "volume_m3": 0.0034645492211567604,
+   "extent_m": 0.2564,
+   "bbox_min_m": [
+    -0.12466,
+    -0.1101,
+    0.00459
+   ],
+   "bbox_max_m": [
+    0.13177,
+    0.11168,
+    0.22162
+   ],
+   "size_m": [
+    0.25643,
+    0.22178,
+    0.21703
+   ],
+   "inertial_origin": [
+    0.0037,
+    0.00843,
+    0.10597
+   ],
+   "n_verts": 4698,
+   "n_faces": 1566
+  },
+  {
+   "env_id": "wine_rack",
+   "urdf": "wine_rack.urdf",
+   "obj": "wine_rack.obj",
+   "mass_kg": 1.21696,
+   "watertight": true,
+   "volume_m3": 0.001521199375745808,
+   "extent_m": 0.3236,
+   "bbox_min_m": [
+    -0.135,
+    -0.13148,
+    -0.0
+   ],
+   "bbox_max_m": [
+    0.135,
+    0.13415,
+    0.32358
+   ],
+   "size_m": [
+    0.27,
+    0.26562,
+    0.32358
+   ],
+   "inertial_origin": [
+    0.00073,
+    -0.01285,
+    0.10082
+   ],
+   "n_verts": 3537,
+   "n_faces": 1179
+  },
+  {
+   "env_id": "wooden_cabinet",
+   "urdf": "wooden_cabinet.urdf",
+   "obj": "wooden_cabinet.obj",
+   "mass_kg": 2.77164,
+   "watertight": true,
+   "volume_m3": 0.0034645492211567604,
+   "extent_m": 0.2564,
+   "bbox_min_m": [
+    -0.12466,
+    -0.1101,
+    0.00459
+   ],
+   "bbox_max_m": [
+    0.13177,
+    0.11168,
+    0.22162
+   ],
+   "size_m": [
+    0.25643,
+    0.22178,
+    0.21703
+   ],
+   "inertial_origin": [
+    0.0037,
+    0.00843,
+    0.10597
+   ],
+   "n_verts": 4698,
+   "n_faces": 1566
+  },
+  {
+   "env_id": "wooden_tray",
+   "urdf": "wooden_tray.urdf",
+   "obj": "wooden_tray.obj",
+   "mass_kg": 0.35097,
+   "watertight": true,
+   "volume_m3": 0.00043870762903696356,
+   "extent_m": 0.2974,
+   "bbox_min_m": [
+    -0.14128,
+    -0.08786,
+    -0.00068
+   ],
+   "bbox_max_m": [
+    0.15614,
+    0.07739,
+    0.08145
+   ],
+   "size_m": [
+    0.29742,
+    0.16524,
+    0.08213
+   ],
+   "inertial_origin": [
+    0.00685,
+    -0.00537,
+    0.01938
+   ],
+   "n_verts": 540,
+   "n_faces": 180
+  },
+  {
+   "env_id": "wooden_two_layer_shelf",
+   "urdf": "wooden_two_layer_shelf.urdf",
+   "obj": "wooden_two_layer_shelf.obj",
+   "mass_kg": 1.63405,
+   "watertight": true,
+   "volume_m3": 0.0020425570496430305,
+   "extent_m": 0.3506,
+   "bbox_min_m": [
+    -0.17024,
+    -0.07918,
+    0.00021
+   ],
+   "bbox_max_m": [
+    0.18034,
+    0.11174,
+    0.20932
+   ],
+   "size_m": [
+    0.35058,
+    0.19092,
+    0.20911
+   ],
+   "inertial_origin": [
+    0.00456,
+    0.04151,
+    0.11649
+   ],
+   "n_verts": 330,
+   "n_faces": 110
+  }
+ ]
+}

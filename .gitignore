@@ -93,3 +93,16 @@ venv/
 bench_libero/suites/libero_pick_*.yaml
 bench_libero/suites/libero_smoke_*.yaml
 bench_libero/suites/libero_one_*.yaml
+
+# ---------------------------------------------------------------------------
+# OBJ sidecars for the LIBERO scene props. Written by
+#   build_env/build_object_urdf.py --props
+# from the props/*/mesh.npz that ARE tracked, so they are pure derived output:
+# 21 MB of ASCII (basket alone is 7.4 MB) reproducible byte for byte in one
+# command. The .urdf files next to them ARE tracked -- those carry the mass /
+# inertia derivation and the provenance header, which is source, not output.
+#
+# (envs/*/*.obj were committed in 9f65a61 before this rule existed; they stay,
+# rewriting that history is not worth 28 MB.)
+# ---------------------------------------------------------------------------
+bench_libero/tasks/libero/props/*/*.obj

@@ -33,11 +33,11 @@ import argparse
 import base64
 import json
 import os
-import re
 
 import numpy as np
 
 from . import robot_meshes as R
+from ..envs import scene_manifest as SM
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PKG = os.path.normpath(os.path.join(HERE, ".."))          # bench_libero/
@@ -100,52 +100,33 @@ def stem_of(case: dict) -> str:
 
 
 def load_scene(case: dict):
-    """Every object in the scene, not just the target.
+    """Every object in the scene, not just the target -- from envs.scene_manifest.
 
-    LIBERO scenes hold 5-ish objects; flows/<stem>_flow.npz carries all_poses
-    [O,T,7] for all of them in WORLD frame. Meshes resolve from envs/ (the 22 target
-    assets) or props/ (the 11 static fixtures extracted from LIBERO by
-    build_env/extract_libero_props.py). Anything unresolved is reported, never
-    silently dropped -- a missing support surface is exactly what made the goal look
-    like it ended in mid air.
+    The resolution used to be inline here (strip the _<n> instance suffix, look in
+    envs/ then props/, recover the world->base shift from the target's own first
+    pose). It now lives in bench_libero/envs/scene_manifest.py so the driver reads
+    the same scene this page draws: two copies is how the cube line ended up with
+    two different ROBOT_BASE values (see render/robot_meshes.py's header).
 
-    Returns (objects, target_index, world_to_base) where each object is
-    {name, category, verts, faces, pose[T,7] or None, static, source}.
+    Kept shape-compatible with the old return: (objects, target_index, shift), each
+    object {name, category, verts, faces, pose, static, source}. `pose` stays in
+    WORLD frame because the caller subtracts `shift` itself.
     """
-    stem = stem_of(case)
-    fp = os.path.join(LIBERO, "flows", f"{stem}_flow.npz")
-    if not os.path.exists(fp):
-        return [], -1, None
-    z = np.load(fp, allow_pickle=True)
-    names = [str(x) for x in np.asarray(z["obj_names"]).tolist()]
-    poses = np.asarray(z["all_poses"], dtype=np.float64)      # [O,T,7] world
-    ti = int(np.asarray(z["target_index"]))
-
-    # The pointflow step rebased the target into base frame; recover that same shift
-    # so every object lands in one frame. Using the target's own first pose keeps the
-    # two consistent by construction rather than by a re-derived constant.
-    tr, _ = load_goal(case)
-    shift = poses[ti, 0, :3] - tr[0, :3]
-
+    sc = SM.scene_objects(case, load_meshes=True)
+    shift = sc["shift_world_to_base"]
     out = []
-    for i, nm in enumerate(names):
-        cat = re.sub(r"_\d+$", "", nm)
-        verts = faces = None
-        src = None
-        for root, kind in ((os.path.join(LIBERO, "envs", cat), "envs"),
-                           (os.path.join(LIBERO, "props", cat), "props")):
-            mp = os.path.join(root, "mesh.npz")
-            if os.path.exists(mp):
-                m = np.load(mp, allow_pickle=True)
-                verts = np.asarray(m["verts"], dtype=np.float32)
-                faces = np.asarray(m["faces"], dtype=np.uint32)
-                src = kind
-                break
-        disp = float(np.linalg.norm(poses[i, -1, :3] - poses[i, 0, :3]))
-        out.append({"name": nm, "category": cat, "verts": verts, "faces": faces,
-                    "pose": poses[i], "static": disp < 0.01, "source": src,
-                    "disp": disp})
-    return out, ti, shift
+    for o in sc["objects"]:
+        pose_world = o["pose_base"].copy()
+        pose_world[:, :3] += shift                    # manifest is base frame; caller wants world
+        out.append({"name": o["name"], "category": o["category"],
+                    "verts": o.get("verts"), "faces": o.get("faces"),
+                    "pose": pose_world,
+                    # `static` here means "did not move", which is the render
+                    # question. Whether to PIN it in physics is o["kinematic"],
+                    # decided by category -- see scene_manifest's docstring.
+                    "static": not o["moved"], "source": o["source"],
+                    "disp": o["disp_m"]})
+    return out, sc["target_index"], shift
 
 
 def load_object(case: dict) -> tuple[np.ndarray, np.ndarray, str]:

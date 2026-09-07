@@ -1,5 +1,7 @@
 {
  "density_kg_m3": 800.0,
+ "root": "envs",
+ "kinematic_when_spawned": false,
  "objects": [
   {
    "env_id": "akita_black_bowl",
