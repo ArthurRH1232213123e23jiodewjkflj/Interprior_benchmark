@@ -528,6 +528,15 @@ def _run(args: argparse.Namespace, root: Path) -> int:
 
     print(f"[replay] making env num_envs={n} device={args.device} task={task_id}", flush=True)
     env = gym.make(task_id, cfg=cfg)
+
+    # Mask the hand pairs the upstream adjacency map cannot see. That map is for
+    # a Sharpa hand on a KUKA iiwa14 and matches nothing here, so with
+    # self-collision on (0908) the knuckles of fingers 2-5 push against the palm.
+    # See bench_libero/envs/hand_self_collision.py. Must run before the first
+    # reset: PhysX parses the stage when the sim starts playing.
+    if bool(getattr(cfg.assets, "robot_self_collision_enabled", False)):
+        from bench_libero.envs import hand_self_collision as HAND_SC
+        HAND_SC.apply(env.unwrapped)
     inner = env.unwrapped
     device = inner.device
     print(f"[replay] env built, device={device}", flush=True)
