@@ -18,6 +18,43 @@ RECOVERY_NOMINAL_COLOR_RGB = (0.12, 0.82, 1.00)
 RECOVERY_ACTUAL_COLOR_RGB = (1.00, 0.42, 0.08)
 
 
+def darken_table_links(urdf_text: str, rgb=TABLE_VIEWER_COLOR_RGB) -> str:
+    """Paint the table dark WITHOUT painting the furniture welded into it.
+
+    The quiet dark table exists so bright object-flow tracks stay legible, and
+    it used to be applied as `color_override` on the whole table body. That was
+    right while the table was one cylinder. Since 0907 the scene props --
+    cabinets, stoves, wine racks, shelves, baskets -- are welded into the same
+    URDF as extra `prop_*` links, and an entity-wide override painted every one
+    of them the same near-black slate. Reported as "the cabinets are black";
+    the meshes and their materials were fine all along.
+
+    So the colour goes on the table's own links only, as a URDF material, and
+    the `prop_*` links keep whatever their mesh carries.
+    """
+    import xml.etree.ElementTree as ET
+
+    try:
+        root = ET.fromstring(urdf_text)
+    except ET.ParseError:
+        return urdf_text
+
+    rgba = "%s %s %s 1.0" % tuple(f"{c:.4f}" for c in rgb)
+    for link in root.findall("link"):
+        if str(link.get("name", "")).startswith("prop_"):
+            continue
+        for visual in link.findall("visual"):
+            material = visual.find("material")
+            if material is None:
+                material = ET.SubElement(visual, "material")
+                material.set("name", "viewer_table")
+            color = material.find("color")
+            if color is None:
+                color = ET.SubElement(material, "color")
+            color.set("rgba", rgba)
+    return ET.tostring(root, encoding="unicode")
+
+
 def style_table_viewer_robot(robot: dict[str, Any]) -> dict[str, Any]:
     """Use a quiet dark table so bright object-flow tracks remain legible."""
 
@@ -226,8 +263,10 @@ def build_flow_viewer_html(
     object_robot["opacity_override"] = 0.28
     robots = [
         make_embedded_robot(name="robot", urdf_text=robot_text, animated=True),
-        style_table_viewer_robot(
-            make_embedded_robot(name="table", urdf_text=table_urdf_text)
+        # Not `style_table_viewer_robot`: that override would repaint the welded
+        # furniture too. See darken_table_links.
+        make_embedded_robot(
+            name="table", urdf_text=darken_table_links(table_urdf_text)
         ),
         object_robot,
     ]

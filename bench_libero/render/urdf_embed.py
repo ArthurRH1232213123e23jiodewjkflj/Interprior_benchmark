@@ -53,6 +53,26 @@ GLB_CACHE = Path.home() / ".cache" / "bench_libero" / "glb"
 CONVERTIBLE = {".obj", ".stl", ".dae", ".ply"}
 
 
+# THE EXPORTED MESH MUST CARRY A MATERIAL, OR IT RENDERS BLACK.
+# These URDFs declare no <material> at all. Under the old .obj path that was
+# harmless: three.js OBJLoader invents a plain white material for an .obj with no
+# mtl. glTF does not work that way -- a primitive with no material gets the glTF
+# DEFAULT material, whose metallicFactor is 1.0, and a fully metallic surface
+# with no environment map to reflect is black. So the first glb conversion turned
+# every object black while the geometry was perfectly correct.
+#
+# Metal-free, mid grey, matching what OBJLoader used to produce. Normals are
+# still omitted: the source meshes have none either (`v` and `f` only), glTF
+# requires flat normals be computed when NORMAL is absent, and that is exactly
+# the flat look the .obj path had.
+GLB_BASE_COLOR = (0.80, 0.80, 0.80, 1.0)
+
+# Folded into the cache key. Bump it whenever the conversion's OUTPUT changes for
+# unchanged input -- the key is otherwise the source file's hash, which would
+# happily serve a pre-material black glb forever.
+GLB_RECIPE = "v2-nonmetal"
+
+
 def _as_glb(mesh_path: Path) -> tuple[bytes, str] | None:
     """Binary-glTF bytes for a mesh file, cached on disk. None if unavailable.
 
@@ -61,15 +81,24 @@ def _as_glb(mesh_path: Path) -> tuple[bytes, str] | None:
     """
     try:
         import trimesh
+        from trimesh.visual.material import PBRMaterial
     except Exception:
         return None
 
-    digest = hashlib.sha1(mesh_path.read_bytes()).hexdigest()[:16]
+    digest = hashlib.sha1(
+        mesh_path.read_bytes() + GLB_RECIPE.encode()).hexdigest()[:16]
     cached = GLB_CACHE / f"{digest}.glb"
     if cached.is_file():
         return cached.read_bytes(), "model/gltf-binary"
     try:
         mesh = trimesh.load(str(mesh_path), force="mesh")
+        mesh.visual = trimesh.visual.TextureVisuals(
+            material=PBRMaterial(
+                baseColorFactor=GLB_BASE_COLOR,
+                metallicFactor=0.0,
+                roughnessFactor=0.75,
+            )
+        )
         blob = trimesh.exchange.gltf.export_glb(trimesh.Scene(mesh))
     except Exception:
         return None
