@@ -55,7 +55,7 @@ description: >
   hands the policy that trajectory's whole object-flow plan at reset. The policy
   must grasp the object itself and then follow the path.
 
-physics_profile: tro_mp_dataprod_venvshare_20260808.yaml
+physics_profile: tro_mp_dataprod_venvshare_20260808_selfcoll.yaml
 interprior_root: /mnt/venv_share/H800/Interprior
 
 goal_source: authored_npz

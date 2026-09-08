@@ -15,7 +15,7 @@ description: >
 # Physics truth = the config the training data was produced under
 # (/mnt/venv_share/*/Interprior, sha256 e9de8133). NOT the yaml the v10
 # eval path pins -- that one is 160 lines apart. See log/physics_difference.txt.
-physics_profile: tro_mp_dataprod_venvshare_20260808.yaml
+physics_profile: tro_mp_dataprod_venvshare_20260808_selfcoll.yaml
 interprior_root: /mnt/venv_share/H800/Interprior
 
 cases_from: ../../_upstream/train_v10/val200_cases.json

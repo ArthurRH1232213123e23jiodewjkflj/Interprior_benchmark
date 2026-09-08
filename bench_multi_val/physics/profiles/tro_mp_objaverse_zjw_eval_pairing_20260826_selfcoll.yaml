@@ -1,0 +1,372 @@
+# Physics profile: tro_mp_objaverse_zjw_eval_pairing_20260826 with ROBOT SELF-COLLISION ON (20260908)
+#
+# DERIVED, not regenerated. Byte-identical to
+#   tro_mp_objaverse_zjw_eval_pairing_20260826.yaml
+#   sha256 08c2d29a06ff9ce4f8c7e948d4bf702321d8306a0a7db90a43a8c7198447a344
+# except for exactly one field:
+#
+#   assets.robot_self_collision_enabled: false -> true
+#
+# WHY. With self-collision off PhysX never tests finger-vs-finger or
+# finger-vs-palm contact, so the hand can close through itself: a grasp can be
+# scored on a pose that cannot physically exist, and the fingers visibly clip in
+# the viewer. Every other URDF import setting was already identical to the
+# self-collision runs in Interprior_exp (merge_fixed_joints, collider_type
+# convex_hull, fix_base, link_density, joint_drive) -- this one field was the
+# whole difference.
+#
+# The env supports it directly: scene_utils passes it to _convert_urdf_to_usd
+# and then authors FilteredPairsAPI for the adjacent link pairs, mirroring what
+# Isaac Gym does (enable all self-collisions, mask the adjacent ones).
+#
+# A NEW FILE, NOT AN EDIT, because every summary.json records the profile's name
+# AND its sha256. Editing the frozen file in place would leave the name intact
+# while silently changing the hash, and every earlier number would become
+# incomparable without anything saying so.
+#
+# The source profile stays where it is; runs that need the old physics keep
+# pointing at it.
+
+# Physics profile: Objaverse -- ZJW EVAL PAIRING (20260826)
+#
+# FROZEN. Regenerate with train_eval-free freezer notes in this header.
+#
+# PURPOSE: reproduce the physics zjw's 436-case closed-loop numbers were produced
+# under, so our results are comparable to his. This is NOT the data-production
+# physics -- for that use tro_mp_objaverse_selfcoll_20260824.yaml, which remains
+# this package's baseline.
+#
+# values   : /home/zhangjiawei/Interprior/isaacsimenvs/cfg/task/TroMp.yaml
+#            sha256 d9eea823f6b94366c5dc574d8a3f7458cd2d8b54fd90b4fafcd739fe8d19f16b
+#            resolved onto the cfg dataclass defaults of /home/zhangjiawei/Interprior (255eade8),
+#            because his yaml is a SPARSE overlay and the rest of the effective
+#            physics comes from those defaults. Freezing the resolved result
+#            keeps this file self-contained and hashable.
+# env code : /home/zhangjiawei/Interprior  (255eade8)
+#
+# HOW IT DIFFERS FROM THE DATA-PRODUCTION PROFILE (28 gate fields compared):
+#   assets.robot_self_collision_enabled          data True -> false   REAL PHYSICS
+#   assets.object_missing_inertial_density_kg_m3 data 200.0 -> None   REAL PHYSICS
+#     (feeds link_density when converting each object URDF, scene_utils.py:2073,
+#      i.e. the mass of every object whose URDF has no inertial block)
+#   tro_mp.obj_source                            objaverse -> cube    label only
+#   tro_mp.object_flow_num_points                1024 -> 16           capture only
+# All six solver-iteration fields AGREE -- that is the row that diverged for the
+# cube benchmark (log/physics_difference.txt), and it does not diverge here.
+#
+# The dataset id says `selfcoll` and the data really was produced with
+# robot_self_collision_enabled=True (all 16 embedded configs), yet his eval yaml
+# sets it false at line 35. That asymmetry is the main reason this second profile
+# exists rather than being assumed equivalent.
+#
+# MULTI-OBJECT: his yaml names assets/urdf/cube_0p06m.urdf; cleared here to '' so
+# the per-case pin can fill object_urdf_pool. Cleared: {"object_urdf": "assets/urdf/cube_0p06m.urdf", "object_scale": [1.0, 1.0, 1.0], "object_size_m": [0.06, 0.06, 0.06]}
+#
+# provenance: 155 values from his yaml, 51 from cfg
+# defaults, 2 unparseable defaults kept from the dataprod profile
+# (assets.handle_head_types, reset.robot_start_arm_joint_pos).
+assets:
+  cube_density: 800.0
+  cube_mass_mode: constant_density
+  cube_pool_size: 64
+  cube_sampling_mode: fixed
+  cube_sampling_seed: 42
+  cube_size_max:
+  - 0.1
+  - 0.1
+  - 0.1
+  cube_size_min:
+  - 0.03
+  - 0.03
+  - 0.03
+  finger_tip_friction: 1.5
+  fingertip_body_mode: link4
+  handle_head_types:
+  - hammer
+  - screwdriver
+  - marker
+  - spatula
+  - eraser
+  - brush
+  modify_asset_frictions: true
+  num_assets_per_type: 100
+  object_bbox_max_m: null
+  object_bbox_min_m: null
+  object_collider_type: convex_hull
+  object_friction: 0.5
+  object_missing_inertial_density_kg_m3: null
+  object_name: handle_head_primitives
+  object_scale: null
+  object_size_m: null
+  object_support_height_m: null
+  object_urdf: ''
+  robot_base_on_table_center: true
+  robot_friction: 0.5
+  robot_initial_pos:
+  - 0.0
+  - -0.08
+  - 0.53
+  robot_initial_rot_wxyz:
+  - 1.0
+  - 0.0
+  - 0.0
+  - 0.0
+  robot_self_collision_enabled: true
+  robot_urdf: assets/urdf/xarm7_wuji_right_description/xarm7_wuji_right.urdf
+  shuffle_assets: false
+  table_friction: 0.5
+  table_scale_num_variants: 1
+  table_scale_range_x:
+  - 1.0
+  - 1.0
+  table_scale_range_y:
+  - 1.0
+  - 1.0
+  table_urdf: assets/urdf/table_round_large.urdf
+decimation: 2
+episode_length_s: 40.0
+reset:
+  delta_goal_distance: 0.1
+  delta_rotation_degrees: 90.0
+  fixed_goal_pose: null
+  fixed_start_pose: null
+  fixed_trajectory_count: 0
+  fixed_trajectory_file: ''
+  goal_orientation_mode: random
+  goal_robot_clearance_m: 0.1
+  goal_sampling_max_attempts: 16
+  goal_sampling_type: delta
+  object_reset_center_xy:
+  - 0.45
+  - 0.0
+  object_reset_orientation_mode: yaw_only
+  object_reset_range_xy:
+  - 0.15
+  - 0.15
+  object_reset_sampling_mode: front_sector
+  object_reset_sector_edge_margin_m: 0.01
+  object_reset_sector_half_angle_rad: 1.3089969389957472
+  object_reset_sector_radial_range_m:
+  - 0.3
+  - 0.6
+  object_reset_sector_table_radius_m: 0.7
+  object_reset_z_mode: table_contact_bbox
+  reset_dof_pos_random_interval_arm: 0.0
+  reset_dof_pos_random_interval_fingers: 0.0
+  reset_dof_vel_random_interval: 0.0
+  reset_position_noise_x: 0.1
+  reset_position_noise_y: 0.1
+  reset_position_noise_z: 0.0
+  robot_start_arm_joint_pos:
+  - 0.0
+  - -0.548838
+  - -4.0e-06
+  - 0.096461
+  - 0.0
+  - 0.64349
+  - 5.0e-06
+  start_arm_higher: false
+  table_contact_margin: 0.002
+  table_object_z_offset: 0.15
+  table_reset_xy_range_m:
+  - 0.0
+  - 0.0
+  table_reset_yaw_range_deg: 0.0
+  table_reset_z: 0.38
+  table_reset_z_range: 0.0
+  table_surface_z_offset: 0.15
+  target_volume_maxs:
+  - 0.6
+  - 0.15
+  - 0.83
+  target_volume_mins:
+  - 0.3
+  - -0.15
+  - 0.83
+  target_volume_region_scale: 1.0
+scene:
+  num_envs: 1
+sim:
+  dt: 0.008333333333333333
+  physx:
+    max_position_iteration_count: 64
+    max_velocity_iteration_count: 64
+    min_position_iteration_count: 8
+    min_velocity_iteration_count: 0
+    robot_solver_position_iterations: 16
+    robot_solver_velocity_iterations: 8
+termination:
+  episode_length: 2400
+tro_mp:
+  artifact_mode: full_trajectory
+  cartesian_differential_min_steps: 60
+  cartesian_differential_waypoint_spacing_m: 0.004
+  conservative_closure_fraction: 0.6
+  continue_ee_sampling_until_episode_limit: true
+  cube_lift_height_threshold_m: 0.02
+  differential_damping: 0.04
+  differential_max_joint_step_rad: 0.035
+  differential_orientation_gain: 0.65
+  differential_position_gain: 1.0
+  ee_first_target_volume_maxs:
+  - 0.6
+  - 0.6
+  - 2.0
+  ee_first_target_volume_mins:
+  - 0.0
+  - -0.6
+  - 0.0
+  ee_goal_first_local_sector_angle_rad: 1.0471975511965976
+  ee_goal_first_max_rotation_rad: 0.5235987755982988
+  ee_goal_hand_envelope_radius_m: 0.18
+  ee_goal_held_cube_bounding_radius_m: 0.052
+  ee_goal_later_table_relative_z_max_m: 0.8
+  ee_goal_radial_max_m: 0.6
+  ee_goal_radial_min_m: 0.3
+  ee_goal_relative_max_rotation_rad: 0.5235987755982988
+  ee_goal_relative_shell_radius_m:
+  - 0.15
+  - 0.3
+  ee_goal_sector_half_angle_rad: 1.3089969389957472
+  ee_goal_table_clearance_margin_m: 0.018
+  ee_goal_table_relative_z_max_m: 0.5
+  ee_goal_table_relative_z_min_m: 0.25
+  ee_target_volume_maxs:
+  - 0.6
+  - 0.6
+  - 2.0
+  ee_target_volume_mins:
+  - 0.0
+  - -0.6
+  - 0.0
+  ee_target_volume_region_scale: 1.0
+  execution_mode: gpu_vectorized
+  family_reset_sampling_mode: tabletop_se2
+  family_reset_seed_mode: stateless_episode_key_v1
+  family_reset_xy_half_range_m:
+  - 0.02
+  - 0.02
+  family_reset_yaw_half_range_rad: 3.141592653589793
+  gpu_ik_batch_max_size: 8
+  gpu_ik_device: ''
+  gpu_ik_dtype: float32
+  gpu_record_ring_enabled: true
+  grasp_buffer_path: isaacsimenvs/tasks/tro_mp/grasp_buffers/cube_num1/idx0/idx0_520/cube_0p06m_wuji_tro.npz
+  grasp_execution_offset_m: 0.0
+  grasp_metadata_path: isaacsimenvs/tasks/tro_mp/grasp_buffers/cube_num1/idx0/idx0_520/cube_0p06m_wuji_tro.json
+  grasp_pose_base_z_euler_filter_enabled: false
+  grasp_pose_max_abs_base_z_euler_deg: 60.0
+  grasp_source_mode: offline_buffer
+  hand_closure_mode: direct_squeeze
+  ik_active_set_mode: masked
+  ik_interpolation_dt_s: 0.016666666666666666
+  ik_max_iterations: 90
+  ik_max_joint_velocity_rad_s: 0.8
+  ik_min_trajectory_duration_s: 1.0
+  ik_orientation_tolerance_rad: 0.08
+  ik_position_tolerance_m: 0.008
+  ik_profile_enabled: false
+  ik_scheduler_mode: synchronized_epoch
+  ik_trace_capture: false
+  ik_trace_max_rows: 65536
+  joint_trajectory_profile: quintic
+  max_goal_sampling_attempts: 32
+  obj_source: cube
+  objaverse_reset_mode: family
+  object_flow_candidate_multiplier: 128
+  object_flow_enabled: true
+  object_flow_geometry_source: visual
+  object_flow_min_candidates: 2048
+  object_flow_num_points: 16
+  object_flow_record_current_points_w: true
+  object_flow_sampling_method: even
+  object_flow_seed: 4103
+  object_flow_viewer_enabled: true
+  object_flow_viewer_max_segments: 16
+  offline_grasp_pose_selection: top_k
+  offline_num_grasp_pose: 16
+  online_num_grasp_pose: 8
+  online_tro_checkpoint_path: policy/TRO/ckpt/tro_wuji/step_975000.pth
+  online_tro_config_path: policy/TRO/config/infer_wuji_sim.yaml
+  online_tro_env_batch_max_size: 1
+  online_tro_input_mode: oracle_geometry
+  online_tro_num_multistart: 8
+  online_tro_object_surface_seed: 42
+  online_tro_table_surface_seed: 43
+  output_compression: none
+  output_mode: episode_hdf5_async
+  parallel_num_envs: 4
+  per_env_reset: true
+  pinned_record_slots: 2
+  planner_backend: ik_joint_trajectory
+  post_grasp_lift_height_above_table_m: 0.2
+  post_hand_lock_arrival_orientation_tolerance_rad: 0.25
+  post_hand_lock_arrival_position_tolerance_m: 0.05
+  pre_hand_lock_arrival_orientation_tolerance_rad: 0.1
+  pre_hand_lock_arrival_position_tolerance_m: 0.01
+  pregrasp_offset_m: 0.12
+  record_hz: 60
+  record_rgbd: false
+  render_profile_path: ''
+  reset_rng_mode: batched_deterministic
+  reset_settle_time_s: 2.0
+  rgbd_camera_convention: ros
+  rgbd_camera_pos:
+  - 0.4
+  - -0.48
+  - 1.2
+  rgbd_camera_quat_wxyz:
+  - -0.254405372
+  - 0.9667477
+  - -0.025158671
+  - 0.006620653
+  rgbd_clipping_range:
+  - 0.1
+  - 3.0
+  rgbd_focal_length: 24.0
+  rgbd_focus_distance: 400.0
+  rgbd_height: 480
+  rgbd_horizontal_aperture: 27.7128
+  rgbd_horizontal_aperture_offset: 0.0
+  rgbd_image_chunk_frames: 4
+  rgbd_vertical_aperture_offset: 0.0
+  rgbd_width: 640
+  robot_arm_surface_num_points: 256
+  robot_hand_surface_num_points: 256
+  robot_surface_arm_link_exprs:
+  - link1
+  - link2
+  - link3
+  - link4
+  - link5
+  - link6
+  - link7
+  robot_surface_flow_viewer_max_points: 256
+  robot_surface_geometry_source: visual
+  robot_surface_hand_link_exprs:
+  - right_palm_link
+  - right_finger[1-5]_.*
+  robot_table_surface_flow_enabled: true
+  scoring_shard_episode_capacity: 1024
+  settle_time_s: 0.5
+  shard_episode_capacity: 256
+  shard_max_frames: 2400
+  squeeze_fraction: 0.6
+  squeeze_time_s: 0.75
+  surface_candidate_multiplier: 128
+  surface_flow_html_enabled: true
+  surface_flow_seed: 5101
+  surface_min_candidates: 2048
+  surface_sampling_method: even
+  table_surface_flow_viewer_max_points: 128
+  table_surface_num_points: 128
+  table_surface_z_offset_m: 0.15
+  table_top_height_tolerance_m: 0.002
+  table_top_normal_min_z: 0.95
+  tro_hand_transition_time_s: 1.0
+  visualization_enabled: false
+  visualization_env_ids:
+  - 0
+  visualization_every_n_env0_episodes: 10
+  writer_processes: 2
+  writer_queue_max_bytes: 2147483648

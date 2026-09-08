@@ -33,7 +33,7 @@ description: >
 
 # Env code must be this checkout: the venv_share roots predate
 # heterogeneous_pool_mode and cannot spawn these assets at all.
-physics_profile: tro_mp_objaverse_zjw_eval_pairing_20260826.yaml
+physics_profile: tro_mp_objaverse_zjw_eval_pairing_20260826_selfcoll.yaml
 interprior_root: /home/zhangjiawei/Interprior
 
 # zjw's frozen selection, converted to our case schema by

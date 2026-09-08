@@ -62,6 +62,12 @@ REQUIRED_FIELDS: tuple[str, ...] = (
     "assets.robot_base_on_table_center",
     "assets.object_urdf",
     "assets.cube_sampling_mode",
+    # Robot self-collision. Off means PhysX never tests finger-vs-finger or
+    # finger-vs-palm contact, so a grasp can be scored on a hand pose that cannot
+    # physically exist. It was absent from this list until 0908, which is why it
+    # sat at the env default across every benchmark without anything saying so --
+    # the same silent-fallback shape as the table geometry rows above.
+    "assets.robot_self_collision_enabled",
     # Object reset distribution: annulus, not center_xy+range_xy. A mismatch
     # here means the eval initial-state distribution differs from training's.
     "reset.object_reset_sample_mode",

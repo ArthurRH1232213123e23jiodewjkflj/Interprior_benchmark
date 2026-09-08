@@ -1,0 +1,303 @@
+# Physics profile: tro_mp_dataprod_venvshare_20260808 with ROBOT SELF-COLLISION ON (20260908)
+#
+# DERIVED, not regenerated. Byte-identical to
+#   tro_mp_dataprod_venvshare_20260808.yaml
+#   sha256 e9de8133c675f2d4c1eb69be09d9a143eadfddb637bf57102b9d68a66e6c0935
+# except for exactly one field:
+#
+#   assets.robot_self_collision_enabled: false -> true
+#
+# WHY. With self-collision off PhysX never tests finger-vs-finger or
+# finger-vs-palm contact, so the hand can close through itself: a grasp can be
+# scored on a pose that cannot physically exist, and the fingers visibly clip in
+# the viewer. Every other URDF import setting was already identical to the
+# self-collision runs in Interprior_exp (merge_fixed_joints, collider_type
+# convex_hull, fix_base, link_density, joint_drive) -- this one field was the
+# whole difference.
+#
+# The env supports it directly: scene_utils passes it to _convert_urdf_to_usd
+# and then authors FilteredPairsAPI for the adjacent link pairs, mirroring what
+# Isaac Gym does (enable all self-collisions, mask the adjacent ones).
+#
+# A NEW FILE, NOT AN EDIT, because every summary.json records the profile's name
+# AND its sha256. Editing the frozen file in place would leave the name intact
+# while silently changing the hash, and every earlier number would become
+# incomparable without anything saying so.
+#
+# The source profile stays where it is; runs that need the old physics keep
+# pointing at it.
+
+# Isolated TRO + motion-planning data-collection overlay.  This file inherits
+# typed defaults from TroMpEnvCfg and leaves SimToolReal untouched.
+
+scene:
+  num_envs: 1
+
+# PhysX contact/articulation budget for TRO-MP. The Robot requests 16/0 and
+# PhysX clamps that request to the scene-wide ranges below.
+sim:
+  physx:
+    min_position_iteration_count: 8
+    max_position_iteration_count: 64
+    min_velocity_iteration_count: 0
+    max_velocity_iteration_count: 64
+    robot_solver_position_iterations: 16
+    robot_solver_velocity_iterations: 8
+
+# Isolated TRO-MP collection runs for 40 s: 2400 policy/control steps at 60 Hz
+# produce 2400 retained frames at the collector's 60 Hz cadence.
+episode_length_s: 40.0
+
+termination:
+  episode_length: 2400
+
+assets:
+  # 1.4 m-diameter round tabletop. Replace this path to use another table URDF.
+  table_urdf: "assets/urdf/table_round_large.urdf"
+  # Derive robot-base XY center and tabletop Z automatically from table_urdf.
+  robot_base_on_table_center: true
+  object_urdf: "assets/urdf/cube_0p06m.urdf"
+  object_scale: [1.0, 1.0, 1.0]
+  # Physical collision bbox used by table_contact_bbox reset; independent of
+  # TRO/policy normalization and of all reward configuration.
+  object_size_m: [0.06, 0.06, 0.06]
+  cube_sampling_mode: fixed
+  # TRO-MP deliberately disables all robot self-collision pairs.
+  robot_self_collision_enabled: true
+reset:
+  fixed_start_pose: null
+  # Object-reset shell in the robot-base frame. [annulus | block]
+  object_reset_sample_mode: annulus
+
+  # Annulus shell: uniform-area XY sample, r_in <= radius <= r_out (m).
+  object_reset_annulus_r_in_m: 0.30
+  object_reset_annulus_r_out_m: 0.60
+  object_reset_annulus_z_in_low_m: 0.25
+  object_reset_annulus_z_in_high_m: 0.65
+  object_reset_annulus_z_out_low_m: 0.25
+  object_reset_annulus_z_out_high_m: 0.65
+
+  # Block shell: outer centered block minus inner centered block (m), XYZ order.
+  # Every entry is non-negative; each inner entry may be 0. Reset consumes XY
+  # only; Z is reserved for the paired EE global_block shell.
+  object_reset_block_len_in_xy_m: [0.00, 0.00]
+  object_reset_block_len_out_xy_m: [0.16, 0.16]
+  object_reset_block_z_in_low_m: 0.25
+  object_reset_block_z_in_high_m: 0.65
+  object_reset_block_z_out_low_m: 0.25
+  object_reset_block_z_out_high_m: 0.65
+
+  # Height of the object's bbox support point above the tabletop (m).
+  # 0.0 places it on the table; positive values release it from the air.
+  object_reset_z_offset_m: 0.03
+  object_reset_z_mode: table_contact_bbox  # [legacy_offset | table_contact_bbox]
+  object_reset_orientation_mode: random  # [random | yaw_only]
+  reset_position_noise_z: 0.0
+  table_contact_margin: 0.002
+
+tro_mp:
+
+  # ===========================[Grasp Buffer & Runtime]===========================
+  # Cube remains the default dev route. Objaverse is enabled explicitly and
+  # uses the same dev collector/IK/recording pipeline for grasp scoring.
+  obj_source: cube  # cube | objaverse
+  objaverse_object_profile_path: ""
+  objaverse_object_id: ""  # inventory/object profile identity
+  objaverse_reset_mode: random  # random | correspond
+  objaverse_family_id: -1  # required for correspond
+  objaverse_buffer_storage_format: npz_uncompressed_v1
+  grasp_buffer_path: "isaacsimenvs/tasks/tro_mp/grasp_buffers/cube_num1/idx0/idx0_520/cube_0p06m_wuji_tro.npz"
+  grasp_metadata_path: "isaacsimenvs/tasks/tro_mp/grasp_buffers/cube_num1/idx0/idx0_520/cube_0p06m_wuji_tro.json"
+  grasp_source_mode: offline_buffer  # [offline_buffer | online_tro]
+  # Fixed reset-time PhysX settle; recorded under the existing reset phase.
+  reset_settle_time_s: 2.00
+  # online_tro uses settled Isaac oracle geometry in each env-local table frame.
+  # offline_num_grasp_pose selects this many buffer candidates. Choose either
+  # score-descending Top-K or deterministic per-env random sampling.
+  offline_num_grasp_pose: 16
+  offline_grasp_pose_selection: top_k  # [top_k | random | shuffled_cycle]
+  # Batch-filter actual link7 grasp targets before pregrasp IK.  The bound is
+  # the absolute Z/yaw Euler component in the robot-base frame (XYZ / RPY).
+  grasp_pose_base_z_euler_filter_enabled: false
+  grasp_pose_max_abs_base_z_euler_deg: 60.0
+  online_tro_input_mode: oracle_geometry
+  # TRO-online generates this many candidates; all valid returned candidates
+  # are passed to synchronized pregrasp IK screening.
+  online_num_grasp_pose: 8
+  online_tro_env_batch_max_size: 1
+  online_tro_num_multistart: 8
+  online_tro_config_path: "policy/TRO/config/infer_wuji_sim.yaml"
+  online_tro_checkpoint_path: "policy/TRO/ckpt/tro_wuji/step_975000.pth"
+  online_tro_object_surface_seed: 42
+  online_tro_table_surface_seed: 43
+
+  # =======================[Execution & Parallel Scheduler]=======================
+  execution_mode: gpu_vectorized
+  # ``--num-envs`` selects the actual scene size. This is the recommended
+  # default for the first real parallel rollout.
+  parallel_num_envs: 4
+  per_env_reset: true
+  # Reset only envs that completed this scheduler tick in one vectorized call.
+  # legacy_per_env retains the prior exact one-env-at-a-time RNG behavior.
+  reset_rng_mode: batched_deterministic
+
+  # ===========================[IK Planner & Profiling]============================
+  # No collision checking. Select ``differential_ik`` (direct target DLS),
+  # ``cartesian_differential_ik`` (Cartesian interpolation + DLS), or
+  # ``ik_joint_trajectory`` (q_goal then joint-space interpolation).
+  planner_backend: ik_joint_trajectory
+  gpu_ik_device: ""  # empty = simulator --device; a different device is invalid
+  gpu_ik_batch_max_size: 8
+  gpu_ik_dtype: float32
+  # Strict phase barriers maximize stable IK cohort size. Before any physical
+  # pregrasp motion, each env screens all source-selected candidates; it picks
+  # its earliest viable one, while an all-failed env enters fail_hold.
+  ik_scheduler_mode: synchronized_epoch  # async | synchronized_epoch
+  # Cartesian mode uses ceil(current-to-goal translation / spacing), with a
+  # minimum of 60 control waypoints (1.0 s at the 60 Hz control cadence).
+  cartesian_differential_min_steps: 60
+  cartesian_differential_waypoint_spacing_m: 0.004
+  joint_trajectory_profile: quintic  # linear | quintic
+  ik_interpolation_dt_s: 0.016666666666666666
+  ik_max_joint_velocity_rad_s: 0.8
+  ik_min_trajectory_duration_s: 1.00
+  # Validated Phase-45 operating point: preserves the tested grasp quality
+  # while avoiding the former 320-iteration fixed DLS budget.
+  ik_max_iterations: 90
+  ik_position_tolerance_m: 0.008
+  ik_orientation_tolerance_rad: 0.08
+  differential_position_gain: 1.0
+  differential_orientation_gain: 0.65
+  differential_damping: 0.04
+  differential_max_joint_step_rad: 0.035
+  # IK debug artifacts are opt-in. Production/default rollouts do not write
+  # wave JSONL records or solver-input traces.
+  ik_profile_enabled: false
+  ik_active_set_mode: masked
+  # Optional bounded offline replay trace. It intentionally adds D2H and is
+  # disabled for production rollouts.
+  ik_trace_capture: false
+  ik_trace_max_rows: 65536
+
+  # =========================[Recording, Output & Viewer]==========================
+  record_output_dir: "outputs/tro_mp"
+  record_hz: 60
+  # CPU writer threads receive completed episodes through a byte-bounded queue.
+  # The scheduler only blocks when this bound is exhausted; artifacts remain
+  # compatible with the existing trajectory.h5 + manifest.json viewers.
+  output_mode: episode_hdf5_async
+  writer_processes: 2
+  writer_queue_max_bytes: 2147483648  # 2 GiB of raw recorder payload
+  output_compression: none            # HDF5: none | lzf
+  # For large data collection set output_mode: shard and writer_processes: 1.
+  # One committed shard contains at most this many fixed-length episode rows.
+  shard_episode_capacity: 256
+  shard_max_frames: 2400
+  # Default record path uses a two-slot CUDA->pinned-host ring and only waits
+  # when both slots are still in flight.
+  gpu_record_ring_enabled: true
+  pinned_record_slots: 2
+  # Schema v6 stores fixed object-frame mesh points plus their per-frame world
+  # XYZ. This is enabled by default for TRO-MP capture.
+  object_flow_enabled: true
+  object_flow_num_points: 1024
+  object_flow_geometry_source: visual
+  object_flow_sampling_method: even
+  # Shared base seed for object, robot and table; final stream/env seeds are
+  # deterministically derived from it.
+  surface_points_seed: 4103
+  object_flow_candidate_multiplier: 8
+  object_flow_min_candidates: 2048
+  # Phase 52: one GPU-sampled object point set per env, retained across its
+  # episodes. Use asset_shared to retain CPU-once/GPU-broadcast identity.
+  surface_sampling_scope: per_env  # asset_shared | per_env
+  object_flow_record_current_points_w: true
+  object_flow_viewer_enabled: true
+  object_flow_viewer_max_segments: 1024
+  # Phase 51 adds arm+hand/tabletop tracks. Keep it opt-in because it adds
+  # per-frame D2H traffic and storage. It requires object_flow_enabled=true.
+  robot_table_surface_flow_enabled: true
+  robot_surface_geometry_source: visual
+  robot_arm_surface_num_points: 2048
+  robot_hand_surface_num_points: 1024
+  table_surface_num_points: 1024
+  surface_sampling_method: even
+  surface_candidate_multiplier: 8
+  surface_min_candidates: 2048
+  table_top_normal_min_z: 0.95
+  table_top_height_tolerance_m: 0.002
+  robot_surface_arm_link_exprs: ["link_base", "link1", "link2", "link3", "link4", "link5", "link6", "link7"]
+  robot_surface_hand_link_exprs: ["right_palm_link", "right_finger[1-5]_.*"]
+  surface_flow_html_enabled: true
+  robot_surface_flow_viewer_max_points: 2048
+  table_surface_flow_viewer_max_points: 1024
+  # Dedicated D435-style recorder camera. Keep this explicit and disabled on
+  # A100-only nodes; enable it on an RTX rendering host or with --record-rgbd.
+  record_rgbd: false
+  rgbd_width: 640
+  rgbd_height: 480
+  rgbd_focal_length: 24.0
+  rgbd_horizontal_aperture: 27.7128
+  rgbd_horizontal_aperture_offset: 0.0
+  rgbd_vertical_aperture_offset: 0.0
+  rgbd_focus_distance: 400.0
+  rgbd_clipping_range: [0.10, 3.00]
+  rgbd_camera_pos: [0.400, -0.480, 1.200]
+  rgbd_camera_quat_wxyz: [-0.254405372, 0.966747700, -0.025158671, 0.006620653]
+  rgbd_camera_convention: ros
+  rgbd_image_chunk_frames: 4
+  # Derived schema v6/v7/v8 is the standard HTML input; raw capture is also
+  # supported for flow/RGB-D debugging.
+  visualization_enabled: false
+  visualization_env_ids: [0]
+  visualization_every_n_env0_episodes: 10
+
+  # ===========================[TRO Grasp Execution]===============================
+  settle_time_s: 0.50
+  tro_hand_transition_time_s: 1.00
+  hand_closure_mode: direct_squeeze  # direct_squeeze | tro_then_squeeze
+  squeeze_time_s: 0.75
+  pregrasp_offset_m: 0.12
+  grasp_execution_offset_m: 0.00
+  # Preserve grasp XY/orientation and vertically lift link7 to at least this
+  # height above the table before any random EE-goal sampling.
+  post_grasp_lift_height_above_table_m: 0.20
+  # Cube held/lifted criterion: reset cube z + 2 cm.
+  cube_lift_height_threshold_m: 0.02
+  conservative_closure_fraction: 0.60
+  squeeze_fraction: 0.50
+
+  # ===========================[EE Goal Sampling & Arrival]==========================
+  max_goal_sampling_attempts: 32
+  continue_ee_sampling_until_episode_limit: true
+  # First goal always uses the global shell. Subsequent-goal mode:
+  # [relative_annulus | relative_ball | relative_block | global_annulus | global_block]
+  ee_goal_sample_mode: relative_ball
+
+  # Global shell is read from reset.object_reset_sample_mode and its matching
+  # reset annulus/block parameters. All relative samples are filtered by it.
+  # Maximum rejection rounds while filtering samples against the reset shell.
+  ee_goal_max_rejection_attempts: 64
+
+  # Local XY annulus around the last accepted EE goal (m). Its Z offset uses
+  # robot-base Z axes and the same local origin (the last accepted EE goal).
+  ee_goal_relative_annulus_r_in_m: 0.00
+  ee_goal_relative_annulus_r_out_m: 0.08
+  ee_goal_relative_height_range_m: [-0.07, 0.07]
+  # Local 3D spherical shell around the last accepted EE goal (m).
+  ee_goal_relative_ball_r_in_m: 0.04
+  ee_goal_relative_ball_r_out_m: 0.08
+  # Local block: outer centered block minus inner centered block (m), XYZ order.
+  # Every entry is non-negative; each inner entry may be 0.
+  ee_goal_relative_block_xyz_in_m: [0.00, 0.00, 0.00]
+  ee_goal_relative_block_xyz_out_m: [0.08, 0.08, 0.07]
+  # Arbitrary-axis SO(3) perturbations, not yaw-only: +/- 30 degrees.
+  ee_goal_first_max_rotation_rad: 0.5235987755982988
+  ee_goal_relative_max_rotation_rad: 0.5235987755982988
+  # A collection is valid only if the physical Isaac link7 body reaches its
+  # target. Pregrasp/grasp are checked before hand lock; lift and all later
+  # EE-goal following are checked with the post-hand-lock pair.
+  pre_hand_lock_arrival_position_tolerance_m: 0.01
+  pre_hand_lock_arrival_orientation_tolerance_rad: 0.10
+  post_hand_lock_arrival_position_tolerance_m: 0.05
+  post_hand_lock_arrival_orientation_tolerance_rad: 0.25

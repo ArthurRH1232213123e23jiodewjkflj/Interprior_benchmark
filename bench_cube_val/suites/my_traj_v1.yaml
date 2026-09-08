@@ -23,7 +23,7 @@ description: >
   the policy that trajectory's whole plan at reset. The policy must grasp the
   cube itself and then follow the drawn path.
 
-physics_profile: tro_mp_dataprod_venvshare_20260808.yaml
+physics_profile: tro_mp_dataprod_venvshare_20260808_selfcoll.yaml
 interprior_root: /mnt/venv_share/H800/Interprior
 
 goal_source: authored_npz
