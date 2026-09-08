@@ -9,6 +9,8 @@ from typing import Any
 
 import numpy as np
 
+from .urdf_embed import embed_meshes
+
 
 TABLE_VIEWER_COLOR_RGB = (0.18, 0.22, 0.27)
 RECOVERY_TABLE_VIEWER_COLOR_RGB = (0.08, 0.10, 0.13)
@@ -157,6 +159,7 @@ def build_flow_viewer_html(
     complete_point_colors: list[list[float]] | None = None,
     complete_point_linewidths: list[float] | None = None,
     extra_bodies: list[dict[str, Any]] | None = None,
+    include_collision: bool = False,
 ) -> str:
     """Build a robot/object viewer with one fixed, complete point-flow guide."""
 
@@ -183,8 +186,9 @@ def build_flow_viewer_html(
     from isaacsimenvs.utils.interactive_viewer.viewer_common import render_template
 
     robot_path = pose_viewer.REPO_ROOT / pose_viewer.ROBOT_URDF_RELATIVE_PATH
-    robot_text = pose_viewer._embed_urdf_mesh_data(  # noqa: SLF001
-        robot_path.read_text(encoding="utf-8"), source_urdf_path=robot_path
+    robot_text = embed_meshes(
+        robot_path.read_text(encoding="utf-8"), source_urdf_path=robot_path,
+        include_collision=include_collision,
     )
     # MESHES MUST BE INLINED, NOT URL-REWRITTEN. `_rewrite_embedded_urdf_mesh_urls`
     # turns a relative mesh filename into a github raw URL, but only for meshes that
@@ -203,16 +207,19 @@ def build_flow_viewer_html(
     # directory, which is where these .obj files actually sit. Cost: ~5.8 MB of
     # mesh becomes ~7.7 MB of base64 in the page.
     if object_urdf_path is not None:
-        object_urdf_text = pose_viewer._embed_urdf_mesh_data(  # noqa: SLF001
-            object_urdf_text, source_urdf_path=object_urdf_path
+        object_urdf_text = embed_meshes(
+            object_urdf_text, source_urdf_path=object_urdf_path,
+            include_collision=include_collision,
         )
     if table_urdf_path is not None:
-        table_urdf_text = pose_viewer._embed_urdf_mesh_data(  # noqa: SLF001
-            table_urdf_text, source_urdf_path=table_urdf_path
+        table_urdf_text = embed_meshes(
+            table_urdf_text, source_urdf_path=table_urdf_path,
+            include_collision=include_collision,
         )
     if hole_urdf_text is not None and hole_urdf_path is not None:
-        hole_urdf_text = pose_viewer._embed_urdf_mesh_data(  # noqa: SLF001
-            hole_urdf_text, source_urdf_path=hole_urdf_path
+        hole_urdf_text = embed_meshes(
+            hole_urdf_text, source_urdf_path=hole_urdf_path,
+            include_collision=include_collision,
         )
 
     object_robot = make_embedded_robot(name="object", urdf_text=object_urdf_text)
@@ -240,8 +247,9 @@ def build_flow_viewer_html(
     for body in extra_bodies or []:
         body_text = body["urdf_text"]
         if body.get("urdf_path") is not None:
-            body_text = pose_viewer._embed_urdf_mesh_data(  # noqa: SLF001
-                body_text, source_urdf_path=body["urdf_path"]
+            body_text = embed_meshes(
+                body_text, source_urdf_path=body["urdf_path"],
+                include_collision=include_collision,
             )
         poses = np.asarray(body["poses"], dtype=np.float32)
         if poses.shape != (len(frames), 7):

@@ -139,6 +139,7 @@ def build_rollout_html(
     point_radius_m: float = DEFAULT_POINT_RADIUS_M,
     guide_colors: list[list[float]] | None = None,
     guide_linewidths: list[float] | None = None,
+    include_collision: bool = False,
 ) -> str:
     """Assemble one rollout page. Ported from `sim_rollout_render.py:1591-1610`.
 
@@ -210,6 +211,7 @@ def build_rollout_html(
 
     return build_flow_viewer_html(
         extra_bodies=extra_bodies,
+        include_collision=include_collision,
         frames=frames,
         object_urdf_text=object_text,
         table_urdf_text=table_text,

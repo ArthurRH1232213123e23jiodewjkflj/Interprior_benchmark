@@ -102,6 +102,14 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--viewer-flow-points", type=int, default=96,
                     help="guide points drawn per frame")
     ap.add_argument("--viewer-point-radius-m", type=float, default=0.006)
+    ap.add_argument("--viewer-collision", action="store_true",
+                    help="also embed <collision> meshes in the page. Off by "
+                         "default: urdf-loader's parseCollision is false and the "
+                         "page never sets it, so those meshes are downloaded and "
+                         "never drawn -- 29.4 MB of a 79.7 MB page, measured. "
+                         "Turn it on to inspect colliders. Physics is unaffected "
+                         "either way; the sim builds its colliders from the URDF "
+                         "on disk, not from this copy.")
     ap.add_argument("--no-scene-objects", action="store_true",
                     help="do NOT spawn the per-case dynamic scene objects (plates, "
                          "bottles, a second bowl); only the target object spawns, "
@@ -939,6 +947,7 @@ def _run(args: argparse.Namespace, root: Path) -> int:
             point_radius_m=args.viewer_point_radius_m,
             guide_colors=CENTER_PATH_COLORS,
             guide_linewidths=CENTER_PATH_WIDTHS,
+            include_collision=args.viewer_collision,
         )
         kb = page.stat().st_size // 1024
         captured = len(viewer_frames[i])
