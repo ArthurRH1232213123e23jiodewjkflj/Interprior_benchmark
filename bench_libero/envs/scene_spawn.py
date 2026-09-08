@@ -193,6 +193,40 @@ def spawn(env, cases: list[dict], *, verbose: bool = True) -> dict:
     return dict(spawned=spawned, plan=plan, baked=sorted(baked))
 
 
+def capture_poses(env, env_id: int) -> list[dict]:
+    """This env's scene objects, ENV-LOCAL, for the viewer. One frame.
+
+    WHY THIS EXISTS. `capture_pose_viewer_frame` (upstream, read-only checkout)
+    reads a hardcoded five: robot, object, goal_viz, table, hole. It cannot know
+    about bodies we appended, so without this call the objects are IN THE SIM and
+    absent from every page -- which is exactly how 0907 shipped a rollout page
+    byte-identical to the one from before the objects existed.
+
+    Frame: world minus env origin, matching what `capture_pose_viewer_frame`
+    stores for object/table, so the viewer can treat these the same way.
+
+    Parked slots (this env has fewer objects than the widest case) return
+    nothing: they are bodies with no meaning, not objects at PARK_Z.
+    """
+    import torch  # noqa: F401  (kept for symmetry with write_reset_poses)
+
+    out = []
+    origin = env.scene.env_origins[env_id]
+    for rec in getattr(env, "_scene_objects", None) or []:
+        obj = rec["per_env"][env_id] if env_id < len(rec["per_env"]) else None
+        if obj is None:
+            continue
+        ro = env.scene.rigid_objects[rec["key"]]
+        pos = (ro.data.root_pos_w[env_id] - origin).detach().cpu().numpy()
+        quat = ro.data.root_quat_w[env_id].detach().cpu().numpy()
+        out.append(dict(
+            name=str(obj["name"]),
+            urdf=_urdf_for(obj),
+            pose=np.concatenate([pos, quat]).astype(np.float32),
+        ))
+    return out
+
+
 def verify_spawn(env, cases: list[dict]) -> dict:
     """Read the scene back and prove each env got exactly its case's objects.
 

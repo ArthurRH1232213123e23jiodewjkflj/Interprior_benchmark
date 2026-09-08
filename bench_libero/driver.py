@@ -814,6 +814,11 @@ def _run(args: argparse.Namespace, root: Path) -> int:
             )
             for i in html_ids:
                 frame = capture_pose_viewer_frame(inner, i)
+                # The upstream capture reads a hardcoded robot/object/goal/table/
+                # hole. Our scene objects are real bodies in the same scene but it
+                # cannot see them, so they must be read separately or the page
+                # renders a task with its other objects missing.
+                frame["scene_object_poses"] = SCENE_SPAWN.capture_poses(inner, i)
                 frame["flow_time_s"] = float(t / episodes[i].record_hz)
                 # Marker 0 rides the recorded path, marker 1 the live object, so
                 # the visible gap between the two spheres is this frame's error.

@@ -175,7 +175,41 @@ def build_rollout_html(
     table_text, table_path = table_urdf_for_env(inner, env_index)
     hole_text, hole_path = hole_urdf_for_env(inner, env_index)
 
+    # ------------------------------------------------- this case's OTHER objects
+    # The three helpers above cover the upstream env's fixed cast. Everything the
+    # case adds -- the second bowl, the plate the goal ends on -- is a body this
+    # module has to assemble itself, from what `scene_spawn.capture_poses` wrote
+    # into each frame. Poses come from the frames (already subsampled above, so
+    # they line up), the URDF from the spawn record.
+    per_frame = [frame.get("scene_object_poses") or [] for frame in frames]
+    extra_bodies: list[dict[str, Any]] = []
+    if per_frame and per_frame[0]:
+        names = [entry["name"] for entry in per_frame[0]]
+        # A body whose identity changes mid-page would draw one object with
+        # another's trajectory, which no amount of looking at it would reveal.
+        for index, entry_list in enumerate(per_frame):
+            if [entry["name"] for entry in entry_list] != names:
+                raise ValueError(
+                    f"scene object set changed at frame {index}: "
+                    f"{[e['name'] for e in entry_list]} != {names}"
+                )
+        reserved = {"robot", "table", "object", "hole"}
+        clashing = reserved.intersection(names)
+        if clashing:
+            raise ValueError(f"scene object name collides with a viewer body: {clashing}")
+        for slot_index, name in enumerate(names):
+            urdf_path = Path(per_frame[0][slot_index]["urdf"])
+            extra_bodies.append(dict(
+                name=name,
+                urdf_text=urdf_path.read_text(encoding="utf-8"),
+                urdf_path=urdf_path,
+                poses=np.stack(
+                    [entry_list[slot_index]["pose"] for entry_list in per_frame]
+                ).astype(np.float32),
+            ))
+
     return build_flow_viewer_html(
+        extra_bodies=extra_bodies,
         frames=frames,
         object_urdf_text=object_text,
         table_urdf_text=table_text,

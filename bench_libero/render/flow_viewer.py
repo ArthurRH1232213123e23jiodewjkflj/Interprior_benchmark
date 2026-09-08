@@ -156,6 +156,7 @@ def build_flow_viewer_html(
     live_point_radius_m: float = 0.004,
     complete_point_colors: list[list[float]] | None = None,
     complete_point_linewidths: list[float] | None = None,
+    extra_bodies: list[dict[str, Any]] | None = None,
 ) -> str:
     """Build a robot/object viewer with one fixed, complete point-flow guide."""
 
@@ -185,18 +186,33 @@ def build_flow_viewer_html(
     robot_text = pose_viewer._embed_urdf_mesh_data(  # noqa: SLF001
         robot_path.read_text(encoding="utf-8"), source_urdf_path=robot_path
     )
-    raw_base = pose_viewer._normalize_raw_base(None)  # noqa: SLF001
+    # MESHES MUST BE INLINED, NOT URL-REWRITTEN. `_rewrite_embedded_urdf_mesh_urls`
+    # turns a relative mesh filename into a github raw URL, but only for meshes that
+    # resolve INSIDE the Interprior REPO_ROOT: `_raw_url_for_repo_path` returns None
+    # for anything else and the loop then leaves the filename untouched. Every LIBERO
+    # mesh is outside that root (`bench_libero/tasks/libero/envs/...` and the per-run
+    # `scene_table/<case>/*.obj`), so all 10 of them survived as BARE filenames --
+    # `filename="akita_black_bowl.obj"` -- which a standalone HTML cannot resolve.
+    # The page then rendered the robot (whose 72 meshes go through
+    # `_embed_urdf_mesh_data` below and are data URIs) plus the table's cylinder
+    # primitive, and NOTHING ELSE: no target object, no props. Silent, because a
+    # failed mesh fetch draws nothing and raises nothing.
+    #
+    # `_embed_urdf_mesh_data` is the same function the robot already uses and it
+    # handles .obj (mime text/plain). It resolves relative to the URDF's own
+    # directory, which is where these .obj files actually sit. Cost: ~5.8 MB of
+    # mesh becomes ~7.7 MB of base64 in the page.
     if object_urdf_path is not None:
-        object_urdf_text = pose_viewer._rewrite_embedded_urdf_mesh_urls(  # noqa: SLF001
-            object_urdf_text, source_urdf_path=object_urdf_path, raw_base=raw_base
+        object_urdf_text = pose_viewer._embed_urdf_mesh_data(  # noqa: SLF001
+            object_urdf_text, source_urdf_path=object_urdf_path
         )
     if table_urdf_path is not None:
-        table_urdf_text = pose_viewer._rewrite_embedded_urdf_mesh_urls(  # noqa: SLF001
-            table_urdf_text, source_urdf_path=table_urdf_path, raw_base=raw_base
+        table_urdf_text = pose_viewer._embed_urdf_mesh_data(  # noqa: SLF001
+            table_urdf_text, source_urdf_path=table_urdf_path
         )
     if hole_urdf_text is not None and hole_urdf_path is not None:
-        hole_urdf_text = pose_viewer._rewrite_embedded_urdf_mesh_urls(  # noqa: SLF001
-            hole_urdf_text, source_urdf_path=hole_urdf_path, raw_base=raw_base
+        hole_urdf_text = pose_viewer._embed_urdf_mesh_data(  # noqa: SLF001
+            hole_urdf_text, source_urdf_path=hole_urdf_path
         )
 
     object_robot = make_embedded_robot(name="object", urdf_text=object_urdf_text)
@@ -213,6 +229,28 @@ def build_flow_viewer_html(
         "object": np.stack([frame["object_pose"] for frame in frames]),
     }
     object_visibility: dict[str, np.ndarray] = {}
+
+    # THE CASE'S OTHER OBJECTS. `robots` is a list and `object_poses` is keyed by
+    # name -- the flow markers below already exploit that -- so bodies the upstream
+    # env never heard of cost nothing to add here. The work was upstream of this
+    # point: reading their poses at capture time (scene_spawn.capture_poses) and
+    # carrying them through the frames. Meshes must be INLINED for the same reason
+    # the object's are: a bare relative filename in a standalone page silently
+    # draws nothing.
+    for body in extra_bodies or []:
+        body_text = body["urdf_text"]
+        if body.get("urdf_path") is not None:
+            body_text = pose_viewer._embed_urdf_mesh_data(  # noqa: SLF001
+                body_text, source_urdf_path=body["urdf_path"]
+            )
+        poses = np.asarray(body["poses"], dtype=np.float32)
+        if poses.shape != (len(frames), 7):
+            raise ValueError(
+                f"{body['name']}: poses {poses.shape} does not match "
+                f"{len(frames)} frames x 7"
+            )
+        robots.append(make_embedded_robot(name=body["name"], urdf_text=body_text))
+        object_poses[body["name"]] = poses
 
     for marker in build_live_point_marker_tracks(live_points):
         marker_name = marker["name"]
