@@ -41,6 +41,12 @@ def _add_common(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--capture-stride", type=int, default=4)
     parser.add_argument("--gpus", default="0",
                         help="comma-separated GPU ids; one worker each")
+    parser.add_argument("--cases-per-process", type=int, default=1,
+                        help="cases per worker process (default 1). Scene props "
+                             "are baked per case and the env takes one table, so "
+                             "a multi-case shard only runs with --no-props, i.e. "
+                             "without the furniture the goals end on. Parallelism "
+                             "comes from --gpus.")
     parser.add_argument("--out", default=None)
     parser.add_argument("--isaac-python", default=None)
     parser.add_argument("--interprior-root", default=None)
@@ -112,6 +118,7 @@ def _run(args: argparse.Namespace, policy: str | None) -> int:
         html_frames=args.html_frames,
         capture_stride=args.capture_stride,
         gpus=[int(x) for x in str(args.gpus).split(",") if x.strip() != ""],
+        cases_per_process=args.cases_per_process,
         out=args.out,
         isaac_python=args.isaac_python or DEFAULT_ISAAC_PYTHON,
         interprior_root=args.interprior_root or DEFAULT_INTERPRIOR_ROOT,

@@ -253,6 +253,7 @@ def run(
     html_frames: int = 300,
     capture_stride: int = 4,
     gpus: Sequence[int] = (0,),
+    cases_per_process: int = 1,
     out: str | Path | None = None,
     isaac_python: str = DEFAULT_ISAAC_PYTHON,
     interprior_root: str | Path = DEFAULT_INTERPRIOR_ROOT,
@@ -274,7 +275,9 @@ def run(
     html_cases      how many cases get a Three.js rollout page (0 none, -1 all).
                     Each page is tens of MB, so this is opt-in.
     html_frames     max playback frames per page
-    gpus            one worker process per GPU; cases are split across them
+    gpus            GPUs to use; each runs one worker process at a time
+    cases_per_process
+                    cases per worker process (DEFAULT 1 -- see below)
     resume          skip cases whose summary.json already exists
 
     The task, for reference: each case starts from a recorded initial state with
@@ -296,7 +299,20 @@ def run(
     if total == 0:
         raise ValueError(f"suite {suite_path} resolved to zero cases")
     gpu_list = list(gpus) or [0]
-    shards = _split(total, len(gpu_list))
+
+    # ONE CASE PER PROCESS BY DEFAULT, and that is not a throughput choice.
+    # Scene props are welded into a table URDF baked PER CASE, and the env takes
+    # a single table for the whole scene (driver.py raises on a multi-case shard,
+    # the same global-single-value shape as `object_urdf` in bench_multi_val).
+    # A shard of several cases therefore only runs with --no-props -- a scene
+    # missing the cabinets and baskets the goals END ON, which is not the task.
+    # Parallelism comes from the GPUs instead: each runs its shards one after
+    # another, so 8 GPUs still give 8 concurrent cases. Measured cost is ~3.3 min
+    # per case of which ~2.8 is Isaac start-up, so 72 cases over 8 GPUs is ~30 min.
+    # Raise this only for a --no-props run that has some other reason to batch.
+    shard_size = max(1, int(cases_per_process))
+    shards = [list(range(start, min(start + shard_size, total)))
+              for start in range(0, total, shard_size)]
 
     # Viewer pages are assigned to the first shard only: a page is tens of MB and
     # `html_cases` means "give me a few to look at", not "a few per GPU".
@@ -313,15 +329,26 @@ def run(
     threads = []
     remaining_html = html_budget
 
-    for gpu, indices in zip(gpu_list, shards):
+    # Shards go round-robin to GPUs, and each GPU's thread runs ITS shards in
+    # sequence. Concurrency is therefore len(gpu_list), not len(shards): with one
+    # case per process, starting a thread per shard would launch 72 Isaac
+    # processes at once and take the box down.
+    queued: dict[int, list[tuple[int, list[int], int]]] = {gpu: [] for gpu in gpu_list}
+    for shard_index, indices in enumerate(shards):
         if not indices:
             continue
         shard_html = min(remaining_html, len(indices))
         remaining_html -= shard_html
-        thread = threading.Thread(
-            target=_run_shard,
-            args=(gpu, indices, shard_html),
-            kwargs=dict(
+        gpu = gpu_list[shard_index % len(gpu_list)]
+        queued[gpu].append((shard_index, indices, shard_html))
+
+    print(f"[bench] {len(shards)} shard(s) of <= {shard_size} case(s) over "
+          f"{len(gpu_list)} GPU(s)", flush=True)
+
+    def _drain(gpu: int, work: list[tuple[int, list[int], int]]) -> None:
+        for shard_index, indices, shard_html in work:
+            _run_shard(
+                gpu, indices, shard_html, shard_index=shard_index,
                 policy=policy, suite_path=suite_path, out_dir=out_dir,
                 cases=cases, frames=frames, html_frames=html_frames,
                 capture_stride=capture_stride, isaac_python=isaac_python,
@@ -331,9 +358,12 @@ def run(
                 chunk_invalidation_tolerance_rad=chunk_invalidation_tolerance_rad,
                 resume=resume,
                 env_extra=env_extra, failures=failures, lock=lock,
-            ),
-            daemon=True,
-        )
+            )
+
+    for gpu, work in queued.items():
+        if not work:
+            continue
+        thread = threading.Thread(target=_drain, args=(gpu, work), daemon=True)
         thread.start()
         threads.append(thread)
 
@@ -354,6 +384,7 @@ def _run_shard(
     indices: list[int],
     shard_html: int,
     *,
+    shard_index: int = 0,
     policy: str | None,
     suite_path: Path,
     out_dir: Path,
@@ -372,10 +403,16 @@ def _run_shard(
     failures: list[dict[str, Any]],
     lock: threading.Lock,
 ) -> None:
-    shard_dir = out_dir / f"gpu{gpu}"
+    # The shard index is in the name because a GPU now runs SEVERAL shards: with
+    # the old `gpu{n}` every shard on a GPU would have overwritten the previous
+    # one's summary.json, and `_merge` (which globs `gpu*/summary.json`) would
+    # have reported the last case of each GPU as the whole suite. Still starts
+    # with `gpu` so that glob keeps matching.
+    tag = f"gpu{gpu}_s{shard_index:03d}"
+    shard_dir = out_dir / tag
     summary = shard_dir / "summary.json"
     if resume and summary.is_file():
-        print(f"[gpu{gpu}] already done, skipping {len(indices)} cases", flush=True)
+        print(f"[{tag}] already done, skipping {len(indices)} cases", flush=True)
         return
     shard_dir.mkdir(parents=True, exist_ok=True)
 
@@ -416,8 +453,8 @@ def _run_shard(
     if env_extra:
         env.update(env_extra)
 
-    log_path = out_dir / "logs" / f"gpu{gpu}.log"
-    print(f"[gpu{gpu}] {len(indices)} cases -> {log_path}", flush=True)
+    log_path = out_dir / "logs" / f"{tag}.log"
+    print(f"[{tag}] case(s) {indices} -> {log_path}", flush=True)
     began = time.time()
     with log_path.open("ab") as log:
         result = subprocess.run(
@@ -430,14 +467,14 @@ def _run_shard(
     if result.returncode != 0 or not summary.is_file():
         with lock:
             failures.append({
-                "gpu": gpu, "case_indices": indices,
+                "gpu": gpu, "shard": shard_index, "case_indices": indices,
                 "returncode": result.returncode, "log": str(log_path),
                 "elapsed_s": round(elapsed, 1),
             })
-        print(f"[gpu{gpu}] FAILED rc={result.returncode} after {elapsed:.0f}s "
+        print(f"[{tag}] FAILED rc={result.returncode} after {elapsed:.0f}s "
               f"-- see {log_path}", flush=True)
         return
-    print(f"[gpu{gpu}] done in {elapsed:.0f}s", flush=True)
+    print(f"[{tag}] done in {elapsed:.0f}s", flush=True)
 
 
 # --- helpers ---------------------------------------------------------------
@@ -462,7 +499,13 @@ def _count_cases(suite_path: Path, cases: int | None) -> int:
 
 
 def _split(total: int, buckets: int) -> list[list[int]]:
-    """Round-robin so a slow case does not land all its neighbours on one GPU."""
+    """Round-robin so a slow case does not land all its neighbours on one GPU.
+
+    UNUSED since shards became fixed-size (see `run`): the round-robin now
+    happens when shards are handed to GPUs, not when cases are handed to shards.
+    Kept because bench_cube_val's api.py still has the same helper and the two
+    are read side by side.
+    """
 
     out: list[list[int]] = [[] for _ in range(buckets)]
     for index in range(total):
