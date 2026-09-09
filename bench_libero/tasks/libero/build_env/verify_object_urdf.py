@@ -87,5 +87,40 @@ print(f"  faces={len(f)} edges={len(edges)} boundary_edges(open)={boundary}")
 print(f"  -> open mesh (a bottle scanned without its base/interior sealed).")
 print(f"  mass came from the bbox fallback, stated in the URDF header.")
 
+print("\n=== 7. texture install matches what the .obj declares ===")
+# The atlases (~83 MB) are gitignored and restored by
+# build_env/install_textures.py. Isaac does NOT fail when an .obj names a
+# missing .mtl -- it spawns the object untextured, silently reproducing the
+# pre-0909 all-grey bug. So require the three artifacts to agree.
+tex_ok = tex_colour_only = 0
+for r in idx["objects"]:
+    env_id = r["env_id"]
+    d = ENVS / env_id
+    obj_txt = (d / r["obj"]).read_text(errors="ignore")
+    declares_mtl = "mtllib visual.mtl" in obj_txt
+    has_uv = "\nvt " in obj_txt
+    mtl_present = (d / "visual.mtl").exists()
+    png_present = (d / "texture.png").exists()
+    if declares_mtl:
+        if not (mtl_present and png_present):
+            fails.append(
+                f"{env_id}: .obj declares `mtllib visual.mtl` but "
+                f"visual.mtl={mtl_present} texture.png={png_present} -- run "
+                f"build_env/install_textures.py, else Isaac spawns it UNTEXTURED")
+        elif not has_uv:
+            fails.append(f"{env_id}: .obj binds a material but carries no vt (UV) lines")
+        else:
+            tex_ok += 1
+    else:
+        # No material bound: correct only when LIBERO itself has no atlas.
+        if mtl_present or png_present:
+            fails.append(
+                f"{env_id}: texture.png/visual.mtl present but the .obj binds "
+                f"no material -- rerun build_env/build_object_urdf.py")
+        else:
+            tex_colour_only += 1
+print(f"  {tex_ok} textured (obj+mtl+png agree), {tex_colour_only} colour-only")
+print(f"  colour-only is correct only for objects LIBERO ships without map_Kd.")
+
 print(f"\nFAILURES: {len(fails)}")
 for x in fails: print("  -", x)

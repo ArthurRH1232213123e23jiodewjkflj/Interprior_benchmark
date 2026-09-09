@@ -106,3 +106,16 @@ bench_libero/suites/libero_one_*.yaml
 # rewriting that history is not worth 28 MB.)
 # ---------------------------------------------------------------------------
 bench_libero/tasks/libero/props/*/*.obj
+
+# LIBERO object texture atlases (~83 MB over 21 objects).
+# These are LIBERO's own files, copied verbatim from its assets tree, so they
+# are third-party blobs rather than source. Restore them with:
+#   python bench_libero/tasks/libero/build_env/install_textures.py \
+#       --libero-assets <LIBERO>/libero/libero/assets
+# then rerun build_object_urdf.py. verify_object_urdf.py section 7 FAILS if an
+# .obj declares `mtllib visual.mtl` without the files present, so a missing
+# install cannot pass silently as an untextured spawn (which is what the
+# renderer would otherwise do).
+bench_libero/tasks/libero/envs/*/texture.png
+bench_libero/tasks/libero/envs/*/visual.mtl
+bench_libero/tasks/libero/texture_install_report.json

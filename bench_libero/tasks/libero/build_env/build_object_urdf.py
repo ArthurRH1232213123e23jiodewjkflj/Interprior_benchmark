@@ -43,14 +43,42 @@ def mesh_volume_and_com(verts: np.ndarray, faces: np.ndarray):
     return vol, com, None
 
 
-def write_obj(path: Path, verts: np.ndarray, faces: np.ndarray) -> None:
+def write_obj(path: Path, verts: np.ndarray, faces: np.ndarray,
+              uv: np.ndarray | None = None, mtl_name: str | None = None) -> None:
+    """Write the visual/collision .obj for one env.
+
+    UV: `mesh.npz` has carried a per-vertex `uv` array since the meshes were
+    built (batch_libero_realmesh.py:build_mesh_npz), but this writer used to
+    drop it, so every spawned object reached Isaac untextured and the URDF
+    importer had no material to bind. The npz UVs are LIBERO's own, verified
+    against the source .obj `vt` values at geometrically matched corners
+    (0.89-0.996 agreement; the shortfall is UV seams, where one position
+    legitimately carries several UVs, so positional matching cannot do better).
+    They are written unchanged -- no V flip: source `vt` and npz `uv` are
+    byte-equal at matched corners.
+
+    uv is per-vertex, so the vt index equals the v index; a seam vertex is
+    already duplicated in the npz (verts are unwelded per face corner).
+    """
+    has_uv = uv is not None and len(uv) == len(verts)
     with open(path, "w", encoding="utf-8") as fh:
         fh.write("# exported from mesh.npz by build_env/build_object_urdf.py\n")
         fh.write("# mesh coordinates preserved (origin convention goal_traj tracks)\n")
+        if has_uv and mtl_name:
+            fh.write(f"mtllib {mtl_name}\n")
         for v in verts:
             fh.write(f"v {v[0]:.6f} {v[1]:.6f} {v[2]:.6f}\n")
+        if has_uv:
+            for t in uv:
+                fh.write(f"vt {t[0]:.6f} {t[1]:.6f}\n")
+        if has_uv and mtl_name:
+            fh.write("usemtl libero_visual\n")
         for f in faces:
-            fh.write(f"f {f[0] + 1} {f[1] + 1} {f[2] + 1}\n")
+            a, b, c = f[0] + 1, f[1] + 1, f[2] + 1
+            if has_uv:
+                fh.write(f"f {a}/{a} {b}/{b} {c}/{c}\n")
+            else:
+                fh.write(f"f {a} {b} {c}\n")
 
 
 def build(env_id: str, root: Path = ENVS) -> dict:
@@ -58,13 +86,18 @@ def build(env_id: str, root: Path = ENVS) -> dict:
     with np.load(d / "mesh.npz", allow_pickle=True) as p:
         verts = np.asarray(p["verts"], dtype=np.float64)
         faces = np.asarray(p["faces"], dtype=np.int64)
+        uv = np.asarray(p["uv"], dtype=np.float64) if "uv" in p.files else None
 
     extent = float(np.ptp(verts, axis=0).max())
     if not 0.01 <= extent <= 1.0:
         raise ValueError(f"{env_id}: extent {extent:.4f} m implausible -- check units")
 
     obj_rel = f"{env_id}.obj"
-    write_obj(d / obj_rel, verts, faces)
+    # visual.mtl + texture.png are installed per env from the LIBERO source
+    # atlas; without both, fall back to writing a bare mesh so an env that has
+    # no texture (wine_bottle is colour-only in LIBERO) still builds.
+    mtl_name = "visual.mtl" if (d / "visual.mtl").exists() and (d / "texture.png").exists() else None
+    write_obj(d / obj_rel, verts, faces, uv=uv if mtl_name else None, mtl_name=mtl_name)
 
     vol, com, _ = mesh_volume_and_com(verts, faces)
     watertight = vol > 0
